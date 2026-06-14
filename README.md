@@ -1,4 +1,4 @@
-# Code Playground
+# 🚀 Code Playground
 Welcome to my Code Playground!
 This repository is a collection of coding exercises, experiments, and mini-projects built while learning web development and JavaScript.
 
