@@ -20,6 +20,7 @@
 
 // Your answer:
 
+let colors = ["Red", "Orange", "Yellow", "Green", "Blue"];
 
 // ----------------------------------------------------------
 
@@ -32,6 +33,8 @@ const cities = ["Delhi", "Mumbai", "Jaipur", "Chennai", "Kolkata"];
 
 // Your answer:
 
+console.log(cities[0]);
+console.log(cities[cities.length -1]);
 
 // ----------------------------------------------------------
 
@@ -45,10 +48,11 @@ console.log(nums[4]);
 console.log(nums[5]);
 
 // Your guess:
-// nums[0]  →
-// nums[2]  →
-// nums[4]  →
-// nums[5]  →
+
+// nums[0]  → 10
+// nums[2]  → 30
+// nums[4]  → 50
+// nums[5]  → undefined
 
 // ----------------------------------------------------------
 
@@ -60,6 +64,8 @@ const fruits = ["Apple", "Banana", "Kiwi"];
 
 // Your answer:
 
+fruits[1] = "Mango";
+console.log(fruits);
 
 // ----------------------------------------------------------
 
@@ -72,6 +78,9 @@ const c = ["x", "y", "z", "w"];
 
 // Your answer:
 
+console.log(a.length);
+console.log(b.length);
+console.log(c.length);
 
 // ----------------------------------------------------------
 
@@ -81,9 +90,11 @@ const c = ["x", "y", "z", "w"];
 const animals = ["Cat", "Dog", "Fish"];
 console.log(animals[3]); // What does this log? Why?
 
-// Your explanation:
+// Your explanation: If they log animals[3], it would show up as undefined because there is no value stated for animals[3]
 // Fixed code:
 
+const animals = ["Cat", "Dog", "Fish", "Pig"];
+console.log(animals[3]);
 
 // ----------------------------------------------------------
 
@@ -95,6 +106,7 @@ const weeks = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 // Your answer:
 
+console.log(weeks[weeks.length -2]);
 
 // ----------------------------------------------------------
 
@@ -108,6 +120,9 @@ const weeks = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 // Your answer:
 
+let mixture = [1, "Eggs", true, null];
+console.log(mixture);
+console.log(mixture.length);
 
 // ----------------------------------------------------------
 
@@ -118,6 +133,9 @@ const weeks = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 // Your answer:
 
+const students = [{name: "John", marks: 87}, {name: "Paul", marks: 21}, {name: "Sarah", marks: 100}];
+console.log(students[1].name);
+console.log(students[2].marks);
 
 // ----------------------------------------------------------
 
@@ -130,8 +148,9 @@ const data = [1, 2, 3];
 
 // Your answer:
 
-
-
+console.log(Array.isArray(data));
+typeof data;
+//  In JavaScript, arrays ARE objects internally. typeof cannot tell the difference between [] and {}. Always use Array.isArray() when you need to confirm it's an array.
 
 // ============================================================
 //  SECTION 2 — push() and pop() (Q11–Q20)
@@ -146,6 +165,8 @@ const stationery = ["Pen", "Book"];
 
 // Your answer:
 
+stationery.push("Ruler");
+console.log(stationery);
 
 // ----------------------------------------------------------
 
@@ -157,6 +178,8 @@ const bag = ["Bottle", "Tiffin"];
 
 // Your answer:
 
+bag.push("Chips", "Brush");
+console.log(bag)
 
 // ----------------------------------------------------------
 
@@ -168,6 +191,8 @@ const items = ["A", "B"];
 
 // Your answer:
 
+let capture = items.push("C");
+console.log(items);
 
 // ----------------------------------------------------------
 
@@ -179,6 +204,9 @@ const stack = ["Layer1", "Layer2", "Layer3"];
 
 // Your answer:
 
+let removed = stack.pop();
+console.log(removed);
+console.log(stack);
 
 // ----------------------------------------------------------
 
@@ -194,6 +222,7 @@ console.log(letters);
 
 // Your guess:
 
+// P, Q, R, S
 
 // ----------------------------------------------------------
 
@@ -207,6 +236,9 @@ const tasks = ["Wake up", "Exercise", "Study", "Cook", "Sleep"];
 
 // Your answer:
 
+tasks.pop();
+tasks.push("Buy groceries");
+console.log(tasks);
 
 // ----------------------------------------------------------
 
@@ -219,6 +251,11 @@ const box = ["Item1", "Item2", "Item3", "Item4"];
 
 // Your answer (use a while loop):
 
+while (box.length > 0) {
+    const item = box.pop();
+    console.log(item);
+}
+console.log(box);
 
 // ----------------------------------------------------------
 
@@ -233,6 +270,11 @@ const scores = [45, 78, 90];
 
 // Your answer:
 
+scores.push(55);
+scores.push(88);
+scores.push(72);
+scores.pop();
+console.log(scores);
 
 // ----------------------------------------------------------
 
@@ -243,8 +285,13 @@ const scores = [45, 78, 90];
 const empty = [];
 
 // Your guess:
+
+// pop() on an empty array is safe, it does not show an error, and if you try to log it, it shows up as undefined
+
 // Your answer:
 
+let mpty = empty.pop();
+console.log(empty); // undefined
 
 // ----------------------------------------------------------
 
@@ -257,8 +304,13 @@ const empty = [];
 
 // Your answer:
 
-
-
+const browserhistory = [];
+browserhistory.push("The Kalinga War");
+browserhistory.push("The 2001 Terrorist Attacks on the World Trade Center");
+browserhistory.push("The Fall of the Berlin Wall");
+let cleared = browserhistory.pop();
+console.log(browserhistory);
+console.log(cleared);
 
 // ============================================================
 //  SECTION 3 — shift() and unshift() (Q21–Q30)
@@ -272,6 +324,9 @@ const queue = ["Alice", "Bob", "Charlie", "Diana"];
 
 // Your answer:
 
+let unqueued = queue.shift();
+console.log(unqueued);
+console.log(queue);
 
 // ----------------------------------------------------------
 
@@ -282,6 +337,7 @@ const subjects = ["Science", "English", "History"];
 
 // Your answer:
 
+subjects.unshift("Math");
 
 // ----------------------------------------------------------
 
@@ -296,6 +352,7 @@ console.log(line);
 
 // Your guess:
 
+// Z, B, C, D
 
 // ----------------------------------------------------------
 
@@ -307,6 +364,8 @@ const arr = ["X", "Y"];
 
 // Your answer:
 
+// unshift returns the length
+console.log(arr); // 2
 
 // ----------------------------------------------------------
 
@@ -322,6 +381,10 @@ const ticketQueue = ["Person1", "Person2", "Person3"];
 
 // Your answer:
 
+ticketQueue.shift();
+ticketQueue.push("Person4");
+ticketQueue.unshift("Person0");
+console.log(ticketQueue);
 
 // ----------------------------------------------------------
 
@@ -339,8 +402,8 @@ console.log(arr1);
 console.log(arr2);
 
 // Your prediction:
-// arr1 →
-// arr2 →
+// arr1 → [2, 3]
+// arr2 → [1, 2]
 
 // ----------------------------------------------------------
 
@@ -351,6 +414,10 @@ console.log(arr2);
 
 // Your answer:
 
+let numers = [];
+numers.unshift(3);
+numers.unshift(2);
+numers.unshift(1);
 
 // ----------------------------------------------------------
 
@@ -364,6 +431,11 @@ const train = ["Engine", "Bogie1", "Bogie2", "Bogie3"];
 
 // Your answer:
 
+while (train.length > 0) {
+    let removal = train.shift();
+    console.log(removal);
+}
+console.log(train);
 
 // ----------------------------------------------------------
 
@@ -380,16 +452,23 @@ console.log(plate.length);
 
 // Your trace:
 
+[]
+["Bottom"]
+["Middle", "Bottom"]
+["Top", "Middle", "Bottom"]
+["Middle", "Bottom"]
+["Middle", "Bottom"]
+2
 
 // ----------------------------------------------------------
 
 // Q30.
 // push vs unshift — fill in the blanks:
 //
-// To add to the END   → use ___________
-// To add to the START → use ___________
-// To remove from END  → use ___________
-// To remove from START → use __________
+// To add to the END   → use push
+// To add to the START → use unshift
+// To remove from END  → use pop
+// To remove from START → use shift
 //
 // Write one example of each using this array:
 
@@ -397,8 +476,10 @@ const sample = ["B", "C", "D"];
 
 // Your answer:
 
-
-
+sample.push("E");
+sample.unshift("A");
+sample.pop();
+sample.shift();
 
 // ============================================================
 //  SECTION 4 — includes() (Q31–Q40)
@@ -411,6 +492,7 @@ const basket = ["Apple", "Mango", "Banana", "Kiwi"];
 
 // Your answer:
 
+console.log(basket.includes("Banana"));
 
 // ----------------------------------------------------------
 
@@ -420,6 +502,7 @@ const basket = ["Apple", "Mango", "Banana", "Kiwi"];
 
 // Your answer:
 
+// The includes is case sensitive and won't count the word if its lowercase.
 
 // ----------------------------------------------------------
 
@@ -432,6 +515,11 @@ const tray = ["Apple", "Grapes", "Mango"];
 
 // Your answer:
 
+if(tray.includes("Mango")) {
+    console.log("Mango found!");
+} else {
+    console.log("Mango not found");
+};
 
 // ----------------------------------------------------------
 
@@ -447,6 +535,11 @@ console.log(mixed.includes(null));
 
 // Your guess:
 
+// true
+// false
+// true
+// false
+// true
 
 // ----------------------------------------------------------
 
@@ -459,6 +552,11 @@ const loginAttempt = "admin";
 
 // Your answer:
 
+if (console.log(allowedUsers.includes("admin"))) {
+    console.log("Username available");
+} else {
+    console.log("Username unavailable");
+}
 
 // ----------------------------------------------------------
 
@@ -473,6 +571,9 @@ console.log(nums2.includes(10, 4));
 
 // Your guess:
 
+// true
+// true
+// false
 
 // ----------------------------------------------------------
 
@@ -485,6 +586,9 @@ const toCheck = ["loops", "objects", "arrays", "dom"];
 
 // Your answer (use forEach + includes):
 
+toCheck.forEach(topic => {
+  console.log(`${topic}: ${completedTopics.includes(topic) ? "Done" : "Not done"}`);
+});
 
 // ----------------------------------------------------------
 
@@ -493,8 +597,8 @@ const toCheck = ["loops", "objects", "arrays", "dom"];
 // Both check if an item exists — when would you use each?
 
 // Your answer (in comments):
-//
-//
+
+//includes is case sensitive, while index of is not.
 
 
 // ----------------------------------------------------------
@@ -507,6 +611,8 @@ const withNaN = [1, 2, NaN, 4];
 
 // Your answer:
 
+console.log(withNaN.includes("NaN"))
+// it is false because NaN is not a number and cannot be detected
 
 // ----------------------------------------------------------
 
@@ -524,8 +630,12 @@ const playlist = ["Song1", "Song2", "Song3"];
 
 // Your answer:
 
-
-
+if (playlist.includes("Song2")) {
+  playlist.push("Song2");
+}
+playlist.unshift("Song0");
+playlist.pop();
+console.log(playlist);
 
 // ============================================================
 //  SECTION 5 — Mixed (Q41–Q50)
@@ -540,6 +650,13 @@ const playlist = ["Song1", "Song2", "Song3"];
 
 // Your answer:
 
+const cart = [];
+
+cart.push("Shirt", "Shoes", "Belt");
+cart.pop();
+cart.unshift("Watch");
+
+console.log(cart);
 
 // ----------------------------------------------------------
 
@@ -554,6 +671,15 @@ const classList = ["Maths", "Physics", "Chemistry"];
 
 // Your answer:
 
+const classList = ["Maths", "Physics", "Chemistry"];
+
+if (classList.includes("Physics")) {
+  classList.shift();
+} else {
+  classList.push("Physics");
+}
+
+console.log(classList);
 
 // ----------------------------------------------------------
 
@@ -573,6 +699,7 @@ console.log(stack2.length);
 
 // Your prediction:
 
+// ['A', 'B', 'D']
 
 // ----------------------------------------------------------
 
@@ -585,6 +712,17 @@ console.log(stack2.length);
 
 // Your answer:
 
+const notifications = [];
+
+notifications.push("Notification 1");
+notifications.push("Notification 2");
+notifications.push("Notification 3");
+notifications.push("Notification 4");
+
+notifications.pop();
+notifications.pop();
+
+console.log(notifications);
 
 // ----------------------------------------------------------
 
@@ -597,6 +735,13 @@ console.log(stack2.length);
 
 // Your answer:
 
+const numbers = [10, 20, 30, 40, 50];
+
+if (numbers.includes(99)) {
+  numbers.push(99);
+}
+
+console.log(numbers);
 
 // ----------------------------------------------------------
 
@@ -612,6 +757,7 @@ console.log(queue2);
 
 // Your prediction:
 
+// ['Zero', 'Second', 'Third']
 
 // ----------------------------------------------------------
 
@@ -625,6 +771,19 @@ console.log(queue2);
 
 // Your answer:
 
+const subjects = ["Math", "Science", "English", "History", "Art"];
+
+if (subjects.includes("PE")) {
+  if (subjects[0] === "PE") {
+    subjects.shift();
+  } else if (subjects[subjects.length - 1] === "PE") {
+    subjects.pop();
+  }
+} else {
+  subjects.push("PE");
+}
+
+console.log(subjects);
 
 // ----------------------------------------------------------
 
@@ -641,6 +800,17 @@ const history = ["about", "contact"];
 
 // Your answer:
 
+const history = ["about", "contact"];
+
+history.push("services");
+history.push("blog");
+history.push("portfolio");
+
+if (!history.includes("home")) {
+  history.unshift("home");
+}
+
+console.log(history);
 
 // ----------------------------------------------------------
 
@@ -653,9 +823,13 @@ buggy.Pop();
 console.log(buggy.includes("Red"));
 console.log(buggy[1]);
 
-// Your explanation:
 // Fixed code:
 
+const buggy = ["Red", "Green", "Blue"]; // Bug: Items must be separate strings, not one string.
+buggy.push("Yellow"); // Bug: Use push(), not Push().
+buggy.pop(); // Bug: Use pop(), not Pop().
+console.log(buggy.includes("Red"));
+console.log(buggy[1]);
 
 // ----------------------------------------------------------
 
@@ -672,3 +846,44 @@ console.log(buggy[1]);
 // Log the list after each addition.
 
 // Your answer:
+
+const recentlyViewed = [];
+if (recentlyViewed.includes("Home")) recentlyViewed.unshift("Home");
+console.log(recentlyViewed);
+if (recentlyViewed.includes("About")) recentlyViewed.unshift("About");
+console.log(recentlyViewed);
+if (recentlyViewed.includes("Services")) recentlyViewed.unshift("Services");
+console.log(recentlyViewed);
+if (recentlyViewed.includes("Contact")) recentlyViewed.unshift("Contact");
+if (recentlyViewed.length > 3) recentlyViewed.pop();
+console.log(recentlyViewed);
+if (recentlyViewed.includes("About")) recentlyViewed.unshift("About");
+if (recentlyViewed.length > 3) recentlyViewed.pop();
+console.log(recentlyViewed);
+
+// or
+
+const recentlyViewed = [];
+
+function addToRecent(page) {
+    if (recentlyViewed.includes(page)) {
+        console.log('"' + page + '" already in list — skipped');
+        console.log("List:", [...recentlyViewed]);
+        return;
+    }
+
+    recentlyViewed.unshift(page);
+
+    if (recentlyViewed.length > 3) {
+        recentlyViewed.pop();
+    }
+
+    console.log('Added "' + page + '"');
+    console.log("List:", [...recentlyViewed]);
+}
+
+addToRecent("Home");
+addToRecent("About");
+addToRecent("Services");
+addToRecent("Contact");
+addToRecent("About");
