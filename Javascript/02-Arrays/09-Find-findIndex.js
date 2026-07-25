@@ -40,3 +40,62 @@ let tryhard = students.find((student) => {
     return student.marks === 99;
 });
 console.log(tryhard);
+
+// ============================================================
+//  findIndex()
+// ============================================================
+ 
+// Purpose:
+//   Returns the INDEX of the first item that passes the test.
+//   Returns -1 if nothing matches.
+ 
+// Syntax:
+//   array.findIndex((item, index, array) => condition)
+ 
+// Parameters:
+//   Same as find()
+ 
+// Returns:
+//   Index number (0 or more) if found
+//   -1 if not found
+ 
+// Mutates original array? NO
+
+let ind = students.findIndex((index) => {
+    return index.marks > 99;
+});
+
+let third = students.findIndex((index) => {
+    return index.id === 3;
+});
+
+let idx = students.findIndex((index) => {
+    return index.id === 1;
+});
+if (idx !== -1) {
+    students[idx].marks = 95;
+};
+console.log(students[idx]);
+
+let identifier = students.findIndex((index) => {
+    return index.name === "Ravi";
+});
+if (identifier !== -1) {
+    students.splice(identifier, 1);
+};
+
+//  Question                              Method
+//  I want the actual item/object         find()
+//  I want the position of the item       findIndex()
+//  I want to update/remove after finding findIndex() + splice()
+ 
+// ------------------------------------------------------------
+
+//  find() vs filter() — IMPORTANT DIFFERENCE
+// ------------------------------------------------------------
+ 
+// filter() → returns ALL matches as an array
+// find()   → returns ONLY the FIRST match (the item itself)
+
+console.log([].find((n) => n > 0));
+console.log([].findIndex((n) => n > 0));
