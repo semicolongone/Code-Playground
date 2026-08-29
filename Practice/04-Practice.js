@@ -29,8 +29,8 @@ console.log(nested1.flat());
 console.log(nested1);
 
 // Your guess:
-// flat()    →
-// original  →
+// flat()    → [1, 2, 3, 4, 5]
+// original  → [1, [2, 3], [4, 5]]
 
 // ----------------------------------------------------------
 
@@ -44,9 +44,9 @@ console.log(deep.flat(2));
 console.log(deep.flat(3));
 
 // Your guess:
-// flat()    →
-// flat(2)   →
-// flat(3)   →
+// flat()    → [1, 2, [3, [4]]]
+// flat(2)   → [1, 2, 3, [4]]
+// flat(3)   → [1, 2, 3, 4]
 
 // ----------------------------------------------------------
 
@@ -58,6 +58,7 @@ const veryDeep = [1, [2, [3, [4, [5]]]]];
 
 // Your answer:
 
+const veryFlat = veryDeep.flat(Infinity);
 
 // ----------------------------------------------------------
 
@@ -68,6 +69,7 @@ const classMarks = [[85, 90], [78, 92], [88, 76], [55, 60]];
 
 // Your answer:
 
+const marksList = classMarks.flat();
 
 // ----------------------------------------------------------
 
@@ -79,6 +81,7 @@ console.log(mixed.flat());
 
 // Your guess:
 
+// [1, 2, 3, 4, 5, 6, [7, 8]]
 
 // ----------------------------------------------------------
 
@@ -91,6 +94,7 @@ console.log(sparse.flat());
 
 // Your guess:
 
+// [1, 3, 5]
 
 // ----------------------------------------------------------
 
@@ -107,6 +111,8 @@ const studentSubjects = [
 
 // Your answer:
 
+const allSubjects = studentSubjects.flat();
+console.log(allSubjects.length);
 
 // ----------------------------------------------------------
 
@@ -118,6 +124,10 @@ const numGroups = [[3, 1, 4], [1, 5, 9], [2, 6, 5]];
 
 // Your answer:
 
+const uniqueNums = numGroups.flat().filter((n, i, arr) => 
+    {
+        return arr.indexOf(n) === i
+    }).sort((a, b) => a - b);
 
 // ----------------------------------------------------------
 
@@ -131,9 +141,9 @@ console.log(arr.flat(1));
 console.log(arr.flat(2));
 
 // Your guess:
-// flat(0) →
-// flat(1) →
-// flat(2) →
+// flat(0) → [[1, 2], [3, [4, 5]]]
+// flat(1) → [1, 2, 3, [4, 5]]
+// flat(2) →[1, 2, 3, 4, 5]
 
 // ----------------------------------------------------------
 
@@ -145,8 +155,7 @@ const groups = [[10, 20], [30, 40], [50, 60]];
 
 // Your answer:
 
-
-
+const groupsSum = groups.flat().reduce((acc, n) => acc + n, 0);
 
 // ============================================================
 //  SECTION 2 — sort() (Q11–Q22)
@@ -167,9 +176,10 @@ const nums = [10, 2, 100, 21, 9];
 nums.sort();
 console.log(nums);
 
-// Your guess:
-// Explanation of why:
+// Your guess: [10, 100, 2, 21, 9]
+// Explanation of why: 
 
+// if you do not add a compare method, then the sort method converts the numbers into strings first
 
 // ----------------------------------------------------------
 
@@ -181,6 +191,7 @@ const scores = [45, 78, 32, 91, 55, 20, 88];
 
 // Your answer:
 
+const ascendingScores = scores.sort((a, b) => a - b);
 
 // ----------------------------------------------------------
 
@@ -191,6 +202,7 @@ const prices = [150, 30, 500, 75, 200, 10];
 
 // Your answer:
 
+const descendingPrices = prices.sort((a, b) => b - a);
 
 // ----------------------------------------------------------
 
@@ -201,6 +213,7 @@ const names = ["Ravi", "Aman", "Zara", "Priya", "Om"];
 
 // Your answer:
 
+const alphabeticalNames = names.sort();
 
 // ----------------------------------------------------------
 
@@ -212,6 +225,8 @@ const names2 = ["Ravi", "Aman", "Zara", "Priya", "Om"];
 
 // Your answer:
 
+const sortedNames = names2.sort((a, b) => a.localeCompare(b)); // ascending order
+const reverseSort = names2.sort((a, b) => b.localeCompare(a)); // descending order
 
 // ----------------------------------------------------------
 
@@ -226,6 +241,9 @@ console.log(result);
 
 // Your guess — what gets logged during the sort:
 
+// 3 - 1 = 2, returns positive, 3 is greater, swap, [1, 3, 2]
+// 3 - 2 = 1, returns positive, 3 is greater, swap, [1, 2, 3]
+// 1 - 2 = -1, returns negative, 1 is lesser, no swap, [1, 2, 3]
 
 // ----------------------------------------------------------
 
@@ -242,6 +260,7 @@ const students = [
 
 // Your answer:
 
+const ascendingMarks = students.sort((a, b) => a.marks - b.marks);
 
 // ----------------------------------------------------------
 
@@ -251,6 +270,7 @@ const students = [
 
 // Your answer (use students array above):
 
+const alphabeticalNames = students.sort((a, b) => a.name.localeCompare(b.name));
 
 // ----------------------------------------------------------
 
@@ -261,6 +281,10 @@ const students = [
 
 // Your answer:
 
+const copy = [...scores];
+copy.sort((a, b) => b - a);
+console.log(scores);
+console.log(copy);
 
 // ----------------------------------------------------------
 
@@ -273,8 +297,8 @@ console.log(sorted);
 console.log(letters);
 
 // Your guess:
-// sorted  →
-// letters →
+// sorted  → [a, b, c, d]
+// letters → [b, d, a, c]
 
 // ----------------------------------------------------------
 
@@ -292,6 +316,8 @@ const products = [
 
 // Your answer:
 
+const cheapestOrder = products.sort((a, b) => a.price - b.price);
+const cheapestNames = cheapestOrder.map((p) => p.name);
 
 // ----------------------------------------------------------
 
@@ -314,8 +340,13 @@ const cityStudents = [
 
 // Your answer:
 
-
-
+const studentsCopy = [...cityStudents].sort((a, b) => {
+    const cityCompare = a.city.localeCompare(b.city);
+    if (cityCompare !== 0) {
+        return cityCompare}
+        return b.marks - a.marks;
+    };
+);
 
 // ============================================================
 //  SECTION 3 — reverse() (Q23–Q30)
@@ -337,11 +368,10 @@ console.log(letters2);
 console.log(rev === letters2);
 
 // Your guess:
-// rev      →
-// letters2 →
-// rev === letters2 →
-// Explanation:
-
+// rev      → ["E", "D", "C", "B", "A"]
+// letters2 → ["E", "D", "C", "B", "A"]
+// rev === letters2 → true
+// Explanation: reverse mutates the original array in place
 
 // ----------------------------------------------------------
 
@@ -352,6 +382,8 @@ const original = [1, 2, 3, 4, 5];
 
 // Your answer:
 
+const copy = [...original]
+const reversedCopy = copy.reverse();
 
 // ----------------------------------------------------------
 
@@ -365,6 +397,7 @@ console.log(nums2);
 
 // Your guess:
 
+// [1, 2, 3, 4, 5]
 
 // ----------------------------------------------------------
 
@@ -376,6 +409,7 @@ const values = [30, 10, 50, 20, 40];
 
 // Your answer:
 
+const descending = values.sort((a, b) => a - b).reverse();
 
 // ----------------------------------------------------------
 
@@ -389,6 +423,9 @@ const data = [1, 2, 3, 4, 5];
 
 // Your answer:
 
+const slicedData = data.slice(0, 2);
+const lastPart = data.slice(2).reverse();
+const combined = [...slicedData, ...lastPart];
 
 // ----------------------------------------------------------
 
@@ -401,6 +438,7 @@ const sentence = "Hello World from JS";
 
 // Your answer:
 
+const reverseSentence = sentence.split(" ").reverse().join(" ");
 
 // ----------------------------------------------------------
 
@@ -416,6 +454,12 @@ const arr2 = [1, 2, 3, 4, 5];
 
 // Your answer:
 
+function isPalindrome(arr) {
+    const reversed = [...arr].reverse();
+    return arr.join(", ") === reversed.join(", ")
+};
+console.log(isPalindrome(arr1));
+console.log(isPalindrome(arr2));
 
 // ----------------------------------------------------------
 
@@ -429,7 +473,7 @@ const sentence2 = "Hello World from JS";
 
 // Your answer:
 
-
+const wordReversed = sentence2.split(" ").map((word) => word.split("").reverse().join("")).join(" ");
 
 
 // ============================================================
@@ -455,12 +499,12 @@ console.log(fruits.join(""));
 console.log(fruits.join("-"));
 
 // Your guess:
-// join()     →
-// join(" ")  →
-// join(", ") →
-// join(" | ") →
-// join("")   →
-// join("-")  →
+// join()     → "Apple,Banana,Mango"
+// join(" ")  → "Apple Banana Mango"
+// join(", ") → "Apple, Banana, Mango"
+// join(" | ") → "Apple | Banana | Mango"
+// join("")   → "AppleBananaMango"
+// join("-")  → "Apple-Banana-Mango"
 
 // ----------------------------------------------------------
 
@@ -472,6 +516,7 @@ const words = ["My", "name", "is", "Aman"];
 
 // Your answer:
 
+const sentences = words.join(" ");
 
 // ----------------------------------------------------------
 
@@ -483,6 +528,7 @@ const rowData = ["Aman", 25, "Delhi", 85];
 
 // Your answer:
 
+const csvData = rowData.join(",");
 
 // ----------------------------------------------------------
 
@@ -496,8 +542,8 @@ console.log(joined);
 console.log(typeof joined);
 
 // Your guess:
-// joined       →
-// typeof joined →
+// joined       → "1 + 2 + 3 + 4 + 5"
+// typeof joined → string
 
 // ----------------------------------------------------------
 
@@ -509,6 +555,7 @@ const pathParts = ["home", "user", "documents", "file.txt"];
 
 // Your answer:
 
+const filePath = pathParts.join("/");
 
 // ----------------------------------------------------------
 
@@ -522,6 +569,9 @@ const studentNames = ["Aman", "Priya", "Ravi", "Zara"];
 
 // Your answer:
 
+const allButLast = studentNames.slice(0, -1).join(", ");
+const last = studentNames[studentNames.length -1];
+const res = "The students are: " + allButLast + " and " + last;
 
 // ----------------------------------------------------------
 
@@ -533,6 +583,7 @@ console.log(mixed2.join(" "));
 
 // Your guess:
 
+// "Hello  World  JS"
 
 // ----------------------------------------------------------
 
@@ -549,7 +600,7 @@ const classData = [
 
 // Your answer:
 
-
+const dataList = classData.map((student) => student.name + "(" + student.marks + ")").join(" | ");
 
 
 // ============================================================
@@ -573,9 +624,9 @@ console.log(str.split(""));
 console.log(str.split("a"));
 
 // Your guess:
-// split(",") →
-// split("")  →
-// split("a") →
+// split(",") → "apple" "banana" "mango"
+// split("")  → "a", "p", "p", "l", "e", "b", "a", "n", "a", "n", "a", "m", "a", "n", "g", "o"
+// split("a") → " ", "pple, b, n, n, m, ngo"
 
 // ----------------------------------------------------------
 
@@ -586,6 +637,7 @@ const sentence3 = "JavaScript is fun to learn";
 
 // Your answer:
 
+const sentenceSplit = sentence3.split(" ");
 
 // ----------------------------------------------------------
 
@@ -597,6 +649,8 @@ const word = "Playground";
 
 // Your answer:
 
+const char = word.split("");
+console.log(char.length);
 
 // ----------------------------------------------------------
 
@@ -611,10 +665,10 @@ console.log(parts[3]);
 console.log(typeof parts[3]);
 
 // Your guess:
-// parts      →
-// parts[0]   →
-// parts[3]   →
-// typeof parts[3] →
+// parts      → ["Aman", "25", "Delhi", "85"]
+// parts[0]   → "Aman"
+// parts[3]   → "85"
+// typeof parts[3] → "string"
 
 // ----------------------------------------------------------
 
@@ -627,6 +681,7 @@ console.log(tags.split(",", 3));
 
 // Your guess:
 
+// ["js", "html", "css"]
 
 // ----------------------------------------------------------
 
@@ -639,6 +694,7 @@ const str2 = "Hello World from JS";
 
 // Your answer:
 
+const hyphenStr = str2.split(" ").join("-");
 
 // ----------------------------------------------------------
 
@@ -654,6 +710,12 @@ const word2 = "hello";
 
 // Your answer:
 
+function isWordPalindrome(w) {
+    const reversed = w.split("").reverse().join("");
+    return w === reversed;
+}
+console.log(isWordPalindrome(word1));
+console.log(isWordPalindrome(word2));
 
 // ----------------------------------------------------------
 
@@ -672,7 +734,13 @@ const dataString = "Aman:85|Priya:92|Ravi:78|Zara:55";
 
 // Your answer:
 
-
+const parsed = dataString.split("|").map((entry) => {
+    const part2 = entry.split(":");
+    return {
+        name: part2[0],
+        marks: Number(part2[1]),
+    };
+});
 
 
 // ============================================================
@@ -693,6 +761,7 @@ const cityGroups = [
 
 // Your answer:
 
+cityGroups.flat().sort().join(" → ");
 
 // ----------------------------------------------------------
 
@@ -709,6 +778,7 @@ const scoreString = "85,92,43,78,38,76,55,91";
 
 // Your answer:
 
+scoreString.split(",").map((num) => Number(num)).sort((a, b) => b - a).slice(0, 3).join(" > ");
 
 // ----------------------------------------------------------
 
@@ -731,11 +801,11 @@ console.log(step4);
 console.log(step5);
 
 // Your trace:
-// step1 →
-// step2 →
-// step3 →
-// step4 →
-// step5 →
+// step1 → ["mango", "apple", "banana", "kiwi"]
+// step2 → ["MANGO", "APPLE", "BANANA", "KIWI"]
+// step3 → ["APPLE", "BANANA", "KIWI", "MANGO"]
+// step4 → ["MANGO", "KIWI", "BANANA", "APPLE"]
+// step5 → "MANGO | KIWI | BANANA | APPLE"
 
 // ----------------------------------------------------------
 
@@ -754,3 +824,11 @@ const paragraph = "javascript is a powerful language. javascript runs in the bro
 // e) Log the final result
 
 // Your answer:
+
+const correctedParagraph = paragraph.split(". ")
+.map((s) => {
+    return s[0].toUpperCase() + s.slice(1);
+});
+const sortedness = [...correctedParagraph].sort();
+const finalResult = sortedness.join(". ") + ".";
+console.log(finalResult);
