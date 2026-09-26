@@ -356,6 +356,10 @@ const testArr = ["X", "Y", "Z"];
 
 // Your answer:
 
+const x1 = testArr.push("W"); // ["X", "Y", "Z", "W"]
+const y2 = testArr.pop(); // ["X", "Y", "Z"]
+const z3 = testArr.unshift("W"); // ["W", "X", "Y", Z"]
+const w4 = testArr.shift(); // ["X", "Y", "Z"]
 
 // ----------------------------------------------------------
 
@@ -371,6 +375,11 @@ const testArr = ["X", "Y", "Z"];
 
 // Fixed version:
 
+const bugArr = ["Red", "Green", "Blue"];
+bugArr.push("Yellow");
+console.log(bugArr.length);
+bugArr.pop()
+console.log(bugArr[2]);
 
 // ----------------------------------------------------------
 
@@ -384,6 +393,12 @@ const workQueue = ["Doc1", "Doc2", "Doc3", "Doc4", "Doc5"];
 
 // Your answer:
 
+while (workQueue.length > 0) {
+    const nextInQueue = workQueue.shift()
+    console.log("Processing: " + nextInQueue)
+}
+console.log(workQueue);
+console.log("Queue Empty", workQueue.length === 0)
 
 // ----------------------------------------------------------
 
@@ -397,9 +412,26 @@ const workQueue = ["Doc1", "Doc2", "Doc3", "Doc4", "Doc5"];
 
 // Write your JS + DOM code here:
 
-
-
-
+const historyArr = [];
+document.getElementById("current-page").textContent = "No history yet";
+function visitPage() {
+    const url = document.getElementById("url-input").value.trim();
+    if (!url) return;
+    historyArr.push(url);
+    document.getElementById("url-input").value = "";
+    const li = document.createElement("li");
+    li.textContent = url;
+    document.getElementById("history-list").appendChild(li);
+    document.getElementById("current-page").textContent = url;
+}
+function goBack() {
+    if (historyArr.length === 0) return;
+    historyArr.pop;
+    const histList = document.getElementById("history-list");
+    if (histList.lastChild) histList.lastChild.remove();
+    const current = historyArr[historyArr.length-1];
+    document.getElementById("current-page").textContent = current || "No history yet";
+}
 // ============================================================
 //  SECTION 3 — includes / indexOf / slice / splice (Q21–Q30)
 // ============================================================
@@ -416,6 +448,11 @@ const subjects = ["Maths", "Science", "English", "History", "Science"];
 
 // Your answer:
 
+console.log(subjects.includes("Science"));
+console.log(subjects.includes("Art"));
+console.log(subjects.indexOf("Science"));
+console.log(subjects.indexOf("Science", 2));
+console.log(subjects.indexOf("Art")); // -1
 
 // ----------------------------------------------------------
 
@@ -429,10 +466,10 @@ console.log(nums.slice(1, 1));
 console.log(nums.slice(10));
 
 // Your trace:
-// slice(2, 5) →
-// slice(-3)   →
-// slice(1, 1) →
-// slice(10)   →
+// slice(2, 5) → ["30", "40", "50"]
+// slice(-3)   → ["50", "60", "70"]
+// slice(1, 1) → []
+// slice(10)   → []
 
 // ----------------------------------------------------------
 
@@ -448,6 +485,13 @@ const pageSize = 3;
 
 // Your answer:
 
+function getPage(page) {
+    const start = (page - 1) * pageSize;
+    const end = page * pageSize;
+    return allStudents.slice(start, end);
+}
+
+getPage(1);
 
 // ----------------------------------------------------------
 
@@ -462,6 +506,11 @@ const classArr = ["Aman", "Priya", "Ravi", "Om", "Neha", "Dev"];
 
 // Your answer:
 
+const om = classArr.indexOf("Om");
+console.log(classArr.splice(om, 1));
+console.log(classArr.splice(2, 0, "Rahul"));
+const iea = classArr.indexOf("Neha");
+console.log(classArr.splice(iea, 1, "Nisha"));
 
 // ----------------------------------------------------------
 
@@ -470,10 +519,10 @@ const classArr = ["Aman", "Priya", "Ravi", "Om", "Neha", "Dev"];
 // Complete this comparison table in comments:
 
 //               slice()         splice()
-// Mutates?      ___             ___
-// Returns?      ___             ___
-// Arguments?    ___             ___
-// Use for?      ___             ___
+// Mutates?      no             yes
+// Returns?      array of removed items             array of new items
+// Arguments?    (start, end)             (start, delete, ...item)
+// Use for?      to extract, copy, or page             remove, replace, add something
 
 // ----------------------------------------------------------
 
@@ -487,8 +536,13 @@ wrongSplice.splice(2, 1); // tries to remove Mango but removes Grape!
 // Why is this wrong? Fix it.
 
 // Your explanation:
+
+// the indexes shift after Banana is removed, so Grape becomes the second index instead of Mango
+
 // Fixed code:
 
+const fixedOne = ["Apple", "Banana", "Mango", "Grape"];
+fixedOne.splice(1, 2);
 
 // ----------------------------------------------------------
 
@@ -509,7 +563,24 @@ const searchData = [
 
 // Write your JS + DOM code here:
 
-
+function liveSearch(list) {
+    const container = document.getElementById("search-results");
+    container.innerHTML = "";
+    list.forEach((country) => {
+        const div = document.createElement("div");
+        div.textContent = country;
+        div.style.padding = "27.2px";
+        div.style.background = "red";
+        container.appendChild(div);
+    });
+    document.getElementById("result-count").textContent = list.length;
+}
+liveSearch(searchData);
+document.getElementById("search-input-Q27").addEventListener("input", function() {
+    const val = this.value.toLowerCase();
+    const matches = searchData.filter((c) => c.toLowerCase().includes(val));
+    liveSearch(matches);
+})
 // ----------------------------------------------------------
 
 // Q28. [JS]
@@ -524,6 +595,10 @@ const withX = ["A", "X", "B", "X", "C", "X", "D"];
 
 // Your answer:
 
+while (withX.indexOf("X") !== -1) {
+    const index = withX.indexOf("X").splice(index, 1);
+}
+console.log(withX);
 
 // ----------------------------------------------------------
 
@@ -537,6 +612,8 @@ const sliceInsert = ["A", "B", "C", "D", "E"];
 
 // Your answer:
 
+const inserted = [...sliceInsert.slice(0, 2), "NEW", ...sliceInsert.slice(2)];
+console.log(inserted);
 
 // ----------------------------------------------------------
 
@@ -551,8 +628,29 @@ const reorderArr = ["Task 1", "Task 2", "Task 3", "Task 4"];
 
 // Write your JS + DOM code here:
 
-
-
+function reorderList() {
+    const ul = document.getElementById("reorder-list");
+    ul.innerHTML = reorderArr.map((task, i) => `
+    <li style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            <span>${task}</span>
+            <button onclick="moveUp(${i})">↑</button>
+            <button onclick="moveDown(${i})">↓</button>
+        </li>
+    `
+).join("");
+}
+function moveUp(i) {
+    if (i === 0) return;
+    const item = reorderArr.splice(i, 1)[0];
+    reorderArr.splice(i-1, 0, item);
+    reorderList();
+}
+function moveDown() {
+    if (i === reorderArr.length -1) return;
+    const item = reorderArr.splice(i, 1)[0];
+    reorderArr.splice(i+1, 0, item);
+    reorderList();
+}
 
 // ============================================================
 //  SECTION 4 — forEach / map / filter (Q31–Q40)
@@ -574,6 +672,19 @@ const studentData = [
 
 // Your answer:
 
+studentData.forEach((s, i) => {
+    console.log((i+1) + "." + s.name);
+});
+const totalmarks = 0;
+studentData.forEach((s) => {
+    totalmarks += s.marks;
+});
+console.log(totalmarks);
+const count = 0;
+studentData.forEach((s) => {
+    if (s.marks > 80) count++;
+});
+console.log(count);
 
 // ----------------------------------------------------------
 
@@ -585,8 +696,8 @@ const mapTest = [1, 2, 3].map((n) => {
 });
 console.log(mapTest);
 
-// Your guess:
-// Explanation:
+// Your guess: [undefined, 20, undefined]
+// Explanation: This is a case of partial return, only some cases have the return statement, so no return statement means function returns undefined. Map puts undefined in the new array for those items. Only n === 2 returns a value. Always returns something in every path of map() callback.
 
 
 // ----------------------------------------------------------
@@ -604,6 +715,16 @@ const cartData = [
 
 // Your answer:
 
+const discountCart = cartData.map((item) => {
+    const discountedPrice = item.price * 0.9;
+    return {
+        name: item.name,
+        originalprice: item.price,
+        discountedprice: discountedPrice,
+        saved: item.price - discountedPrice,
+    }
+});
+console.log(discountCart);
 
 // ----------------------------------------------------------
 
@@ -624,6 +745,12 @@ const cityStudents = [
 
 // Your answer:
 
+const Delhi = cityStudents.filter((s) => s.city === "Delhi");
+console.log(Delhi.map((s) => s.name));
+const MumbaiPassed = cityStudents.filter((s) => s.marks >= 50 && s.city === "Mumbai");
+console.log(MumbaiPassed.map((s) => s.name));
+const onlyPassed = cityStudents.filter((s) => s.marks >= 50);
+console.log(onlyPassed.map((s) => s.name));
 
 // ----------------------------------------------------------
 
