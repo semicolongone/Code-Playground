@@ -762,6 +762,8 @@ console.log(onlyPassed.map((s) => s.name));
 
 // Your answer (use cityStudents from Q34):
 
+const resultString = cityStudents.filter((s) => s.marks >= 50).map((s) => s.name + "scored" + s.marks).join("\n");
+console.log(resultString);
 
 // ----------------------------------------------------------
 
@@ -781,6 +783,13 @@ const productGrid = [
 
 // Write your code here:
 
+document.getElementById("product-grid").innerHTML = productGrid.map((p) => `
+    <div style = "background: #cef; border: 1px solid #fec; border-radius: 8px; padding: 14px">
+    <div style = "font-weight: 600; color: #e2ea80; margin-bottom: 6px"> ${p.name} </div>
+    <div style = "color: #60a5fa; font-size: 14px; margin-bottom: 10px"> $${p.price} </div>
+    <button onclick = "alert('Buying ${p.name}')> Buy </button>
+    </div>
+`).join("");
 
 // ----------------------------------------------------------
 
@@ -802,6 +811,27 @@ const taskData = [
 
 // Write your JS + DOM code here:
 
+function renderTasks37(list) {
+    const unorderedL = document.getElementById("all-tasks");
+    unorderedL.innerHTML = "";
+    list.forEach((task) => {
+        const listing = document.createElement("li");
+        listing.textContent = (task.done ? "✓ " : "○ ") + task.title;
+        listing.style.color = task.done ? "#475569": "#e2e8f0";
+        listing.style.textDecoration = task.done ? "line-through": "none";
+        unorderedL.appendChild(listing);
+    });
+}
+function showAll() {
+    renderTasks37(taskData);
+}
+function showCompleted() {
+    renderTasks37(taskData.filter((t) => t.done == true));
+}
+function showPending() {
+    renderTasks37(taskData.filter((t) => t.done === false));
+}
+renderTasks37(taskData);
 
 // ----------------------------------------------------------
 
@@ -810,19 +840,19 @@ const taskData = [
 // Answer these specific questions:
 
 // Q: Does map() return anything useful?
-// A:
+// A: Yes, map() returns a new array of the same length with tranformed items
 
 // Q: Does forEach() return anything useful?
-// A:
+// A: No, forEach() always returns undefined, only job is side effects
 
 // Q: Can you chain .filter() after .forEach()?
-// A:
+// A: No, forEach() returns undefined, and undefined.filter() is a typeError
 
 // Q: Can you chain .filter() after .map()?
-// A:
+// A: Yes, map() returns a new array, so filter() can run after it
 
 // Q: When would you use forEach instead of map?
-// A:
+// A: When you are doing something with each item, and you do not need a new array back
 
 // ----------------------------------------------------------
 
@@ -833,7 +863,14 @@ const taskData = [
 const dupArr = [1, 2, 2, 3, 4, 4, 4, 5, 1, 3];
 
 // Your answer:
-// Explanation of how it works:
+
+const undupArr = dupArr.filter((item, index) => {
+    return dupArr.indexOf(item) === index;
+});
+
+// Explanation of how it works: indexOf() always returns the first position of a value
+// for item = 2, at index = 2: dupArr.indexOf(2) = 1, that means 1 !== 2, so it excludes the duplicate
+// for item = 2, at index = 1: dupArr.indexOf(2) = 1, that means 1 === 1, so it includes the first occurence
 
 
 // ----------------------------------------------------------
