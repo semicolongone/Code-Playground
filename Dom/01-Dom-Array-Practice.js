@@ -885,8 +885,28 @@ const undupArr = dupArr.filter((item, index) => {
 
 // Write your JS + DOM code here:
 
-
-
+function renderFilterTable(data) {
+    document.getElementById("filter-tbody").innerHTML = data.map((s, i) => `
+    <tr><td> ${i+1} </td>
+    <td> ${s.name} </td>
+    <td> ${s.marks}</td>
+    <td> ${s.city} </td>
+    </tr>
+    `).join("");
+    document.getElementById("filter-count").textContent = data.length;
+}
+function filterCity(city) {
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.classList.remove("active");
+    });
+    document.getElementById("btn" + city).classList.add("active");
+    if (city === "all") {
+        renderFilterTable(cityStudents);
+    } else {
+        renderFilterTable(cityStudents.filter((s) => s.city === city));
+    }
+}
+renderFilterTable(cityStudents);
 
 // ============================================================
 //  SECTION 5 — find / findIndex / some / every (Q41–Q48)
@@ -902,6 +922,11 @@ const undupArr = dupArr.filter((item, index) => {
 
 // Your answer:
 
+const overEighty = studentData.find((s) => s.marks > 80);
+console.log(overEighty);
+const overEightyIndex = studentData.findIndex((s) => s.marks > 80);
+console.log(overEightyIndex);
+console.log(studentData[overEightyIndex].marks += 5);
 
 // ----------------------------------------------------------
 
@@ -915,10 +940,10 @@ console.log(findTest.findIndex((n) => n > 25));
 console.log(findTest.findIndex((n) => n > 100));
 
 // Your explanation:
-// find(n > 25)      →      because:
-// find(n > 100)     →      because:
-// findIndex(n > 25) →      because:
-// findIndex(n > 100)→      because:
+// find(n > 25)      → 30     because: find only returns the first matching value
+// find(n > 100)     → undefined     because: there are no instances where n is greater than 100
+// findIndex(n > 25) → 2      because: findIndex returns the first index of the matching value
+// findIndex(n > 100)→ -1      because: there are no indexes of where n is greater than 100
 
 
 // ----------------------------------------------------------
@@ -939,6 +964,10 @@ const shopCart = [
 
 // Your answer:
 
+console.log(shopCart.every((item) => item.stock > 0));
+console.log(shopCart.some((item) => item.price > 1000));
+console.log(shopCart.every((item) => item.name !== undefined));
+console.log(shopCart.some((item) => item.stock === 0));
 
 // ----------------------------------------------------------
 
@@ -951,10 +980,10 @@ console.log([].find((n) => n > 0));
 console.log([].findIndex((n) => n > 0));
 
 // Your guess:
-// every  →      explanation:
-// some   →      explanation:
-// find   →      explanation:
-// findIndex →   explanation:
+// every  → True      explanation: there are no failed tests since there is no items
+// some   → False      explanation: no items are found that passed
+// find   → undefined      explanation: there are no instances found
+// findIndex → -1   explanation: there are no instances found
 
 
 // ----------------------------------------------------------
@@ -968,6 +997,16 @@ console.log([].findIndex((n) => n > 0));
 
 // Your answer:
 
+function findProduct(name) {
+    const found = shopCart.find((item) => item.name === name);
+    if (found != undefined) {
+        console.log(name + "costs" + found.price)
+    } else {
+        console.log("Product not found: " + name);
+    }
+}
+findProduct("Pen");
+findProduct("Phone");
 
 // ----------------------------------------------------------
 
@@ -983,6 +1022,19 @@ const allowedUsers = ["Aman", "Priya", "Sara", "Dev", "Admin"];
 
 // Write your JS + DOM code here:
 
+function checkAccess() {
+    const input = document.getElementById("access-input").value.trim();
+    const result = document.getElementById("access-result");
+    const isAllowed = allowedUsers.some((user) => user.toLowerCase() === input.toLowerCase());
+    if (isAllowed) {
+        result.textContent = "Access Granted";
+        result.style.color = "#34d399";
+    } else {
+        result.textContent = "Access Denied";
+        result.style.color = "#f87171";
+    }
+    
+}
 
 // ----------------------------------------------------------
 
@@ -999,6 +1051,31 @@ const allowedUsers = ["Aman", "Priya", "Sara", "Dev", "Admin"];
 
 // Write your JS + DOM code here:
 
+function validateForm() {
+    const fields = {
+        name: document.getElementById("f-name"),
+        email: document.getElementById("f-email"),
+        phone: document.getElementById("f-phone"),
+        city: document.getElementById("f-name")
+    }
+    Object.values(fields).forEach((el) => el.style.border = "");
+    const values = Object.values(fields).map((el) => el.value.trim());
+    const allFilled = values.every((val) => val.length > 0);
+    const anyEmpty = values.some((val) => val.length === 0);
+    const result = document.getElementById("form-result");
+    if (allFilled) {
+        result.textContent = "Form is valid";
+        result.style.color = "#34d399";
+    } else {
+        result.textContent = "Please fill all fields";
+        result.style.color = "#f87171";
+        Object.values(fields).forEach((el) => {
+            if (el.value.trim().length === 0) {
+                el.style.border = "1px solid #d62626";
+            }
+        });
+    }
+}
 
 // ----------------------------------------------------------
 
