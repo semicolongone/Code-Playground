@@ -1098,8 +1098,16 @@ const orders = [
 
 // Your answer:
 
-
-
+const order102 = orders.find((item) => item.id === 102);
+console.log(order102.total);
+const order104 = orders.findIndex((item) => item.id === 104)
+console.log(orders[order104]);
+console.log(orders.every((item) => item.paid === true));
+console.log(orders.some((item) => item.total > 10000));
+console.log("===Order Summary===");
+console.log("Total Orders: ", orders.length);
+console.log("All Paid: ", orders.every((item) => item.paid === true));
+console.log("High Value Orders: ", orders.filter((item) => item.total > 10000));
 
 // ============================================================
 //  SECTION 6 — reduce / sort / reverse / flat / join / split (Q49–Q58)
@@ -1115,6 +1123,13 @@ const orders = [
 
 // Your answer:
 
+const stats = studentData.reduce((acc, s) => {
+    acc.total += s.marks;
+    acc.passCount += s.marks >= 50 ? 1:0;
+    acc.failCount += s.marks >= 50 ? 0:1;
+    acc.highest = s.marks > acc.highest ? s.marks: acc.highest;
+    return acc;
+}, {total: 0, passCount: 0, failCount: 0, highest: 0});
 
 // ----------------------------------------------------------
 
@@ -1127,10 +1142,10 @@ console.log([1, 2, 3].reduce((acc, n) => acc + n, 10));
 console.log(["a","b","c"].reduce((acc, s) => acc + s, ""));
 
 // Your guess:
-// no initialValue →
-// initialValue 0  →
-// initialValue 10 →
-// string reduce   →
+// no initialValue → 6
+// initialValue 0  → 6
+// initialValue 10 → 16
+// string reduce   → "abc"
 
 // ----------------------------------------------------------
 
@@ -1148,6 +1163,10 @@ const sortNames = ["Zara", "Aman", "Priya", "Om", "Ravi"];
 
 // Your answer:
 
+const numAsc = [...sortNums].sort((a, b) => a - b);
+const numDes = [...sortNums].sort((a, b) => b - a);
+const nameAz = [...sortNames].sort();
+const nameZa = [...sortNames].sort((a, b) => b.localCompare(a));
 
 // ----------------------------------------------------------
 
@@ -1166,6 +1185,14 @@ const multiSort = [
 
 // Your answer:
 
+const sortedSort = [...multiSort].sort((a, b) => {
+    const cityDif = a.city.localCompare(b.city);
+    if (cityDif !== 0) {
+        return cityDif;
+    }
+    return b.marks - a.marks;
+})
+console.log(sortedSort.map((s) => ` ${s.city} | ${s.name} | ${s.marks}`));
 
 // ----------------------------------------------------------
 
@@ -1179,6 +1206,12 @@ const origArr = [1, 2, 3, 4, 5];
 
 // Your answer:
 
+const safeRev = [...origArr].reverse();
+console.log(safeRev);
+console.log(origArr);
+// reverse() mutates IN PLACE and RETURNS the same array reference.
+// const rev = origArr.reverse() → both origArr and rev point to the same object.
+// Changing rev changes origArr too. rev === origArr is true because they ARE the same.
 
 // ----------------------------------------------------------
 
