@@ -1225,6 +1225,17 @@ console.log(origArr);
 
 // Your answer:
 
+const splitResult = "Aman,Priya,Ravi,Zara".split(",");
+console.log(splitResult);
+const joinResult = ["Hello", "World", "JS"].join(" → ");
+console.log(joinResult);
+const underscore = "Hello World from JS".split(" ").join("_");
+console.log(underscore);
+const reversed = "JavaScript is amazing".split(" ").reverse().join(" ");
+console.log(reversed);
+const palindrome = "racecar";
+const isPalindrome = palindrome === palindrome.split("").reverse().join("");
+console.log(isPalindrome);
 
 // ----------------------------------------------------------
 
@@ -1238,9 +1249,9 @@ console.log(flatTest.flat(2));
 console.log(flatTest.flat(Infinity));
 
 // Your guess:
-// flat()          →
-// flat(2)         →
-// flat(Infinity)  →
+// flat()          → [1, 2, 3, 4, [5, 6], 7, [8, [9]]]
+// flat(2)         → [1, 2, 3, 4, 5, 6, 7, 8, [9]]
+// flat(Infinity)  → 1, 2, 3, 4, 5, 6, 7, 8, 9
 
 // ----------------------------------------------------------
 
@@ -1263,6 +1274,8 @@ const nested = [
 
 // Your answer:
 
+const unnested = nested.flat().filter((s) => s.marks >= 50).map((s) => s.name).sort().join(" | ");
+console.log(unnested);
 
 // ----------------------------------------------------------
 
@@ -1282,6 +1295,39 @@ const csvString = "Aman,85,Delhi|Priya,92,Mumbai|Ravi,43,Delhi|Zara,78,Jaipur|Om
 
 // Write your JS + DOM code here:
 
+let csvData = csvString.split("|").map((row) => {
+    const parts = row.split(",");
+    return {name: parts[0], marks: Number(parts[1]), city: parts[2]}
+});
+function rendercsvTable(data) {
+    document.getElementById("csv-table").innerHTML = `<table>
+    <thead>
+    <tr> <th> # </th> <th> name </th> <th> marks </th> <th> city </th> </tr>
+    </thead>
+    <tbody>
+    ${data.map((s, i) => `
+        <tr>
+        <td>
+        ${i + 1}
+        </td>
+        <td>
+        ${s.name}
+        </td>
+        <td>
+        ${s.marks}
+        </td>
+        <td>
+        ${s.city}
+        </td>
+        </tr>`).join(" ")}
+    </tbody>
+    </table>`
+}
+function sortcsvByMarks() {
+    const sorted = [...csvData].sort((a, b) => b.marks - a.marks);
+    rendercsvTable(sorted);
+}
+rendercsvTable("csv-table");
 
 // ----------------------------------------------------------
 
@@ -1297,7 +1343,16 @@ const csvString = "Aman,85,Delhi|Priya,92,Mumbai|Ravi,43,Delhi|Zara,78,Jaipur|Om
 
 // Your answer (use cityStudents from Q34):
 
-
+const groupedStudents = cityStudents.reduce((acc, s) => {
+    if (!acc[s.city]) {
+        acc[s.city] = [];
+    }
+    acc[s.city].push(s);
+    return acc;
+}, {});
+Object.keys(groupedstudents).forEach((city) => {
+    console.log(city + ": " + groupedstudents[city].length + " students");
+});
 
 
 // ============================================================
@@ -1314,6 +1369,11 @@ const csvString = "Aman,85,Delhi|Priya,92,Mumbai|Ravi,43,Delhi|Zara,78,Jaipur|Om
 
 // Write your JS + DOM code here:
 
+let counterVal = 0;
+function counter() {
+    const display = document.getElementById("counter-display");
+    
+}
 
 // ----------------------------------------------------------
 
