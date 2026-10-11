@@ -1372,8 +1372,28 @@ Object.keys(groupedstudents).forEach((city) => {
 let counterVal = 0;
 function counter() {
     const display = document.getElementById("counter-display");
-    
+    display.textContent = counterVal;
+    if (counterVal > 0) {
+        display.style.color = "#34d399";
+    } else if (counterVal < 0) {
+        display.style.color = "#f87171";
+    } else {
+        display.style.color = "#ffffff";
+    }
 }
+function increment() {
+    counterVal++;
+    counter();
+}
+function decrement() {
+    counterVal--;
+    counter();
+}
+function resetCount() {
+    counterVal = 0;
+    counter();
+}
+counter();
 
 // ----------------------------------------------------------
 
@@ -1389,6 +1409,58 @@ function counter() {
 
 // Write your JS + DOM code here:
 
+let tasks = [];
+let activeFilter = "all";
+function renderTasks() {
+    let visible = tasks;
+    if (activeFilter === "active") {
+        visible = tasks.filter((t) => !t.done);
+    }
+    if (activeFilter === "completed") {
+        visible = tasks.filter((t) => t.done);
+    }
+    document.getElementById("to-do-list").innerHTML = visible.map((t, i) => `
+    <li style = "display: flex; gap: 8px; align-items: center; margin-bottom: 6px;
+    text-decoration: ${t.done ? "#475569" : "#e2e8f0"}">
+    <span style = "flex: 1">
+    ${t.title};
+    </span>
+    <button onclick = "toggletask(${t.title})">
+    ${t.done ? "undo" : "complete"};
+    </button>
+    </li>
+    `).join("");
+    document.getElementById("todo-total").textContent     = tasks.length;
+    document.getElementById("todo-active").textContent    = tasks.filter((t) => !t.done).length;
+    document.getElementById("todo-completed").textContent = tasks.filter((t) => t.done).length;
+}
+function addToDo() {
+    const val = document.getElementById("todo-input").value.trim();
+    if (!val) return;
+    tasks.push({title: val, done: false});
+    document.getElementById("todo-input").value = "";
+    renderTasks();
+}
+function toggleTask(title) {
+    const idx = tasks.findIndex((t) => t.title === title);
+    if (idx !== -1) {
+        tasks[idx].done = !tasks[idx].done;
+    }
+    renderTasks();
+}
+function deleteTask(title) {
+    const idx = tasks.findIndex((t) => t.title === title);
+    if (idx !== -1) {
+        tasks.splice(idx, 1)
+    }
+    renderTasks();
+}
+function setFilter(f) {
+    activeFilter = f;
+    document.querySelectorAll(".todo-filter").forEach((b) => b.classList.remove("active"));
+    document.getElementById("filter - " + f).classList.add("active");
+    renderTasks();
+}
 
 // ----------------------------------------------------------
 
