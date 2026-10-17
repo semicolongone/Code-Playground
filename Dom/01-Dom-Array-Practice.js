@@ -1476,6 +1476,16 @@ function setFilter(f) {
 
 // Write your JS + DOM code here:
 
+const scores = [];
+
+function renderBars() {
+    if (scores.length === 0) {
+    document.getElementById("bar-container").innerHTML = scores.map((score) => `
+    <div style = "display: flex", flex-direction: ></div>
+    `)
+    }
+}
+
 
 // ----------------------------------------------------------
 
