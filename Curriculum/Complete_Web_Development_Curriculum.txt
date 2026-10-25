@@ -1,0 +1,402 @@
+COMPLETE WEB DEVELOPMENT CURRICULUM
+Beginner to Advanced | Full-Stack, DevOps, Cloud, Security and System Design
+
+Use this as a comprehensive topic checklist. Learn fundamentals, build projects early, and deepen advanced topics as needed.
+
+PHASE 1: COMPUTER SCIENCE AND DEVELOPMENT FUNDAMENTALS
+======================================================
+
+1. Computer and Operating System Fundamentals
+- How computers work: CPU, RAM, storage and GPU
+- Operating systems: Windows, Linux and macOS
+- Files, directories, paths and file permissions
+- Processes, threads and services
+- CPU usage, memory management and disk usage
+- Environment variables
+- Command-line interfaces and terminals
+- PowerShell and Bash fundamentals
+- Installing software and managing versions
+- Package managers and dependency management
+- Ports and running local applications
+- Basic troubleshooting and reading error messages
+
+2. Programming Fundamentals
+- Variables, constants and data types; operators and expressions
+- Conditional statements, loops and iteration
+- Functions, parameters, scope, closures and execution context
+- Arrays, objects, maps, sets and strings
+- Error handling, exceptions, modules and code organization
+- Recursion, debugging and computational thinking
+- Time and space complexity; Big O notation
+- Searching and sorting algorithms
+- Data structures: linked lists, stacks, queues, trees, graphs and hash tables
+- Object-oriented programming and functional programming
+- Clean code and code readability
+
+PHASE 2: WEB FUNDAMENTALS
+=========================
+
+3. How the Web Works
+- Internet versus the World Wide Web
+- Client-server architecture; browser and server responsibilities
+- Request-response lifecycle; frontend, backend and database roles
+- Static versus dynamic websites; websites versus web applications
+- Domains, IP addresses, ports and DNS resolution
+- HTTP and HTTPS; TCP/IP fundamentals; TLS
+- HTTP methods: GET, POST, PUT, PATCH and DELETE
+- HTTP status codes, request/response headers and JSON
+- Cookies, sessions and data serialization
+- REST APIs, CORS and same-origin policy
+- WebSockets and real-time communication
+- Browser rendering, the DOM and browser developer tools
+
+PHASE 3: FRONTEND DEVELOPMENT
+=============================
+
+4. HTML
+- Document structure, elements, headings, paragraphs, lists and links
+- Images, audio, video, tables and forms
+- Input types and form validation
+- Semantic HTML, metadata, accessibility attributes and ARIA
+- SEO-friendly markup, entities and character encoding
+
+5. CSS
+- Selectors, specificity, inheritance, cascade and box model
+- Display, positioning and stacking contexts
+- Flexbox, CSS Grid and responsive/mobile-first design
+- Media queries, units and sizing
+- Typography, web fonts, colors, gradients, shadows and borders
+- Transitions, transforms, animations, pseudo-classes and pseudo-elements
+- CSS variables, design tokens and reusable CSS architecture
+- CSS Modules, utility-first CSS and Tailwind CSS
+- Cross-browser compatibility, responsive images and reduced-motion preferences
+
+6. JavaScript
+- Syntax, data types, coercion, comparison and functions
+- Callbacks, arrow functions, objects, destructuring and spread syntax
+- Arrays and array methods; template literals
+- DOM selection, manipulation, events, event delegation and propagation
+- Form handling, browser APIs, local storage and session storage
+- JSON, ES modules, promises, async/await and Fetch API
+- Error handling, timers, event loop, call stack, task and microtask queues
+- Debouncing, throttling, regular expressions and memory basics
+- JavaScript debugging and browser security fundamentals
+
+7. TypeScript
+- Static typing, inference, primitive and complex types
+- Arrays, tuples, enums, interfaces and type aliases
+- Union/intersection types, narrowing, generics and utility types
+- Type guards, function/object typing and declarations
+- TypeScript configuration and typing API responses
+- TypeScript with React and Node.js
+
+8. React and Frontend Frameworks
+- Components, composition, JSX, rendering, props and state
+- Event handling, hooks, custom hooks and component lifecycle concepts
+- Controlled/uncontrolled forms, conditional rendering, lists and keys
+- Context API and state management (Redux Toolkit or Zustand)
+- Client-side routing, data fetching, caching and UI states
+- Form libraries, validation and component libraries
+- shadcn/ui, Tailwind CSS and React performance optimization
+- Code splitting, lazy loading, SSR and static generation concepts
+- Next.js fundamentals; client and server components
+- Frontend testing and accessibility
+
+9. UI/UX Design and Accessibility
+- User research, personas, user journeys and information architecture
+- Wireframes, prototypes, visual hierarchy, color and typography
+- Design systems, responsive design and mobile-first interfaces
+- Interaction design, feedback states, forms and error messages
+- WCAG principles, keyboard navigation, screen readers and contrast
+- Usability testing, Figma and developer handoff
+
+PHASE 4: BACKEND DEVELOPMENT
+============================
+
+10. Node.js
+- JavaScript runtime, V8 engine, Node.js architecture and event loop
+- Non-blocking I/O and asynchronous programming
+- npm, package.json, package-lock.json and dependency management
+- CommonJS and ES modules
+- Built-in modules: fs, path, http, os and process
+- Environment variables, file handling, streams and buffers
+- Events and EventEmitter; creating HTTP servers
+- Error handling, logging, child processes and worker threads
+- Dependency security
+
+11. Backend Frameworks and API Development
+- Express.js or another Node.js backend framework
+- Routing, route parameters, controllers, services and middleware
+- Request/response objects and REST API design
+- CRUD operations, validation, sanitization and centralized error handling
+- Authentication, authorization and pagination/filtering/sorting
+- File uploads, email and third-party API integration
+- API versioning, OpenAPI documentation and rate limiting
+- Background jobs, scheduled tasks, WebSockets and webhooks
+- Backend architecture and modular code organization
+
+12. Authentication and Authorization
+- Authentication versus authorization
+- Registration/login flows and password hashing
+- Sessions, cookies and token-based authentication
+- JWT and its limitations; OAuth 2.0 and OpenID Connect fundamentals
+- Multi-factor authentication, password reset and email verification
+- Role-based and attribute-based access control
+- Refresh token management, logout and session invalidation
+- Identity providers and access-control testing
+
+PHASE 5: DATABASES AND DATA MANAGEMENT
+======================================
+
+13. Relational Databases and SQL
+- Database fundamentals; tables, rows and columns
+- Primary/foreign keys and one-to-one, one-to-many, many-to-many relationships
+- ER diagrams, schema design and SQL data types
+- SELECT, INSERT, UPDATE, DELETE, WHERE, ORDER BY and GROUP BY
+- Joins, subqueries and aggregate functions
+- Constraints, normalization and denormalization
+- Indexes, query optimization, transactions and ACID
+- Isolation levels, locking, views and database functions
+- Migrations, backups, restoration, connection pooling and permissions
+
+14. PostgreSQL and ORM Tools
+- Installation, configuration, databases and users
+- PostgreSQL data types, indexes and query plans
+- Full-text search, JSON/JSONB, transactions and concurrency
+- Prisma or another ORM; models, relations and migrations
+- Seed data, query optimization and environment-specific databases
+
+15. NoSQL and Caching
+- SQL versus NoSQL; document databases and MongoDB
+- Key-value stores and Redis fundamentals
+- Document data modelling, indexes and query patterns
+- Caching strategies and cache invalidation
+- Session storage and rate-limit counters
+- When to use relational databases versus NoSQL
+
+PHASE 6: SOFTWARE ENGINEERING AND TEAMWORK
+==========================================
+
+16. Git and GitHub
+- Version control, repositories, commits and branches
+- Merge, rebase and conflict resolution
+- Pull requests, code reviews and branching strategies
+- Tags, releases, .gitignore and repository hygiene
+- Commit messages, documentation, Issues and project boards
+- Collaboration workflows, reverting changes and recovery
+
+17. Software Design and Architecture
+- Separation of concerns, modularity and abstraction
+- SOLID, DRY, KISS and YAGNI principles
+- Design patterns, layered architecture, three-tier architecture and MVC
+- Monoliths, modular monoliths and microservices
+- Domain-driven design fundamentals and dependency injection
+- Repository/service patterns, event-driven architecture and message queues
+- API gateways, service boundaries and contracts
+- Technical documentation and architecture decision records
+- Refactoring and maintainability
+
+18. Testing and Quality Assurance
+- Manual, unit, integration, end-to-end and component testing
+- API testing, test-driven development and test fixtures
+- Mocking, test coverage and regression testing
+- Accessibility, cross-browser, performance, load and stress testing
+- Security testing; Vitest/Jest, Playwright/Cypress and API testing tools
+- Automated test pipelines
+
+PHASE 7: CYBERSECURITY
+======================
+
+19. Web Application Security
+- Security principles and threat modelling; OWASP Top 10
+- SQL injection, XSS, CSRF, broken access control and SSRF
+- Insecure file uploads, path traversal and clickjacking
+- CORS, Content Security Policy and security headers
+- Input validation, output encoding and secure password storage
+- Secure cookies, sessions, TLS/HTTPS and secrets management
+- Dependency vulnerability scanning, rate limiting and abuse prevention
+- Safe logging, data privacy, retention and backup protection
+- Secure authentication/authorization and responsible security testing
+
+PHASE 8: DEVOPS AND DEPLOYMENT
+==============================
+
+20. Linux and Server Administration
+- Linux filesystem, shell commands and scripting
+- Users, groups, permissions, processes and services
+- Package management, SSH and key-based access
+- System logs, networking commands and firewall fundamentals
+- CPU, memory and disk monitoring; systemd and cron
+- Server updates, hardening and troubleshooting
+
+21. Web Hosting and Deployment
+- Development, staging and production environments
+- Static hosting versus server hosting; frontend/backend deployment
+- Database hosting, domain registration and DNS records
+- A/AAAA, CNAME and TXT records; HTTPS certificates
+- Reverse proxies, Nginx and process management
+- Environment configuration, secrets and production migrations
+- Object storage, CDNs, rollbacks, backups and disaster recovery
+- Deployment verification
+
+22. CI/CD and Automation
+- Continuous integration and continuous delivery/deployment
+- Build pipelines, automated tests and linting
+- GitHub Actions: triggers, jobs, secrets and permissions
+- Build artifacts, caching and deployment automation
+- Staging/production promotion, release management and rollbacks
+- Safe database migrations, pipeline monitoring
+
+23. Docker and Containers
+- Virtual machines versus containers; images and containers
+- Dockerfiles, build contexts, image layers and caching
+- Volumes, networks, port mapping and Docker Compose
+- Multi-stage builds, environment variables and container security
+- Health checks, container registries and local multi-service applications
+- Container deployment
+
+24. Cloud Computing and Infrastructure
+- Cloud fundamentals: IaaS, PaaS and SaaS
+- Compute, virtual machines, managed databases and storage
+- Cloud networking, virtual networks, subnets and security groups
+- Identity and access management, load balancers and autoscaling
+- Cloud monitoring, serverless functions and managed containers
+- Costs, shared responsibility, backups and disaster recovery
+- AWS, Azure or Google Cloud fundamentals
+
+25. Infrastructure as Code and Orchestration
+- Infrastructure as code and Terraform fundamentals
+- State, configuration, reusable modules and secret handling
+- Container registries and orchestration concepts
+- Kubernetes: architecture, pods, deployments and services
+- ConfigMaps, Secrets, ingress, health probes and scaling
+- Helm fundamentals; when orchestration is justified
+- Infrastructure cost and complexity management
+
+PHASE 9: PERFORMANCE, RELIABILITY AND OBSERVABILITY
+===================================================
+
+26. Web Performance Optimization
+- Browser rendering pipeline and critical rendering path
+- JavaScript bundle optimization, code splitting and lazy loading
+- Image formats, compression, responsive images and font optimization
+- Cache-Control, CDNs, database query optimization and indexing
+- Connection pooling, API latency and compression
+- Core Web Vitals: LCP, INP and CLS
+- Lighthouse, browser performance tools and load testing
+
+27. Monitoring and Reliability Engineering
+- Application logs, metrics, traces and distributed tracing
+- Error tracking, uptime monitoring, alerts and incident response
+- Health checks, SLIs/SLOs, availability and reliability
+- Retries, exponential backoff, timeouts and circuit breakers
+- Queue monitoring, backup verification and disaster recovery
+- Root-cause analysis, capacity planning and incident documentation
+- Reliability versus cost trade-offs
+
+PHASE 10: SEO, ANALYTICS AND PRODUCT ENGINEERING
+================================================
+
+28. SEO and Web Discoverability
+- Crawling, indexing, metadata and page titles
+- Semantic HTML, URL structure, canonical URLs and sitemaps
+- robots.txt, structured data and schema markup
+- Internal linking, alt text, redirects and broken links
+- Mobile usability, Core Web Vitals and rendering/indexability
+- Search Console, duplicate content and international SEO
+
+29. Analytics and Product Measurement
+- Analytics implementation, events and conversions
+- Funnels, user journeys, consent and privacy
+- Data quality and campaign attribution
+- A/B testing and experiment design
+- Product metrics, retention and engagement
+- Error/performance analytics and product improvement
+
+PHASE 11: ADVANCED SYSTEM DESIGN
+================================
+
+30. Scalability and Distributed Systems
+- Vertical/horizontal scaling and stateless/stateful services
+- Load balancing, caching layers and CDN architecture
+- Database replication, read replicas, partitioning and sharding
+- Message queues, event streaming and eventual consistency
+- Distributed transactions, idempotency and duplicate request handling
+- Distributed locks, service discovery, rate limiting and fault tolerance
+- Backpressure, high availability and CAP theorem fundamentals
+- Consistency models; monolith versus microservices trade-offs
+- System design interviews and architecture diagrams
+
+31. Advanced API and Integration Design
+- REST conventions, OpenAPI, API versioning and deprecation
+- Pagination strategies and idempotency keys
+- Webhooks and signature verification
+- OAuth integration, API gateways, GraphQL and gRPC fundamentals
+- WebSockets, server-sent events and message brokers
+- Retry/timeout strategies and external-service failure handling
+- API quotas, rate limiting and integration testing
+
+PHASE 12: AI, MACHINE LEARNING AND DATA
+=======================================
+
+32. Python and Data Fundamentals
+- Python syntax, data structures, functions, modules and packages
+- File handling, virtual environments and error handling
+- HTTP requests, API clients and data processing
+- NumPy and pandas basics; JSON and CSV processing
+- Python testing and integrating Python services with web applications
+
+33. AI and Machine Learning Integration
+- AI, machine learning and deep learning fundamentals
+- Training versus inference; supervised/unsupervised learning concepts
+- Model evaluation basics and hosted AI APIs
+- Prompt design, structured outputs and streaming responses
+- Embeddings, vector search, RAG and vector databases
+- Tool calling and workflow orchestration
+- Output validation, evaluation and hallucination handling
+- AI security, prompt injection, privacy and sensitive data
+- Cost, latency, rate limits, human review and fallback strategies
+- When to use AI versus conventional code
+
+34. Data Engineering and Background Processing
+- ETL/ELT, data pipelines and scheduled jobs
+- Background workers, queue-based processing and event-driven systems
+- Retries, dead-letter queues and data validation
+- Batch processing, idempotency and data consistency
+- Data retention, archiving, analytics pipelines and recovery
+
+PHASE 13: PROFESSIONAL PRACTICES AND PORTFOLIO
+==============================================
+
+35. Project Management and Engineering Workflow
+- Requirements gathering, task breakdown and estimation
+- Agile/Scrum fundamentals, prioritization and issue tracking
+- Technical specifications, code reviews and documentation
+- Pair programming, release planning and technical debt
+- Stakeholder communication, legacy systems and incident/change management
+
+36. Portfolio and Production Projects
+- Build a responsive website and a React application
+- Build a Node.js REST API and connect PostgreSQL
+- Implement authentication and authorization
+- Write automated tests and use Git/GitHub professionally
+- Configure CI/CD and containerize the application
+- Deploy to cloud or managed hosting; configure domains and HTTPS
+- Add monitoring, logging and error tracking
+- Conduct security, accessibility and performance audits
+- Document architecture and deployment
+- Demonstrate backup and recovery procedures
+
+FINAL LEARNING OBJECTIVES
+1. Design and build complete frontend and backend applications.
+2. Model data and work confidently with databases.
+3. Create and integrate secure APIs.
+4. Test, debug and maintain software.
+5. Deploy applications and automate releases.
+6. Understand Linux, networking, cloud infrastructure and DevOps.
+7. Monitor production applications and troubleshoot failures.
+8. Optimize performance, accessibility and search visibility.
+9. Design systems that can grow with user demand.
+10. Integrate AI capabilities responsibly.
+11. Collaborate using professional software engineering workflows.
+12. Make informed architectural decisions based on cost, security, reliability and complexity.

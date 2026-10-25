@@ -1,0 +1,2618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React Beginner Practice Worksheet</title>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #161b27;
+    --border: #2a2f45;
+    --accent: #61dafb;
+    --accent2: #f7df1e;
+    --accent3: #ff6b6b;
+    --accent4: #6bff9e;
+    --text: #e2e8f0;
+    --muted: #8892a4;
+    --tag-jsx: #61dafb22;
+    --tag-jsx-txt: #61dafb;
+    --tag-comp: #a78bfa22;
+    --tag-comp-txt: #a78bfa;
+    --tag-props: #fb923c22;
+    --tag-props-txt: #fb923c;
+    --tag-state: #34d39922;
+    --tag-state-txt: #34d399;
+    --tag-event: #f472b622;
+    --tag-event-txt: #f472b6;
+    --tag-list: #fbbf2422;
+    --tag-list-txt: #fbbf24;
+    --tag-form: #60a5fa22;
+    --tag-form-txt: #60a5fa;
+    --tag-effect: #e879f922;
+    --tag-effect-txt: #e879f9;
+    --tag-arch: #ff6b6b22;
+    --tag-arch-txt: #ff6b6b;
+    --tag-final: #f7df1e22;
+    --tag-final-txt: #f7df1e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; }
+  .page-header { background: linear-gradient(135deg, #0f1117 0%, #161b27 50%, #1a2035 100%); border-bottom: 1px solid var(--border); padding: 40px 24px 32px; text-align: center; }
+  .page-header .logo { font-size: 2.8rem; font-weight: 800; color: var(--accent); letter-spacing: -1px; }
+  .page-header .logo span { color: var(--text); }
+  .page-header p { color: var(--muted); margin-top: 8px; font-size: 1rem; }
+  .page-header .badges { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  .badge { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; color: var(--muted); }
+  .badge.highlight { border-color: var(--accent); color: var(--accent); }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 80px; }
+  .section-header { margin: 48px 0 20px; display: flex; align-items: center; gap: 12px; }
+  .section-header .sec-num { background: var(--accent); color: #000; font-weight: 800; font-size: 0.85rem; border-radius: 6px; padding: 2px 8px; }
+  .section-header h2 { font-size: 1.4rem; font-weight: 700; color: var(--text); }
+  .section-header .sec-count { color: var(--muted); font-size: 0.85rem; margin-left: auto; }
+  .section-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; padding-left: 4px; }
+  .q-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; overflow: hidden; transition: border-color 0.2s; }
+  .q-card:hover { border-color: #3a4060; }
+  .q-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .q-num { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 3px 9px; font-size: 0.75rem; font-weight: 700; color: var(--muted); min-width: 36px; text-align: center; }
+  .q-title { font-weight: 600; font-size: 0.95rem; flex: 1; }
+  .q-tag { font-size: 0.7rem; font-weight: 700; border-radius: 20px; padding: 2px 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tag-jsx    { background: var(--tag-jsx);    color: var(--tag-jsx-txt);    border: 1px solid var(--tag-jsx-txt); }
+  .tag-comp   { background: var(--tag-comp);   color: var(--tag-comp-txt);   border: 1px solid var(--tag-comp-txt); }
+  .tag-props  { background: var(--tag-props);  color: var(--tag-props-txt);  border: 1px solid var(--tag-props-txt); }
+  .tag-state  { background: var(--tag-state);  color: var(--tag-state-txt);  border: 1px solid var(--tag-state-txt); }
+  .tag-event  { background: var(--tag-event);  color: var(--tag-event-txt);  border: 1px solid var(--tag-event-txt); }
+  .tag-list   { background: var(--tag-list);   color: var(--tag-list-txt);   border: 1px solid var(--tag-list-txt); }
+  .tag-form   { background: var(--tag-form);   color: var(--tag-form-txt);   border: 1px solid var(--tag-form-txt); }
+  .tag-effect { background: var(--tag-effect); color: var(--tag-effect-txt); border: 1px solid var(--tag-effect-txt); }
+  .tag-arch   { background: var(--tag-arch);   color: var(--tag-arch-txt);   border: 1px solid var(--tag-arch-txt); }
+  .tag-final  { background: var(--tag-final);  color: var(--tag-final-txt);  border: 1px solid var(--tag-final-txt); }
+  .q-body { padding: 18px 20px; }
+  .q-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+  .q-desc strong { color: var(--text); }
+  pre { background: #0b0e17; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; font-size: 0.82rem; overflow-x: auto; margin-bottom: 14px; line-height: 1.7; }
+  code { font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace; }
+  .kw { color: #c792ea; } .fn { color: #82aaff; } .str { color: #c3e88d; }
+  .cm { color: #546e7a; font-style: italic; } .jsx { color: #f07178; }
+  .num { color: #f78c6c; } .op { color: #89ddff; }
+  .demo-area { background: #0b0e17; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 14px; min-height: 60px; }
+  .demo-area .placeholder { color: #3a4060; font-size: 0.8rem; text-align: center; padding: 8px 0; }
+  .hint-btn { background: none; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); cursor: pointer; font-size: 0.8rem; padding: 5px 12px; transition: all 0.2s; }
+  .hint-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .hint-box { display: none; background: #0b1a0e; border: 1px solid #1a4a22; border-radius: 8px; padding: 14px 16px; margin-top: 10px; }
+  .hint-box.show { display: block; }
+  .hint-box pre { background: transparent; border: none; padding: 0; margin: 0; }
+  .hint-label { font-size: 0.7rem; font-weight: 700; color: #4ade80; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .react-btn { background: var(--accent); color: #000; border: none; border-radius: 6px; padding: 7px 16px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: opacity 0.2s; }
+  .react-btn:hover { opacity: 0.85; }
+  .react-btn.secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+  .react-btn.danger { background: var(--accent3); color: #fff; }
+  .react-input { background: #0b0e17; border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.9rem; padding: 7px 12px; outline: none; transition: border-color 0.2s; width: 100%; }
+  .react-input:focus { border-color: var(--accent); }
+  .react-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin: 6px 0; }
+  .react-list { list-style: none; padding: 0; }
+  .react-list li { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text); font-size: 0.9rem; }
+  .react-list li:last-child { border-bottom: none; }
+  .react-tag { background: var(--accent); color: #000; border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; font-weight: 700; }
+  .react-stat { font-size: 2rem; font-weight: 800; color: var(--accent); }
+  .difficulty { font-size: 0.7rem; color: var(--muted); }
+  .difficulty .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 2px; }
+  .dot-easy { background: #4ade80; } .dot-med { background: #fbbf24; } .dot-hard { background: var(--accent3); }
+  .arch-diagram { background: #0b0e17; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 14px; font-family: monospace; font-size: 0.8rem; color: var(--muted); white-space: pre; overflow-x: auto; }
+  .arch-tier { border: 1px solid; border-radius: 6px; padding: 8px 14px; margin: 4px 0; }
+  .tier-presentation { border-color: var(--accent); color: var(--accent); }
+  .tier-business { border-color: #a78bfa; color: #a78bfa; }
+  .tier-data { border-color: #34d399; color: #34d399; }
+  .arch-arrow { text-align: center; color: var(--muted); font-size: 1rem; }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="logo">⚛<span>React</span></div>
+  <p>Beginner Practice Worksheet — Build real components in the browser</p>
+  <div class="badges">
+    <span class="badge highlight">React 18 via CDN</span>
+    <span class="badge">JSX + Babel</span>
+    <span class="badge">No Build Tool</span>
+    <span class="badge">useState · useEffect</span>
+    <span class="badge">Architecture Patterns</span>
+    <span class="badge">48 Questions</span>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================ -->
+<!-- SECTION 1 — JSX -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">01</span>
+  <h2>JSX Syntax</h2>
+  <span class="sec-count">Q1–Q5</span>
+</div>
+<p class="section-desc">JSX lets you write HTML-like code inside JavaScript. React converts it to real DOM elements. Babel handles the translation in the browser.</p>
+
+<!-- Q1 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q1</span>
+    <span class="q-title">Your First JSX Component</span>
+    <span class="q-tag tag-jsx">JSX</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a component called <strong>Greeting</strong> that renders an <code>&lt;h2&gt;</code> saying <em>"Hello, React World!"</em> and a <code>&lt;p&gt;</code> saying <em>"This is my first component."</em> Mount it into <code>#root-q1</code>.</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Greeting</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;h2&gt;</span>Hello, React World!<span class="jsx">&lt;/h2&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>This is my first component.<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+<span class="cm">// Mount: ReactDOM.createRoot(...).render(&lt;Greeting /&gt;)</span></code></pre>
+    <div class="demo-area"><div id="root-q1"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h1')">💡 Show Hint</button>
+    <div class="hint-box" id="h1">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Greeting</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;h2&gt;</span>Hello, React World!<span class="jsx">&lt;/h2&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>This is my first component.<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q1'</span>)).render(<span class="jsx">&lt;Greeting /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q2</span>
+    <span class="q-title">JSX Expressions</span>
+    <span class="q-tag tag-jsx">JSX</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>Profile</strong> component. Declare variables <code>name = "Aman"</code>, <code>age = 20</code>, <code>score = 92</code>. Use <strong>curly braces</strong> <code>{}</code> to display them in JSX. Show a grade: <code>score &gt;= 90 ? "A" : "B"</code> inline.</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Profile</span>() {
+  <span class="kw">const</span> name  = <span class="str">"Aman"</span>;
+  <span class="kw">const</span> age   = <span class="num">20</span>;
+  <span class="kw">const</span> score = <span class="num">92</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Name: {name}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Age: {age}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Grade: {score &gt;= <span class="num">90</span> ? <span class="str">"A"</span> : <span class="str">"B"</span>}<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}</code></pre>
+    <div class="demo-area"><div id="root-q2"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h2')">💡 Show Hint</button>
+    <div class="hint-box" id="h2">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Profile</span>() {
+  <span class="kw">const</span> name  = <span class="str">"Aman"</span>;
+  <span class="kw">const</span> age   = <span class="num">20</span>;
+  <span class="kw">const</span> score = <span class="num">92</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{fontFamily:<span class="str">"monospace"</span>, color:<span class="str">"#e2e8f0"</span>}}&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Name: {name}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Age: {age}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Score: {score} → Grade: {score &gt;= <span class="num">90</span> ? <span class="str">"A"</span> : <span class="str">"B"</span>}<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q2'</span>)).render(<span class="jsx">&lt;Profile /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q3</span>
+    <span class="q-title">className, self-closing, single root</span>
+    <span class="q-tag tag-jsx">JSX</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">JSX has three key rules different from HTML: use <strong>className</strong> instead of class, self-close empty tags <code>&lt;img /&gt;</code> <code>&lt;input /&gt;</code>, and wrap everything in <strong>one root element</strong>. Create a <strong>Card</strong> component that uses all three correctly.</p>
+    <pre><code><span class="cm">// ✗ Wrong JSX</span>
+<span class="kw">return</span> (
+  <span class="jsx">&lt;div class="card"&gt;</span>   <span class="cm">// class → className</span>
+    <span class="jsx">&lt;img src="x.png"&gt;</span> <span class="cm">// must self-close: &lt;img /&gt;</span>
+  <span class="jsx">&lt;/div&gt;</span>
+  <span class="jsx">&lt;p&gt;</span>Oops — two roots!<span class="jsx">&lt;/p&gt;</span>
+);
+<span class="cm">// ✓ Correct JSX</span>
+<span class="kw">return</span> (
+  <span class="jsx">&lt;div className=<span class="str">"card"</span>&gt;</span>
+    <span class="jsx">&lt;img src=<span class="str">"x.png"</span> alt=<span class="str">"demo"</span> /&gt;</span>
+    <span class="jsx">&lt;input type=<span class="str">"text"</span> /&gt;</span>
+  <span class="jsx">&lt;/div&gt;</span>
+);</code></pre>
+    <div class="demo-area"><div id="root-q3"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h3')">💡 Show Hint</button>
+    <div class="hint-box" id="h3">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Card</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div className=<span class="str">"react-card"</span>&gt;</span>
+      <span class="jsx">&lt;h3 style={{color:<span class="str">"#61dafb"</span>}}&gt;</span>JSX Rules Demo<span class="jsx">&lt;/h3&gt;</span>
+      <span class="jsx">&lt;hr style={{borderColor:<span class="str">"#2a2f45"</span>}} /&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> placeholder=<span class="str">"type here..."</span> /&gt;</span>
+      <span class="jsx">&lt;p style={{marginTop:<span class="str">"8px"</span>, color:<span class="str">"#8892a4"</span>}}&gt;</span>One root, className, self-closing tags ✓<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q3'</span>)).render(<span class="jsx">&lt;Card /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q4</span>
+    <span class="q-title">Inline Styles in JSX</span>
+    <span class="q-tag tag-jsx">JSX</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">In JSX, <code>style</code> takes a <strong>JavaScript object</strong> with camelCase properties. Create a <strong>StyledBox</strong> component with a colored background, padding, border-radius, and colored text — all using inline styles.</p>
+    <pre><code><span class="cm">// HTML style:  style="background-color: blue; font-size: 20px"</span>
+<span class="cm">// JSX style:   style={{backgroundColor:"blue", fontSize:"20px"}}</span>
+<span class="cm">//              ↑ outer {} = JS expression</span>
+<span class="cm">//              ↑ inner {} = object literal</span>
+<span class="cm">//              ↑ camelCase property names</span></code></pre>
+    <div class="demo-area"><div id="root-q4"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h4')">💡 Show Hint</button>
+    <div class="hint-box" id="h4">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">StyledBox</span>() {
+  <span class="kw">const</span> boxStyle = {
+    background: <span class="str">"linear-gradient(135deg, #1a2035, #2a1a35)"</span>,
+    border: <span class="str">"1px solid #61dafb"</span>,
+    borderRadius: <span class="str">"10px"</span>,
+    padding: <span class="str">"16px 20px"</span>,
+    color: <span class="str">"#61dafb"</span>,
+    fontWeight: <span class="str">"700"</span>,
+    fontSize: <span class="str">"1rem"</span>,
+  };
+  <span class="kw">return</span> <span class="jsx">&lt;div style={boxStyle}&gt;</span>Styled with JSX inline styles! ✨<span class="jsx">&lt;/div&gt;</span>;
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q4'</span>)).render(<span class="jsx">&lt;StyledBox /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q5</span>
+    <span class="q-title">React Fragment</span>
+    <span class="q-tag tag-jsx">JSX</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Sometimes you need to return multiple elements without adding an extra <code>&lt;div&gt;</code> to the DOM. Use <strong>React Fragment</strong> — the short syntax is <code>&lt;&gt;...&lt;/&gt;</code>. Create a <strong>Meta</strong> component that returns a <code>&lt;h3&gt;</code> and a <code>&lt;p&gt;</code> wrapped in a Fragment.</p>
+    <pre><code><span class="cm">// Without Fragment — extra div in DOM</span>
+<span class="kw">return</span> (<span class="jsx">&lt;div&gt;&lt;h3&gt;</span>Title<span class="jsx">&lt;/h3&gt;&lt;p&gt;</span>Body<span class="jsx">&lt;/p&gt;&lt;/div&gt;</span>);
+
+<span class="cm">// With Fragment — no extra div</span>
+<span class="kw">return</span> (
+  <span class="jsx">&lt;&gt;</span>
+    <span class="jsx">&lt;h3&gt;</span>Title<span class="jsx">&lt;/h3&gt;</span>
+    <span class="jsx">&lt;p&gt;</span>Body<span class="jsx">&lt;/p&gt;</span>
+  <span class="jsx">&lt;/&gt;</span>
+);</code></pre>
+    <div class="demo-area"><div id="root-q5"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h5')">💡 Show Hint</button>
+    <div class="hint-box" id="h5">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Meta</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;&gt;</span>
+      <span class="jsx">&lt;h3 style={{color:<span class="str">"#a78bfa"</span>}}&gt;</span>Fragment Demo<span class="jsx">&lt;/h3&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>, fontSize:<span class="str">"0.9rem"</span>}}&gt;</span>
+        No wrapper div added to the DOM.
+        Inspect element to verify!
+      <span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q5'</span>)).render(<span class="jsx">&lt;Meta /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 — COMPONENTS -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">02</span>
+  <h2>Components</h2>
+  <span class="sec-count">Q6–Q10</span>
+</div>
+<p class="section-desc">Components are reusable UI building blocks — functions that return JSX. You compose an app by nesting components inside each other.</p>
+
+<!-- Q6 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q6</span>
+    <span class="q-title">Reusable Component</span>
+    <span class="q-tag tag-comp">Component</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>Badge</strong> component that renders a small colored chip with the text <em>"React Dev"</em>. Then use it <strong>three times</strong> inside an <strong>App</strong> component — that's what makes it reusable.</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Badge</span>() { ... }
+
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;Badge /&gt;</span>
+      <span class="jsx">&lt;Badge /&gt;</span>
+      <span class="jsx">&lt;Badge /&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}</code></pre>
+    <div class="demo-area"><div id="root-q6"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h6')">💡 Show Hint</button>
+    <div class="hint-box" id="h6">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Badge</span>() {
+  <span class="kw">return</span> <span class="jsx">&lt;span className=<span class="str">"react-tag"</span> style={{marginRight:<span class="str">"6px"</span>}}&gt;</span>React Dev<span class="jsx">&lt;/span&gt;</span>;
+}
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{padding:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>, marginBottom:<span class="str">"8px"</span>}}&gt;</span>Same component, used 3 times:<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;Badge /&gt;</span><span class="jsx">&lt;Badge /&gt;</span><span class="jsx">&lt;Badge /&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q6'</span>)).render(<span class="jsx">&lt;App /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q7 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q7</span>
+    <span class="q-title">Nested Components</span>
+    <span class="q-tag tag-comp">Component</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>UserCard</strong> composed of two smaller components: <strong>Avatar</strong> (shows initials "AM" in a circle) and <strong>UserInfo</strong> (shows name + role). Then render <strong>UserCard</strong> in App.</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Avatar</span>() { <span class="cm">/* circle with "AM" */</span> }
+<span class="kw">function</span> <span class="fn">UserInfo</span>() { <span class="cm">/* name + role */</span> }
+<span class="kw">function</span> <span class="fn">UserCard</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;Avatar /&gt;</span>
+      <span class="jsx">&lt;UserInfo /&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}</code></pre>
+    <div class="demo-area"><div id="root-q7"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h7')">💡 Show Hint</button>
+    <div class="hint-box" id="h7">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Avatar</span>() {
+  <span class="kw">return</span> <span class="jsx">&lt;div style={{width:<span class="str">"44px"</span>,height:<span class="str">"44px"</span>,borderRadius:<span class="str">"50%"</span>,background:<span class="str">"#61dafb22"</span>,border:<span class="str">"2px solid #61dafb"</span>,color:<span class="str">"#61dafb"</span>,display:<span class="str">"flex"</span>,alignItems:<span class="str">"center"</span>,justifyContent:<span class="str">"center"</span>,fontWeight:<span class="str">"700"</span>}}&gt;</span>AM<span class="jsx">&lt;/div&gt;</span>;
+}
+<span class="kw">function</span> <span class="fn">UserInfo</span>() {
+  <span class="kw">return</span> (<span class="jsx">&lt;div&gt;&lt;p style={{color:<span class="str">"#e2e8f0"</span>,fontWeight:<span class="str">"600"</span>}}&gt;</span>Aman<span class="jsx">&lt;/p&gt;&lt;p style={{color:<span class="str">"#8892a4"</span>,fontSize:<span class="str">"0.8rem"</span>}}&gt;</span>React Dev<span class="jsx">&lt;/p&gt;&lt;/div&gt;</span>);
+}
+<span class="kw">function</span> <span class="fn">UserCard</span>() {
+  <span class="kw">return</span> <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"12px"</span>,alignItems:<span class="str">"center"</span>,padding:<span class="str">"8px"</span>}}&gt;&lt;Avatar /&gt;&lt;UserInfo /&gt;&lt;/div&gt;</span>;
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q7'</span>)).render(<span class="jsx">&lt;UserCard /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q8 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q8</span>
+    <span class="q-title">List Rendering with .map()</span>
+    <span class="q-tag tag-comp">Component</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Render an array of strings as a list. Each item must have a unique <strong>key</strong> prop — React uses this to track items efficiently. Create a <strong>FruitList</strong> component that maps over <code>["Mango","Apple","Banana"]</code>.</p>
+    <pre><code><span class="kw">const</span> fruits = [<span class="str">"Mango"</span>, <span class="str">"Apple"</span>, <span class="str">"Banana"</span>];
+
+<span class="kw">function</span> <span class="fn">FruitList</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;ul&gt;</span>
+      {fruits.<span class="fn">map</span>((fruit) =&gt; (
+        <span class="jsx">&lt;li key={fruit}&gt;</span>{fruit}<span class="jsx">&lt;/li&gt;</span>
+      ))}
+    <span class="jsx">&lt;/ul&gt;</span>
+  );
+}</code></pre>
+    <div class="demo-area"><div id="root-q8"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h8')">💡 Show Hint</button>
+    <div class="hint-box" id="h8">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> fruits = [<span class="str">"Mango"</span>, <span class="str">"Apple"</span>, <span class="str">"Banana"</span>];
+<span class="kw">function</span> <span class="fn">FruitList</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;ul className=<span class="str">"react-list"</span>&gt;</span>
+      {fruits.<span class="fn">map</span>((fruit) =&gt; (
+        <span class="jsx">&lt;li key={fruit}&gt;</span>🍎 {fruit}<span class="jsx">&lt;/li&gt;</span>
+      ))}
+    <span class="jsx">&lt;/ul&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q8'</span>)).render(<span class="jsx">&lt;FruitList /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q9 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q9</span>
+    <span class="q-title">Conditional Rendering</span>
+    <span class="q-tag tag-comp">Component</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>Status</strong> component. If <code>isOnline = true</code>, show a green <em>"🟢 Online"</em>. Otherwise show <em>"🔴 Offline"</em>. Use a <strong>ternary operator</strong> inside JSX. Also show the count only if it's greater than 0 using <code>&&</code>.</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Status</span>() {
+  <span class="kw">const</span> isOnline = <span class="kw">true</span>;
+  <span class="kw">const</span> count    = <span class="num">3</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      {isOnline ? <span class="jsx">&lt;span&gt;</span>🟢 Online<span class="jsx">&lt;/span&gt;</span> : <span class="jsx">&lt;span&gt;</span>🔴 Offline<span class="jsx">&lt;/span&gt;</span>}
+      {count &gt; <span class="num">0</span> && <span class="jsx">&lt;span&gt;</span> ({count} messages)<span class="jsx">&lt;/span&gt;</span>}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}</code></pre>
+    <div class="demo-area"><div id="root-q9"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h9')">💡 Show Hint</button>
+    <div class="hint-box" id="h9">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Status</span>() {
+  <span class="kw">const</span> isOnline = <span class="kw">true</span>;
+  <span class="kw">const</span> count    = <span class="num">3</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{padding:<span class="str">"8px"</span>,color:<span class="str">"#e2e8f0"</span>}}&gt;</span>
+      {isOnline
+        ? <span class="jsx">&lt;span style={{color:<span class="str">"#4ade80"</span>}}&gt;</span>🟢 Online<span class="jsx">&lt;/span&gt;</span>
+        : <span class="jsx">&lt;span style={{color:<span class="str">"#ff6b6b"</span>}}&gt;</span>🔴 Offline<span class="jsx">&lt;/span&gt;</span>
+      }
+      {count &gt; <span class="num">0</span> && <span class="jsx">&lt;span style={{color:<span class="str">"#8892a4"</span>,marginLeft:<span class="str">"8px"</span>}}&gt;</span>({count} messages)<span class="jsx">&lt;/span&gt;</span>}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q9'</span>)).render(<span class="jsx">&lt;Status /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q10 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q10</span>
+    <span class="q-title">Rendering from Object Data</span>
+    <span class="q-tag tag-comp">Component</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>StudentCard</strong> component. Define a student object <code>{ name, course, grade }</code> and render its values in a styled card. Real apps always pull object data from APIs — this is how you display it.</p>
+    <div class="demo-area"><div id="root-q10"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h10')">💡 Show Hint</button>
+    <div class="hint-box" id="h10">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">StudentCard</span>() {
+  <span class="kw">const</span> student = { name: <span class="str">"Priya Sharma"</span>, course: <span class="str">"React"</span>, grade: <span class="str">"A+"</span> };
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div className=<span class="str">"react-card"</span>&gt;</span>
+      <span class="jsx">&lt;h3 style={{color:<span class="str">"#61dafb"</span>}}&gt;</span>{student.name}<span class="jsx">&lt;/h3&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>Course: {student.course}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Grade: <span class="jsx">&lt;span className=<span class="str">"react-tag"</span>&gt;</span>{student.grade}<span class="jsx">&lt;/span&gt;&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q10'</span>)).render(<span class="jsx">&lt;StudentCard /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 — PROPS -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">03</span>
+  <h2>Props</h2>
+  <span class="sec-count">Q11–Q15</span>
+</div>
+<p class="section-desc">Props (properties) are how you pass data INTO a component from its parent. They make components configurable and truly reusable — same component, different data.</p>
+
+<!-- Q11 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q11</span>
+    <span class="q-title">Basic Props</span>
+    <span class="q-tag tag-props">Props</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>Greet</strong> component that accepts a <code>name</code> prop. Render it three times with different names: <em>"Aman"</em>, <em>"Priya"</em>, <em>"Ravi"</em>.</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Greet</span>(props) {
+  <span class="kw">return</span> <span class="jsx">&lt;p&gt;</span>Hello, {props.name}!<span class="jsx">&lt;/p&gt;</span>;
+}
+<span class="cm">// Or destructure: function Greet({ name }) { ... }</span>
+<span class="jsx">&lt;Greet name=<span class="str">"Aman"</span> /&gt;</span>
+<span class="jsx">&lt;Greet name=<span class="str">"Priya"</span> /&gt;</span>
+<span class="jsx">&lt;Greet name=<span class="str">"Ravi"</span> /&gt;</span></code></pre>
+    <div class="demo-area"><div id="root-q11"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h11')">💡 Show Hint</button>
+    <div class="hint-box" id="h11">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Greet</span>({ name }) {
+  <span class="kw">return</span> <span class="jsx">&lt;p style={{color:<span class="str">"#e2e8f0"</span>,padding:<span class="str">"4px 0"</span>}}&gt;</span>👋 Hello, <span class="jsx">&lt;strong style={{color:<span class="str">"#61dafb"</span>}}&gt;</span>{name}<span class="jsx">&lt;/strong&gt;</span>!<span class="jsx">&lt;/p&gt;</span>;
+}
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (<span class="jsx">&lt;div&gt;&lt;Greet name=<span class="str">"Aman"</span> /&gt;&lt;Greet name=<span class="str">"Priya"</span> /&gt;&lt;Greet name=<span class="str">"Ravi"</span> /&gt;&lt;/div&gt;</span>);
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q11'</span>)).render(<span class="jsx">&lt;App /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q12 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q12</span>
+    <span class="q-title">Multiple Props</span>
+    <span class="q-tag tag-props">Props</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>ProductCard</strong> component that accepts <code>name</code>, <code>price</code>, and <code>inStock</code> props. Display the name, price with "₹" prefix, and show <em>"In Stock"</em> or <em>"Out of Stock"</em> based on the boolean.</p>
+    <div class="demo-area"><div id="root-q12"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h12')">💡 Show Hint</button>
+    <div class="hint-box" id="h12">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">ProductCard</span>({ name, price, inStock }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div className=<span class="str">"react-card"</span>&gt;</span>
+      <span class="jsx">&lt;h3 style={{color:<span class="str">"#e2e8f0"</span>}}&gt;</span>{name}<span class="jsx">&lt;/h3&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#61dafb"</span>,fontWeight:<span class="str">"700"</span>}}&gt;</span>₹{price}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p style={{color: inStock ? <span class="str">"#4ade80"</span> : <span class="str">"#ff6b6b"</span>}}&gt;</span>
+        {inStock ? <span class="str">"✅ In Stock"</span> : <span class="str">"❌ Out of Stock"</span>}
+      <span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"10px"</span>,flexWrap:<span class="str">"wrap"</span>}}&gt;</span>
+      <span class="jsx">&lt;ProductCard name=<span class="str">"Laptop"</span> price={<span class="num">45000</span>} inStock={<span class="kw">true</span>} /&gt;</span>
+      <span class="jsx">&lt;ProductCard name=<span class="str">"Phone"</span>  price={<span class="num">12000</span>} inStock={<span class="kw">false</span>} /&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q12'</span>)).render(<span class="jsx">&lt;App /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q13 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q13</span>
+    <span class="q-title">Props from Array (.map)</span>
+    <span class="q-tag tag-props">Props</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Define an array of student objects. Use <code>.map()</code> to render a <strong>StudentRow</strong> component for each, passing <code>name</code> and <code>marks</code> as props. Use <code>student.id</code> as the key.</p>
+    <pre><code><span class="kw">const</span> students = [
+  { id: <span class="num">1</span>, name: <span class="str">"Aman"</span>,  marks: <span class="num">85</span> },
+  { id: <span class="num">2</span>, name: <span class="str">"Priya"</span>, marks: <span class="num">92</span> },
+];
+students.<span class="fn">map</span>((s) =&gt; <span class="jsx">&lt;StudentRow key={s.id} name={s.name} marks={s.marks} /&gt;</span>);</code></pre>
+    <div class="demo-area"><div id="root-q13"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h13')">💡 Show Hint</button>
+    <div class="hint-box" id="h13">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> students = [
+  { id:<span class="num">1</span>, name:<span class="str">"Aman"</span>,  marks:<span class="num">85</span> },
+  { id:<span class="num">2</span>, name:<span class="str">"Priya"</span>, marks:<span class="num">92</span> },
+  { id:<span class="num">3</span>, name:<span class="str">"Ravi"</span>,  marks:<span class="num">78</span> },
+];
+<span class="kw">function</span> <span class="fn">StudentRow</span>({ name, marks }) {
+  <span class="kw">const</span> grade = marks &gt;= <span class="num">90</span> ? <span class="str">"A"</span> : marks &gt;= <span class="num">80</span> ? <span class="str">"B"</span> : <span class="str">"C"</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,justifyContent:<span class="str">"space-between"</span>,padding:<span class="str">"8px 12px"</span>,borderBottom:<span class="str">"1px solid #2a2f45"</span>,color:<span class="str">"#e2e8f0"</span>}}&gt;</span>
+      <span class="jsx">&lt;span&gt;</span>{name}<span class="jsx">&lt;/span&gt;</span>
+      <span class="jsx">&lt;span&gt;</span>{marks} marks <span class="jsx">&lt;span className=<span class="str">"react-tag"</span>&gt;</span>{grade}<span class="jsx">&lt;/span&gt;&lt;/span&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> <span class="jsx">&lt;div&gt;</span>{students.<span class="fn">map</span>((s) =&gt; <span class="jsx">&lt;StudentRow key={s.id} name={s.name} marks={s.marks} /&gt;</span>)}<span class="jsx">&lt;/div&gt;</span>;
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q13'</span>)).render(<span class="jsx">&lt;App /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q14 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q14</span>
+    <span class="q-title">Default Prop Values</span>
+    <span class="q-tag tag-props">Props</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>Button</strong> component with a <code>label</code> prop and a <code>color</code> prop that defaults to <em>"#61dafb"</em>. Render it once with a custom color and once without (uses default).</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Button</span>({ label, color = <span class="str">"#61dafb"</span> }) {
+  <span class="kw">return</span> <span class="jsx">&lt;button style={{background: color}}&gt;</span>{label}<span class="jsx">&lt;/button&gt;</span>;
+}</code></pre>
+    <div class="demo-area"><div id="root-q14"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h14')">💡 Show Hint</button>
+    <div class="hint-box" id="h14">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Button</span>({ label, color = <span class="str">"#61dafb"</span> }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;button style={{background:color,color:<span class="str">"#000"</span>,border:<span class="str">"none"</span>,borderRadius:<span class="str">"6px"</span>,padding:<span class="str">"8px 18px"</span>,fontWeight:<span class="str">"700"</span>,cursor:<span class="str">"pointer"</span>,margin:<span class="str">"4px"</span>}}&gt;</span>
+      {label}
+    <span class="jsx">&lt;/button&gt;</span>
+  );
+}
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;Button label=<span class="str">"Custom Color"</span> color=<span class="str">"#f472b6"</span> /&gt;</span>
+      <span class="jsx">&lt;Button label=<span class="str">"Default Color"</span> /&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q14'</span>)).render(<span class="jsx">&lt;App /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q15 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q15</span>
+    <span class="q-title">children Prop</span>
+    <span class="q-tag tag-props">Props</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">The special <code>children</code> prop lets you nest JSX inside a component, like a container. Create a <strong>Panel</strong> component that wraps its children with a styled border and title.</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Panel</span>({ title, children }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;h4&gt;</span>{title}<span class="jsx">&lt;/h4&gt;</span>
+      {children}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+<span class="jsx">&lt;Panel title=<span class="str">"My Panel"</span>&gt;</span>
+  <span class="jsx">&lt;p&gt;</span>This is nested inside Panel!<span class="jsx">&lt;/p&gt;</span>
+<span class="jsx">&lt;/Panel&gt;</span></code></pre>
+    <div class="demo-area"><div id="root-q15"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h15')">💡 Show Hint</button>
+    <div class="hint-box" id="h15">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">function</span> <span class="fn">Panel</span>({ title, children }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{border:<span class="str">"1px solid #a78bfa"</span>,borderRadius:<span class="str">"8px"</span>,padding:<span class="str">"12px 16px"</span>}}&gt;</span>
+      <span class="jsx">&lt;h4 style={{color:<span class="str">"#a78bfa"</span>,marginBottom:<span class="str">"8px"</span>}}&gt;</span>{title}<span class="jsx">&lt;/h4&gt;</span>
+      {children}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;Panel title=<span class="str">"Student Info"</span>&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#e2e8f0"</span>}}&gt;</span>Name: Aman<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>This content is passed as children<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/Panel&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q15'</span>)).render(<span class="jsx">&lt;App /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 4 — useState -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">04</span>
+  <h2>useState Hook</h2>
+  <span class="sec-count">Q16–Q22</span>
+</div>
+<p class="section-desc">useState lets a component remember values between re-renders. When state changes, React re-renders the component automatically — no manual DOM manipulation needed.</p>
+
+<!-- Q16 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q16</span>
+    <span class="q-title">Counter</span>
+    <span class="q-tag tag-state">useState</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>Counter</strong> component. Use <code>useState(0)</code> to store the count. Add three buttons: <strong>+1</strong>, <strong>-1</strong>, and <strong>Reset</strong>.</p>
+    <pre><code><span class="kw">const</span> { useState } = React;
+
+<span class="kw">function</span> <span class="fn">Counter</span>() {
+  <span class="kw">const</span> [count, setCount] = <span class="fn">useState</span>(<span class="num">0</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>{count}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;button onClick={() =&gt; setCount(count + 1)}&gt;</span>+1<span class="jsx">&lt;/button&gt;</span>
+      <span class="jsx">&lt;button onClick={() =&gt; setCount(count - 1)}&gt;</span>-1<span class="jsx">&lt;/button&gt;</span>
+      <span class="jsx">&lt;button onClick={() =&gt; setCount(0)}&gt;</span>Reset<span class="jsx">&lt;/button&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}</code></pre>
+    <div class="demo-area"><div id="root-q16"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h16')">💡 Show Hint</button>
+    <div class="hint-box" id="h16">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">Counter</span>() {
+  <span class="kw">const</span> [count, setCount] = <span class="fn">useState</span>(<span class="num">0</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{textAlign:<span class="str">"center"</span>}}&gt;</span>
+      <span class="jsx">&lt;p className=<span class="str">"react-stat"</span>&gt;</span>{count}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"8px"</span>,justifyContent:<span class="str">"center"</span>,marginTop:<span class="str">"8px"</span>}}&gt;</span>
+        <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;</span>+1<span class="jsx">&lt;/button&gt;</span>
+        <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> onClick={() =&gt; setCount(c =&gt; c - 1)}&gt;</span>-1<span class="jsx">&lt;/button&gt;</span>
+        <span class="jsx">&lt;button className=<span class="str">"react-btn secondary"</span> onClick={() =&gt; setCount(0)}&gt;</span>Reset<span class="jsx">&lt;/button&gt;</span>
+      <span class="jsx">&lt;/div&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q16'</span>)).render(<span class="jsx">&lt;Counter /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q17 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q17</span>
+    <span class="q-title">String State — Toggle Theme</span>
+    <span class="q-tag tag-state">useState</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">State can be any type — not just numbers. Create a <strong>ThemeToggle</strong> component that stores <code>"dark"</code> or <code>"light"</code> as state. Clicking a button toggles between them and changes the background color.</p>
+    <div class="demo-area"><div id="root-q17"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h17')">💡 Show Hint</button>
+    <div class="hint-box" id="h17">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">ThemeToggle</span>() {
+  <span class="kw">const</span> [theme, setTheme] = <span class="fn">useState</span>(<span class="str">"dark"</span>);
+  <span class="kw">const</span> isDark = theme === <span class="str">"dark"</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{background:isDark?<span class="str">"#0f1117"</span>:<span class="str">"#f0f4f8"</span>,color:isDark?<span class="str">"#e2e8f0"</span>:<span class="str">"#1a202c"</span>,padding:<span class="str">"16px"</span>,borderRadius:<span class="str">"8px"</span>,transition:<span class="str">"all 0.3s"</span>}}&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Current theme: <strong>{theme}</strong><span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> style={{marginTop:<span class="str">"8px"</span>}} onClick={() =&gt; setTheme(isDark ? <span class="str">"light"</span> : <span class="str">"dark"</span>)}&gt;</span>
+        {isDark ? <span class="str">"☀️ Switch to Light"</span> : <span class="str">"🌙 Switch to Dark"</span>}
+      <span class="jsx">&lt;/button&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q17'</span>)).render(<span class="jsx">&lt;ThemeToggle /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q18 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q18</span>
+    <span class="q-title">Boolean State — Show/Hide</span>
+    <span class="q-tag tag-state">useState</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>Spoiler</strong> component. Store <code>isVisible = false</code>. Show a "Reveal Answer" button. When clicked, toggle visibility to show a hidden message.</p>
+    <div class="demo-area"><div id="root-q18"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h18')">💡 Show Hint</button>
+    <div class="hint-box" id="h18">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">Spoiler</span>() {
+  <span class="kw">const</span> [isVisible, setIsVisible] = <span class="fn">useState</span>(<span class="kw">false</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> onClick={() =&gt; setIsVisible(!isVisible)}&gt;</span>
+        {isVisible ? <span class="str">"🙈 Hide"</span> : <span class="str">"👁️ Reveal Answer"</span>}
+      <span class="jsx">&lt;/button&gt;</span>
+      {isVisible && (
+        <span class="jsx">&lt;p style={{marginTop:<span class="str">"10px"</span>,color:<span class="str">"#4ade80"</span>,fontWeight:<span class="str">"600"</span>}}&gt;</span>
+          🎉 The answer is 42! React is awesome!
+        <span class="jsx">&lt;/p&gt;</span>
+      )}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q18'</span>)).render(<span class="jsx">&lt;Spoiler /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q19 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q19</span>
+    <span class="q-title">Array State — Add Items</span>
+    <span class="q-tag tag-state">useState</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>WishList</strong>. Store an array of items in state. Have a text input + "Add" button. When clicked, add the input value to the array using spread: <code>[...items, newItem]</code>. Never mutate state directly!</p>
+    <pre><code><span class="kw">const</span> [items, setItems] = <span class="fn">useState</span>([]);
+<span class="cm">// ✗ Wrong: items.push(newItem)  ← mutates state directly!</span>
+<span class="cm">// ✓ Correct: setItems([...items, newItem])  ← spread creates new array</span></code></pre>
+    <div class="demo-area"><div id="root-q19"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h19')">💡 Show Hint</button>
+    <div class="hint-box" id="h19">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">WishList</span>() {
+  <span class="kw">const</span> [items, setItems] = <span class="fn">useState</span>([<span class="str">"React"</span>]);
+  <span class="kw">const</span> [input, setInput] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> addItem = () =&gt; {
+    <span class="kw">if</span> (!input.trim()) <span class="kw">return</span>;
+    setItems([...items, input.trim()]);
+    setInput(<span class="str">""</span>);
+  };
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"8px"</span>,marginBottom:<span class="str">"10px"</span>}}&gt;</span>
+        <span class="jsx">&lt;input className=<span class="str">"react-input"</span> value={input} onChange={(e) =&gt; setInput(e.target.value)} placeholder=<span class="str">"Add item..."</span> /&gt;</span>
+        <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> onClick={addItem}&gt;</span>Add<span class="jsx">&lt;/button&gt;</span>
+      <span class="jsx">&lt;/div&gt;</span>
+      <span class="jsx">&lt;ul className=<span class="str">"react-list"</span>&gt;</span>
+        {items.<span class="fn">map</span>((item, i) =&gt; <span class="jsx">&lt;li key={i}&gt;</span>• {item}<span class="jsx">&lt;/li&gt;</span>)}
+      <span class="jsx">&lt;/ul&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q19'</span>)).render(<span class="jsx">&lt;WishList /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q20 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q20</span>
+    <span class="q-title">Object State</span>
+    <span class="q-tag tag-state">useState</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Store an object <code>{ name, city }</code> in state. Render two inputs to edit them. Use spread to update only one field at a time: <code>setUser({...user, name: newVal})</code>.</p>
+    <pre><code><span class="kw">const</span> [user, setUser] = <span class="fn">useState</span>({ name: <span class="str">"Aman"</span>, city: <span class="str">"Delhi"</span> });
+<span class="cm">// Update one field — spread keeps the other fields:</span>
+setUser({ ...user, name: <span class="str">"Priya"</span> });</code></pre>
+    <div class="demo-area"><div id="root-q20"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h20')">💡 Show Hint</button>
+    <div class="hint-box" id="h20">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">UserForm</span>() {
+  <span class="kw">const</span> [user, setUser] = <span class="fn">useState</span>({ name: <span class="str">"Aman"</span>, city: <span class="str">"Delhi"</span> });
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> value={user.name}
+        onChange={(e) =&gt; setUser({...user, name: e.target.value})}
+        placeholder=<span class="str">"Name"</span> /&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> value={user.city}
+        onChange={(e) =&gt; setUser({...user, city: e.target.value})}
+        placeholder=<span class="str">"City"</span> /&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#61dafb"</span>}}&gt;</span>Live: {user.name} from {user.city}<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q20'</span>)).render(<span class="jsx">&lt;UserForm /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q21 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q21</span>
+    <span class="q-title">Traffic Light</span>
+    <span class="q-tag tag-state">useState</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>TrafficLight</strong> component. Three state values: <em>"red"</em>, <em>"yellow"</em>, <em>"green"</em>. Show the current state as a glowing circle and a "Next" button that cycles through them.</p>
+    <div class="demo-area"><div id="root-q21"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h21')">💡 Show Hint</button>
+    <div class="hint-box" id="h21">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">TrafficLight</span>() {
+  <span class="kw">const</span> lights = [<span class="str">"red"</span>, <span class="str">"yellow"</span>, <span class="str">"green"</span>];
+  <span class="kw">const</span> messages = { red: <span class="str">"Stop"</span>, yellow: <span class="str">"Slow Down"</span>, green: <span class="str">"Go!"</span> };
+  <span class="kw">const</span> colors   = { red: <span class="str">"#ff6b6b"</span>, yellow: <span class="str">"#fbbf24"</span>, green: <span class="str">"#4ade80"</span> };
+  <span class="kw">const</span> [idx, setIdx] = <span class="fn">useState</span>(<span class="num">0</span>);
+  <span class="kw">const</span> current = lights[idx];
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{textAlign:<span class="str">"center"</span>}}&gt;</span>
+      <span class="jsx">&lt;div style={{width:<span class="str">"60px"</span>,height:<span class="str">"60px"</span>,borderRadius:<span class="str">"50%"</span>,background:colors[current],margin:<span class="str">"0 auto 12px"</span>,boxShadow:<span class="str">`0 0 20px `</span>+colors[current]}}&gt;&lt;/div&gt;</span>
+      <span class="jsx">&lt;p style={{color:colors[current],fontWeight:<span class="str">"700"</span>,marginBottom:<span class="str">"10px"</span>}}&gt;</span>{messages[current]}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> onClick={() =&gt; setIdx((idx + 1) % 3)}&gt;</span>Next<span class="jsx">&lt;/button&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q21'</span>)).render(<span class="jsx">&lt;TrafficLight /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q22 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q22</span>
+    <span class="q-title">Delete from Array State</span>
+    <span class="q-tag tag-state">useState</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>TaskList</strong> with 3 default tasks. Each task has a ❌ button. Clicking it removes that task using <code>.filter()</code>: <code>setTasks(tasks.filter((_, i) =&gt; i !== index))</code>.</p>
+    <div class="demo-area"><div id="root-q22"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h22')">💡 Show Hint</button>
+    <div class="hint-box" id="h22">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">TaskList</span>() {
+  <span class="kw">const</span> [tasks, setTasks] = <span class="fn">useState</span>([<span class="str">"Buy groceries"</span>, <span class="str">"Study React"</span>, <span class="str">"Exercise"</span>]);
+  <span class="kw">const</span> remove = (i) =&gt; setTasks(tasks.filter((_, idx) =&gt; idx !== i));
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;ul className=<span class="str">"react-list"</span>&gt;</span>
+      {tasks.length === <span class="num">0</span> && <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>,padding:<span class="str">"8px"</span>}}&gt;</span>All done! 🎉<span class="jsx">&lt;/p&gt;</span>}
+      {tasks.<span class="fn">map</span>((task, i) =&gt; (
+        <span class="jsx">&lt;li key={i} style={{display:<span class="str">"flex"</span>,justifyContent:<span class="str">"space-between"</span>,alignItems:<span class="str">"center"</span>}}&gt;</span>
+          <span class="jsx">&lt;span&gt;</span>{task}<span class="jsx">&lt;/span&gt;</span>
+          <span class="jsx">&lt;button className=<span class="str">"react-btn danger"</span> style={{padding:<span class="str">"2px 8px"</span>,fontSize:<span class="str">"0.75rem"</span>}} onClick={() =&gt; remove(i)}&gt;</span>❌<span class="jsx">&lt;/button&gt;</span>
+        <span class="jsx">&lt;/li&gt;</span>
+      ))}
+    <span class="jsx">&lt;/ul&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q22'</span>)).render(<span class="jsx">&lt;TaskList /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5 — EVENTS -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">05</span>
+  <h2>Event Handling</h2>
+  <span class="sec-count">Q23–Q27</span>
+</div>
+<p class="section-desc">React handles events with camelCase attributes. The value is a function, not a string — always pass a function reference or an arrow function, never call it directly.</p>
+
+<!-- Q23 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q23</span>
+    <span class="q-title">onClick — Like Button</span>
+    <span class="q-tag tag-event">Event</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>LikeButton</strong>. Track a <code>likes</code> count. Each click increments it. Show the heart emoji filled <em>❤️</em> if liked (count > 0) else outline <em>🤍</em>.</p>
+    <pre><code><span class="cm">// ✗ Wrong — calls it immediately, runs on render:</span>
+<span class="jsx">&lt;button onClick={increment()}&gt;</span>
+
+<span class="cm">// ✓ Correct — passes the function to be called on click:</span>
+<span class="jsx">&lt;button onClick={increment}&gt;</span>
+<span class="jsx">&lt;button onClick={() =&gt; increment()}&gt;</span></code></pre>
+    <div class="demo-area"><div id="root-q23"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h23')">💡 Show Hint</button>
+    <div class="hint-box" id="h23">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">LikeButton</span>() {
+  <span class="kw">const</span> [likes, setLikes] = <span class="fn">useState</span>(<span class="num">0</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{textAlign:<span class="str">"center"</span>}}&gt;</span>
+      <span class="jsx">&lt;button onClick={() =&gt; setLikes(l =&gt; l + 1)} style={{fontSize:<span class="str">"2rem"</span>,background:<span class="str">"none"</span>,border:<span class="str">"none"</span>,cursor:<span class="str">"pointer"</span>}}&gt;</span>
+        {likes &gt; <span class="num">0</span> ? <span class="str">"❤️"</span> : <span class="str">"🤍"</span>}
+      <span class="jsx">&lt;/button&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#ff6b6b"</span>,fontWeight:<span class="str">"700"</span>}}&gt;</span>{likes} likes<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q23'</span>)).render(<span class="jsx">&lt;LikeButton /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q24 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q24</span>
+    <span class="q-title">onChange — Controlled Input</span>
+    <span class="q-tag tag-event">Event</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">A <strong>controlled input</strong> is one where React state drives the input's value. Create a <strong>NameInput</strong>: type in the box and the text mirrors below in real time. The pattern is always: <code>value={state}</code> + <code>onChange={e =&gt; setState(e.target.value)}</code>.</p>
+    <div class="demo-area"><div id="root-q24"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h24')">💡 Show Hint</button>
+    <div class="hint-box" id="h24">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">NameInput</span>() {
+  <span class="kw">const</span> [name, setName] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> value={name}
+        onChange={(e) =&gt; setName(e.target.value)}
+        placeholder=<span class="str">"Type your name..."</span> /&gt;</span>
+      {name && <span class="jsx">&lt;p style={{color:<span class="str">"#61dafb"</span>}}&gt;</span>Hello, <strong>{name}</strong>! 👋<span class="jsx">&lt;/p&gt;</span>}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q24'</span>)).render(<span class="jsx">&lt;NameInput /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q25 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q25</span>
+    <span class="q-title">onMouseEnter / onMouseLeave — Hover</span>
+    <span class="q-tag tag-event">Event</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>HoverCard</strong>. Track <code>isHovered</code> state. On <code>onMouseEnter</code> set it true, on <code>onMouseLeave</code> set it false. Change the card's border and message based on hover state.</p>
+    <div class="demo-area"><div id="root-q25"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h25')">💡 Show Hint</button>
+    <div class="hint-box" id="h25">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">HoverCard</span>() {
+  <span class="kw">const</span> [hovered, setHovered] = <span class="fn">useState</span>(<span class="kw">false</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div
+      onMouseEnter={() =&gt; setHovered(true)}
+      onMouseLeave={() =&gt; setHovered(false)}
+      style={{border:<span class="str">`1px solid `</span>+(hovered?<span class="str">"#61dafb"</span>:<span class="str">"#2a2f45"</span>),borderRadius:<span class="str">"8px"</span>,padding:<span class="str">"16px"</span>,background:hovered?<span class="str">"#61dafb11"</span>:<span class="str">"transparent"</span>,transition:<span class="str">"all 0.2s"</span>,cursor:<span class="str">"pointer"</span>}}&gt;</span>
+      {hovered ? <span class="str">"✨ You're hovering!"</span> : <span class="str">"Hover over me"</span>}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q25'</span>)).render(<span class="jsx">&lt;HoverCard /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q26 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q26</span>
+    <span class="q-title">Event Handler as Prop</span>
+    <span class="q-tag tag-event">Event</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Child components communicate UP to parents by calling a <strong>function passed as a prop</strong>. Create a <strong>Child</strong> button that receives an <code>onAction</code> prop and calls it. The <strong>Parent</strong> owns the state and passes the handler down.</p>
+    <pre><code><span class="kw">function</span> <span class="fn">Child</span>({ onAction }) {
+  <span class="kw">return</span> <span class="jsx">&lt;button onClick={onAction}&gt;</span>Click Me<span class="jsx">&lt;/button&gt;</span>;
+}
+<span class="kw">function</span> <span class="fn">Parent</span>() {
+  <span class="kw">const</span> [msg, setMsg] = <span class="fn">useState</span>(<span class="str">"Waiting..."</span>);
+  <span class="kw">return</span> <span class="jsx">&lt;div&gt;&lt;Child onAction={() =&gt; setMsg("Child clicked!")} /&gt;&lt;p&gt;</span>{msg}<span class="jsx">&lt;/p&gt;&lt;/div&gt;</span>;
+}</code></pre>
+    <div class="demo-area"><div id="root-q26"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h26')">💡 Show Hint</button>
+    <div class="hint-box" id="h26">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">Child</span>({ onAction }) {
+  <span class="kw">return</span> <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> onClick={onAction}&gt;</span>Click Me (Child)<span class="jsx">&lt;/button&gt;</span>;
+}
+<span class="kw">function</span> <span class="fn">Parent</span>() {
+  <span class="kw">const</span> [msg, setMsg] = <span class="fn">useState</span>(<span class="str">"Waiting for child..."</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"10px"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>Parent owns state: <strong style={{color:<span class="str">"#61dafb"</span>}}>{msg}</strong><span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;Child onAction={() =&gt; setMsg("Child sent a message! 🎉")} /&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q26'</span>)).render(<span class="jsx">&lt;Parent /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q27 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q27</span>
+    <span class="q-title">onKeyDown — Enter to Add</span>
+    <span class="q-tag tag-event">Event</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Make a <strong>QuickNote</strong> input that adds a note when the user presses <strong>Enter</strong>. Use <code>onKeyDown={(e) =&gt; e.key === "Enter" && addNote()}</code>.</p>
+    <div class="demo-area"><div id="root-q27"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h27')">💡 Show Hint</button>
+    <div class="hint-box" id="h27">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">QuickNote</span>() {
+  <span class="kw">const</span> [notes, setNotes] = <span class="fn">useState</span>([]);
+  <span class="kw">const</span> [text, setText] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> add = () =&gt; {
+    <span class="kw">if</span> (!text.trim()) <span class="kw">return</span>;
+    setNotes([...notes, text.trim()]);
+    setText(<span class="str">""</span>);
+  };
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> value={text}
+        onChange={(e) =&gt; setText(e.target.value)}
+        onKeyDown={(e) =&gt; e.key === <span class="str">"Enter"</span> && add()}
+        placeholder=<span class="str">"Type note + press Enter..."</span> /&gt;</span>
+      <span class="jsx">&lt;ul className=<span class="str">"react-list"</span> style={{marginTop:<span class="str">"8px"</span>}}&gt;</span>
+        {notes.<span class="fn">map</span>((n, i) =&gt; <span class="jsx">&lt;li key={i}&gt;</span>📝 {n}<span class="jsx">&lt;/li&gt;</span>)}
+      <span class="jsx">&lt;/ul&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q27'</span>)).render(<span class="jsx">&lt;QuickNote /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6 — LISTS & CONDITIONAL -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">06</span>
+  <h2>Lists &amp; Conditional Rendering</h2>
+  <span class="sec-count">Q28–Q32</span>
+</div>
+<p class="section-desc">Real apps filter, search, and toggle visibility dynamically. These questions combine .map(), .filter(), and state to build interactive list UIs.</p>
+
+<!-- Q28 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q28</span>
+    <span class="q-title">Filter Tabs</span>
+    <span class="q-tag tag-list">List</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>TaskFilter</strong>. Store tasks with a <code>done</code> boolean. Add three tabs: <em>All / Active / Done</em>. Filter the list based on the active tab using <code>.filter()</code>.</p>
+    <div class="demo-area"><div id="root-q28"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h28')">💡 Show Hint</button>
+    <div class="hint-box" id="h28">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">TaskFilter</span>() {
+  <span class="kw">const</span> [tab, setTab] = <span class="fn">useState</span>(<span class="str">"all"</span>);
+  <span class="kw">const</span> [tasks] = <span class="fn">useState</span>([
+    {id:<span class="num">1</span>,text:<span class="str">"Learn JSX"</span>,done:<span class="kw">true</span>},{id:<span class="num">2</span>,text:<span class="str">"Learn useState"</span>,done:<span class="kw">true</span>},
+    {id:<span class="num">3</span>,text:<span class="str">"Learn useEffect"</span>,done:<span class="kw">false</span>},{id:<span class="num">4</span>,text:<span class="str">"Build project"</span>,done:<span class="kw">false</span>},
+  ]);
+  <span class="kw">const</span> visible = tasks.filter(t =&gt;
+    tab === <span class="str">"all"</span> ? <span class="kw">true</span> : tab === <span class="str">"done"</span> ? t.done : !t.done
+  );
+  <span class="kw">const</span> tabs = [<span class="str">"all"</span>,<span class="str">"active"</span>,<span class="str">"done"</span>];
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"6px"</span>,marginBottom:<span class="str">"10px"</span>}}&gt;</span>
+        {tabs.<span class="fn">map</span>(t =&gt; (
+          <span class="jsx">&lt;button key={t} className={<span class="str">"react-btn "</span>+(tab===t?<span class="str">""</span>:<span class="str">"secondary"</span>)}
+            onClick={() =&gt; setTab(t)}&gt;</span>{t}<span class="jsx">&lt;/button&gt;</span>
+        ))}
+      <span class="jsx">&lt;/div&gt;</span>
+      <span class="jsx">&lt;ul className=<span class="str">"react-list"</span>&gt;</span>
+        {visible.<span class="fn">map</span>(t =&gt; <span class="jsx">&lt;li key={t.id}&gt;</span>{t.done?<span class="str">"✅"</span>:<span class="str">"⬜"</span>} {t.text}<span class="jsx">&lt;/li&gt;</span>)}
+      <span class="jsx">&lt;/ul&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q28'</span>)).render(<span class="jsx">&lt;TaskFilter /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q29 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q29</span>
+    <span class="q-title">Empty State</span>
+    <span class="q-tag tag-list">List</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>Inbox</strong> component. Start with 3 messages. Each message has a "Delete All" button. When the list is empty, show a friendly empty state message instead of a blank area.</p>
+    <div class="demo-area"><div id="root-q29"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h29')">💡 Show Hint</button>
+    <div class="hint-box" id="h29">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">Inbox</span>() {
+  <span class="kw">const</span> [msgs, setMsgs] = <span class="fn">useState</span>([<span class="str">"Hello from Priya"</span>,<span class="str">"Meeting at 5pm"</span>,<span class="str">"Code review done"</span>]);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,justifyContent:<span class="str">"space-between"</span>,marginBottom:<span class="str">"8px"</span>}}&gt;</span>
+        <span class="jsx">&lt;h4 style={{color:<span class="str">"#e2e8f0"</span>}}&gt;</span>Inbox ({msgs.length})<span class="jsx">&lt;/h4&gt;</span>
+        {msgs.length &gt; <span class="num">0</span> && <span class="jsx">&lt;button className=<span class="str">"react-btn danger"</span> onClick={() =&gt; setMsgs([])}&gt;</span>Clear All<span class="jsx">&lt;/button&gt;</span>}
+      <span class="jsx">&lt;/div&gt;</span>
+      {msgs.length === <span class="num">0</span>
+        ? <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>,textAlign:<span class="str">"center"</span>,padding:<span class="str">"16px"</span>}}&gt;</span>📭 No messages. Enjoy the silence!<span class="jsx">&lt;/p&gt;</span>
+        : <span class="jsx">&lt;ul className=<span class="str">"react-list"</span>&gt;</span>{msgs.<span class="fn">map</span>((m,i) =&gt; <span class="jsx">&lt;li key={i}&gt;</span>✉️ {m}<span class="jsx">&lt;/li&gt;</span>)}<span class="jsx">&lt;/ul&gt;</span>
+      }
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q29'</span>)).render(<span class="jsx">&lt;Inbox /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q30 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q30</span>
+    <span class="q-title">Toggle Done on Click</span>
+    <span class="q-tag tag-list">List</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>CheckList</strong>. Each item has a <code>done</code> flag. Clicking an item toggles its done state using <code>.map()</code> to create a new array with only that item changed.</p>
+    <pre><code><span class="kw">const</span> toggle = (id) =&gt;
+  setItems(items.<span class="fn">map</span>(item =&gt;
+    item.id === id ? { ...item, done: !item.done } : item
+  ));</code></pre>
+    <div class="demo-area"><div id="root-q30"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h30')">💡 Show Hint</button>
+    <div class="hint-box" id="h30">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">CheckList</span>() {
+  <span class="kw">const</span> [items, setItems] = <span class="fn">useState</span>([
+    {id:<span class="num">1</span>,text:<span class="str">"Learn JSX"</span>,done:<span class="kw">false</span>},{id:<span class="num">2</span>,text:<span class="str">"Build counter"</span>,done:<span class="kw">false</span>},
+    {id:<span class="num">3</span>,text:<span class="str">"Use props"</span>,done:<span class="kw">false</span>},
+  ]);
+  <span class="kw">const</span> toggle = (id) =&gt; setItems(items.<span class="fn">map</span>(it =&gt; it.id===id?{...it,done:!it.done}:it));
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;ul className=<span class="str">"react-list"</span>&gt;</span>
+      {items.<span class="fn">map</span>(it =&gt; (
+        <span class="jsx">&lt;li key={it.id} onClick={() =&gt; toggle(it.id)} style={{cursor:<span class="str">"pointer"</span>,textDecoration:it.done?<span class="str">"line-through"</span>:<span class="str">"none"</span>,color:it.done?<span class="str">"#4ade80"</span>:<span class="str">"#e2e8f0"</span>}}&gt;</span>
+          {it.done?<span class="str">"✅"</span>:<span class="str">"⬜"</span>} {it.text}
+        <span class="jsx">&lt;/li&gt;</span>
+      ))}
+    <span class="jsx">&lt;/ul&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q30'</span>)).render(<span class="jsx">&lt;CheckList /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q31 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q31</span>
+    <span class="q-title">Live Search</span>
+    <span class="q-tag tag-list">List</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>SearchList</strong> with a list of 5 countries. As the user types in the search box, filter the list in real time using <code>.filter()</code> and <code>.toLowerCase().includes()</code>.</p>
+    <div class="demo-area"><div id="root-q31"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h31')">💡 Show Hint</button>
+    <div class="hint-box" id="h31">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">const</span> countries = [<span class="str">"India"</span>,<span class="str">"Japan"</span>,<span class="str">"Indonesia"</span>,<span class="str">"Italy"</span>,<span class="str">"Ireland"</span>,<span class="str">"Brazil"</span>,<span class="str">"France"</span>];
+<span class="kw">function</span> <span class="fn">SearchList</span>() {
+  <span class="kw">const</span> [query, setQuery] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> filtered = countries.filter(c =&gt; c.toLowerCase().includes(query.toLowerCase()));
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> value={query} onChange={e =&gt; setQuery(e.target.value)} placeholder=<span class="str">"🔍 Search country..."</span> style={{marginBottom:<span class="str">"8px"</span>}} /&gt;</span>
+      <span class="jsx">&lt;ul className=<span class="str">"react-list"</span>&gt;</span>
+        {filtered.length === <span class="num">0</span>
+          ? <span class="jsx">&lt;li style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>No results<span class="jsx">&lt;/li&gt;</span>
+          : filtered.<span class="fn">map</span>(c =&gt; <span class="jsx">&lt;li key={c}&gt;</span>🌍 {c}<span class="jsx">&lt;/li&gt;</span>)
+        }
+      <span class="jsx">&lt;/ul&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q31'</span>)).render(<span class="jsx">&lt;SearchList /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q32 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q32</span>
+    <span class="q-title">Tab Switcher</span>
+    <span class="q-tag tag-list">List</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>TabSwitcher</strong> with 3 tabs — <em>Home / About / Contact</em>. Track the <code>activeTab</code> in state. Render different content for each tab using conditional rendering.</p>
+    <div class="demo-area"><div id="root-q32"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h32')">💡 Show Hint</button>
+    <div class="hint-box" id="h32">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">const</span> content = {
+  home:    <span class="jsx">&lt;p style={{color:<span class="str">"#61dafb"</span>}}&gt;</span>🏠 Welcome home!<span class="jsx">&lt;/p&gt;</span>,
+  about:   <span class="jsx">&lt;p style={{color:<span class="str">"#a78bfa"</span>}}&gt;</span>👋 About: A React beginner<span class="jsx">&lt;/p&gt;</span>,
+  contact: <span class="jsx">&lt;p style={{color:<span class="str">"#4ade80"</span>}}&gt;</span>📧 contact@reactlearner.com<span class="jsx">&lt;/p&gt;</span>,
+};
+<span class="kw">function</span> <span class="fn">TabSwitcher</span>() {
+  <span class="kw">const</span> [active, setActive] = <span class="fn">useState</span>(<span class="str">"home"</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"6px"</span>,marginBottom:<span class="str">"12px"</span>}}&gt;</span>
+        {Object.keys(content).<span class="fn">map</span>(tab =&gt; (
+          <span class="jsx">&lt;button key={tab} className={<span class="str">"react-btn "</span>+(active===tab?<span class="str">""</span>:<span class="str">"secondary"</span>)} onClick={() =&gt; setActive(tab)}&gt;</span>
+            {tab.charAt(<span class="num">0</span>).toUpperCase()+tab.slice(<span class="num">1</span>)}
+          <span class="jsx">&lt;/button&gt;</span>
+        ))}
+      <span class="jsx">&lt;/div&gt;</span>
+      {content[active]}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q32'</span>)).render(<span class="jsx">&lt;TabSwitcher /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 7 — FORMS -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">07</span>
+  <h2>Forms</h2>
+  <span class="sec-count">Q33–Q37</span>
+</div>
+<p class="section-desc">Forms in React are fully controlled — React state owns every input's value. This lets you validate, transform, and submit data with full JavaScript control.</p>
+
+<!-- Q33 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q33</span>
+    <span class="q-title">Login Form with Validation</span>
+    <span class="q-tag tag-form">Form</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>LoginForm</strong>. Track <code>email</code> and <code>password</code> state. On submit, call <code>e.preventDefault()</code> and validate: email must contain "@" and password must be ≥6 chars. Show an error message if invalid.</p>
+    <pre><code><span class="kw">const</span> handleSubmit = (e) =&gt; {
+  e.preventDefault(); <span class="cm">// stops page reload</span>
+  <span class="kw">if</span> (!email.includes(<span class="str">"@"</span>)) { setError(<span class="str">"Invalid email"</span>); <span class="kw">return</span>; }
+  <span class="cm">// process form...</span>
+};</code></pre>
+    <div class="demo-area"><div id="root-q33"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h33')">💡 Show Hint</button>
+    <div class="hint-box" id="h33">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">LoginForm</span>() {
+  <span class="kw">const</span> [email, setEmail] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> [pass,  setPass]  = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> [error, setError] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> [ok,    setOk]    = <span class="fn">useState</span>(<span class="kw">false</span>);
+  <span class="kw">const</span> submit = (e) =&gt; {
+    e.preventDefault();
+    <span class="kw">if</span> (!email.includes(<span class="str">"@"</span>)) { setError(<span class="str">"❌ Invalid email"</span>); <span class="kw">return</span>; }
+    <span class="kw">if</span> (pass.length &lt; <span class="num">6</span>)        { setError(<span class="str">"❌ Password too short"</span>); <span class="kw">return</span>; }
+    setError(<span class="str">""</span>); setOk(<span class="kw">true</span>);
+  };
+  <span class="kw">if</span> (ok) <span class="kw">return</span> <span class="jsx">&lt;p style={{color:<span class="str">"#4ade80"</span>}}&gt;</span>✅ Logged in as {email}!<span class="jsx">&lt;/p&gt;</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;form onSubmit={submit} style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> type=<span class="str">"email"</span> value={email} onChange={e=&gt;setEmail(e.target.value)} placeholder=<span class="str">"Email"</span> /&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> type=<span class="str">"password"</span> value={pass} onChange={e=&gt;setPass(e.target.value)} placeholder=<span class="str">"Password (min 6)"</span> /&gt;</span>
+      {error && <span class="jsx">&lt;p style={{color:<span class="str">"#ff6b6b"</span>}}&gt;</span>{error}<span class="jsx">&lt;/p&gt;</span>}
+      <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> type=<span class="str">"submit"</span>&gt;</span>Login<span class="jsx">&lt;/button&gt;</span>
+    <span class="jsx">&lt;/form&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q33'</span>)).render(<span class="jsx">&lt;LoginForm /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q34 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q34</span>
+    <span class="q-title">Select Dropdown</span>
+    <span class="q-tag tag-form">Form</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>CourseSelector</strong> with a <code>&lt;select&gt;</code> dropdown. Options: HTML, CSS, JavaScript, React. Track the selected value in state. Show a message like <em>"You chose React — excellent choice!"</em></p>
+    <div class="demo-area"><div id="root-q34"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h34')">💡 Show Hint</button>
+    <div class="hint-box" id="h34">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">CourseSelector</span>() {
+  <span class="kw">const</span> [course, setCourse] = <span class="fn">useState</span>(<span class="str">"HTML"</span>);
+  <span class="kw">const</span> courses = [<span class="str">"HTML"</span>,<span class="str">"CSS"</span>,<span class="str">"JavaScript"</span>,<span class="str">"React"</span>];
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"10px"</span>}}&gt;</span>
+      <span class="jsx">&lt;select className=<span class="str">"react-input"</span> value={course} onChange={e =&gt; setCourse(e.target.value)}&gt;</span>
+        {courses.<span class="fn">map</span>(c =&gt; <span class="jsx">&lt;option key={c} value={c}&gt;</span>{c}<span class="jsx">&lt;/option&gt;</span>)}
+      <span class="jsx">&lt;/select&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#61dafb"</span>}}&gt;</span>You chose <strong>{course}</strong> {course===<span class="str">"React"</span>?<span class="str">"— excellent choice! ⚛️"</span>:<span class="str">"— keep learning! 📚"</span>}<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q34'</span>)).render(<span class="jsx">&lt;CourseSelector /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q35 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q35</span>
+    <span class="q-title">Range Slider</span>
+    <span class="q-tag tag-form">Form</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>GradeSlider</strong>. A range input from 0–100 controls a score. Show the score live and derive the grade (A/B/C/F) from it. Note: <code>e.target.value</code> is a string — convert with <code>Number()</code>.</p>
+    <div class="demo-area"><div id="root-q35"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h35')">💡 Show Hint</button>
+    <div class="hint-box" id="h35">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">GradeSlider</span>() {
+  <span class="kw">const</span> [score, setScore] = <span class="fn">useState</span>(<span class="num">75</span>);
+  <span class="kw">const</span> grade = score &gt;= <span class="num">90</span> ? <span class="str">"A"</span> : score &gt;= <span class="num">75</span> ? <span class="str">"B"</span> : score &gt;= <span class="num">50</span> ? <span class="str">"C"</span> : <span class="str">"F"</span>;
+  <span class="kw">const</span> color = score &gt;= <span class="num">75</span> ? <span class="str">"#4ade80"</span> : score &gt;= <span class="num">50</span> ? <span class="str">"#fbbf24"</span> : <span class="str">"#ff6b6b"</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;input type=<span class="str">"range"</span> min=<span class="str">"0"</span> max=<span class="str">"100"</span> value={score}
+        onChange={e =&gt; setScore(Number(e.target.value))}
+        style={{width:<span class="str">"100%"</span>,marginBottom:<span class="str">"10px"</span>}} /&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Score: <span class="jsx">&lt;span style={{color,fontWeight:<span class="str">"700"</span>,fontSize:<span class="str">"1.2rem"</span>}}&gt;</span>{score}<span class="jsx">&lt;/span&gt;</span>  Grade: <span class="jsx">&lt;span className=<span class="str">"react-tag"</span>&gt;</span>{grade}<span class="jsx">&lt;/span&gt;&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q35'</span>)).render(<span class="jsx">&lt;GradeSlider /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q36 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q36</span>
+    <span class="q-title">Checkbox Multi-Select</span>
+    <span class="q-tag tag-form">Form</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>SkillPicker</strong>. Render 4 checkboxes for skills. Track selected skills as an array in state. Toggle a skill in/out using <code>.includes()</code> + <code>.filter()</code> + spread.</p>
+    <div class="demo-area"><div id="root-q36"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h36')">💡 Show Hint</button>
+    <div class="hint-box" id="h36">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">SkillPicker</span>() {
+  <span class="kw">const</span> all = [<span class="str">"HTML"</span>,<span class="str">"CSS"</span>,<span class="str">"JavaScript"</span>,<span class="str">"React"</span>];
+  <span class="kw">const</span> [selected, setSelected] = <span class="fn">useState</span>([]);
+  <span class="kw">const</span> toggle = (skill) =&gt;
+    selected.includes(skill)
+      ? setSelected(selected.filter(s =&gt; s !== skill))
+      : setSelected([...selected, skill]);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      {all.<span class="fn">map</span>(skill =&gt; (
+        <span class="jsx">&lt;label key={skill} style={{display:<span class="str">"flex"</span>,alignItems:<span class="str">"center"</span>,gap:<span class="str">"8px"</span>,padding:<span class="str">"4px 0"</span>,cursor:<span class="str">"pointer"</span>,color:<span class="str">"#e2e8f0"</span>}}&gt;</span>
+          <span class="jsx">&lt;input type=<span class="str">"checkbox"</span> checked={selected.includes(skill)} onChange={() =&gt; toggle(skill)} /&gt;</span>
+          {skill}
+        <span class="jsx">&lt;/label&gt;</span>
+      ))}
+      <span class="jsx">&lt;p style={{marginTop:<span class="str">"8px"</span>,color:<span class="str">"#61dafb"</span>}}&gt;</span>
+        Selected: {selected.length === <span class="num">0</span> ? <span class="str">"none"</span> : selected.join(<span class="str">", "</span>)}
+      <span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q36'</span>)).render(<span class="jsx">&lt;SkillPicker /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q37 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q37</span>
+    <span class="q-title">Registration Form</span>
+    <span class="q-tag tag-form">Form</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a full <strong>RegisterForm</strong> with: name, email, password, confirm-password. On submit validate all fields. Show a success card with the registered name on completion.</p>
+    <div class="demo-area"><div id="root-q37"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h37')">💡 Show Hint</button>
+    <div class="hint-box" id="h37">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">function</span> <span class="fn">RegisterForm</span>() {
+  <span class="kw">const</span> [f, setF] = <span class="fn">useState</span>({name:<span class="str">""</span>,email:<span class="str">""</span>,pass:<span class="str">""</span>,confirm:<span class="str">""</span>});
+  <span class="kw">const</span> [err, setErr] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> [done, setDone] = <span class="fn">useState</span>(<span class="kw">false</span>);
+  <span class="kw">const</span> update = (k,v) =&gt; setF({...f,[k]:v});
+  <span class="kw">const</span> submit = (e) =&gt; {
+    e.preventDefault();
+    <span class="kw">if</span> (!f.name)              { setErr(<span class="str">"Name required"</span>); <span class="kw">return</span>; }
+    <span class="kw">if</span> (!f.email.includes(<span class="str">"@"</span>)){ setErr(<span class="str">"Valid email required"</span>); <span class="kw">return</span>; }
+    <span class="kw">if</span> (f.pass.length &lt; <span class="num">6</span>)    { setErr(<span class="str">"Password min 6 chars"</span>); <span class="kw">return</span>; }
+    <span class="kw">if</span> (f.pass !== f.confirm)  { setErr(<span class="str">"Passwords don't match"</span>); <span class="kw">return</span>; }
+    setErr(<span class="str">""</span>); setDone(<span class="kw">true</span>);
+  };
+  <span class="kw">if</span> (done) <span class="kw">return</span> <span class="jsx">&lt;div className=<span class="str">"react-card"</span>&gt;&lt;p style={{color:<span class="str">"#4ade80"</span>}}&gt;</span>🎉 Welcome, {f.name}! Account created.<span class="jsx">&lt;/p&gt;&lt;/div&gt;</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;form onSubmit={submit} style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> placeholder=<span class="str">"Full Name"</span> value={f.name} onChange={e=&gt;update(<span class="str">"name"</span>,e.target.value)} /&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> type=<span class="str">"email"</span> placeholder=<span class="str">"Email"</span> value={f.email} onChange={e=&gt;update(<span class="str">"email"</span>,e.target.value)} /&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> type=<span class="str">"password"</span> placeholder=<span class="str">"Password"</span> value={f.pass} onChange={e=&gt;update(<span class="str">"pass"</span>,e.target.value)} /&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> type=<span class="str">"password"</span> placeholder=<span class="str">"Confirm Password"</span> value={f.confirm} onChange={e=&gt;update(<span class="str">"confirm"</span>,e.target.value)} /&gt;</span>
+      {err && <span class="jsx">&lt;p style={{color:<span class="str">"#ff6b6b"</span>}}&gt;</span>❌ {err}<span class="jsx">&lt;/p&gt;</span>}
+      <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> type=<span class="str">"submit"</span>&gt;</span>Register<span class="jsx">&lt;/button&gt;</span>
+    <span class="jsx">&lt;/form&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q37'</span>)).render(<span class="jsx">&lt;RegisterForm /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 8 — useEffect -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">08</span>
+  <h2>useEffect Hook</h2>
+  <span class="sec-count">Q38–Q42</span>
+</div>
+<p class="section-desc">useEffect runs side effects after render — fetching data, updating document.title, setting up timers, subscriptions. The dependency array controls when it runs.</p>
+
+<!-- Q38 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q38</span>
+    <span class="q-title">document.title Sync</span>
+    <span class="q-tag tag-effect">useEffect</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Create a <strong>TitleSync</strong> component. Track a <code>title</code> state. Whenever <code>title</code> changes, use <code>useEffect</code> to update <code>document.title</code> so the browser tab changes in real time.</p>
+    <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+useEffect(() =&gt; {
+  document.title = title; <span class="cm">// runs after every render where title changed</span>
+}, [title]);             <span class="cm">// dependency array</span></code></pre>
+    <div class="demo-area"><div id="root-q38"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h38')">💡 Show Hint</button>
+    <div class="hint-box" id="h38">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+<span class="kw">function</span> <span class="fn">TitleSync</span>() {
+  <span class="kw">const</span> [title, setTitle] = <span class="fn">useState</span>(<span class="str">"React Practice"</span>);
+  <span class="fn">useEffect</span>(() =&gt; {
+    document.title = title;
+  }, [title]);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>Type below — watch the browser tab title change:<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;input className=<span class="str">"react-input"</span> value={title} onChange={e=&gt;setTitle(e.target.value)} placeholder=<span class="str">"Page title..."</span> /&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q38'</span>)).render(<span class="jsx">&lt;TitleSync /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q39 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q39</span>
+    <span class="q-title">Clock with [] (runs once)</span>
+    <span class="q-tag tag-effect">useEffect</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>Clock</strong> component. Use <code>useEffect</code> with an empty <code>[]</code> to start a <code>setInterval</code> once on mount. The interval updates the time every second. Clean up with <code>clearInterval</code> in the return function.</p>
+    <pre><code>useEffect(() =&gt; {
+  <span class="kw">const</span> id = setInterval(() =&gt; { <span class="cm">/* update time */</span> }, <span class="num">1000</span>);
+  <span class="kw">return</span> () =&gt; clearInterval(id); <span class="cm">// cleanup on unmount</span>
+}, []); <span class="cm">// [] = run only on mount</span></code></pre>
+    <div class="demo-area"><div id="root-q39"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h39')">💡 Show Hint</button>
+    <div class="hint-box" id="h39">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+<span class="kw">function</span> <span class="fn">Clock</span>() {
+  <span class="kw">const</span> [time, setTime] = <span class="fn">useState</span>(<span class="kw">new</span> Date().toLocaleTimeString());
+  <span class="fn">useEffect</span>(() =&gt; {
+    <span class="kw">const</span> id = setInterval(() =&gt; {
+      setTime(<span class="kw">new</span> Date().toLocaleTimeString());
+    }, <span class="num">1000</span>);
+    <span class="kw">return</span> () =&gt; clearInterval(id);
+  }, []);
+  <span class="kw">return</span> <span class="jsx">&lt;p className=<span class="str">"react-stat"</span>&gt;</span>⏰ {time}<span class="jsx">&lt;/p&gt;</span>;
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q39'</span>)).render(<span class="jsx">&lt;Clock /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q40 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q40</span>
+    <span class="q-title">Word Counter</span>
+    <span class="q-tag tag-effect">useEffect</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>WordCounter</strong> textarea. Use <code>useEffect([text])</code> to recount words whenever text changes. Display word count and character count. A word = non-empty string after <code>.split(" ")</code>.</p>
+    <div class="demo-area"><div id="root-q40"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h40')">💡 Show Hint</button>
+    <div class="hint-box" id="h40">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+<span class="kw">function</span> <span class="fn">WordCounter</span>() {
+  <span class="kw">const</span> [text, setText] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> [words, setWords] = <span class="fn">useState</span>(<span class="num">0</span>);
+  <span class="fn">useEffect</span>(() =&gt; {
+    <span class="kw">const</span> count = text.trim() === <span class="str">""</span> ? <span class="num">0</span> : text.trim().split(<span class="str">/\s+/</span>).length;
+    setWords(count);
+  }, [text]);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;textarea className=<span class="str">"react-input"</span> rows=<span class="str">"4"</span> value={text}
+        onChange={e=&gt;setText(e.target.value)} placeholder=<span class="str">"Start typing..."</span> /&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"16px"</span>}}&gt;</span>
+        <span class="jsx">&lt;span style={{color:<span class="str">"#61dafb"</span>}}&gt;</span>Words: {words}<span class="jsx">&lt;/span&gt;</span>
+        <span class="jsx">&lt;span style={{color:<span class="str">"#a78bfa"</span>}}&gt;</span>Chars: {text.length}<span class="jsx">&lt;/span&gt;</span>
+      <span class="jsx">&lt;/div&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q40'</span>)).render(<span class="jsx">&lt;WordCounter /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q41 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q41</span>
+    <span class="q-title">Fake API Loader</span>
+    <span class="q-tag tag-effect">useEffect</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Simulate a data fetch with <code>useEffect + setTimeout</code>. Start with <code>loading = true</code>. After 1.5s, set fake user data and <code>loading = false</code>. Show a spinner while loading, then the data.</p>
+    <div class="demo-area"><div id="root-q41"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h41')">💡 Show Hint</button>
+    <div class="hint-box" id="h41">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+<span class="kw">function</span> <span class="fn">DataLoader</span>() {
+  <span class="kw">const</span> [user, setUser]       = <span class="fn">useState</span>(<span class="kw">null</span>);
+  <span class="kw">const</span> [loading, setLoading] = <span class="fn">useState</span>(<span class="kw">true</span>);
+  <span class="fn">useEffect</span>(() =&gt; {
+    <span class="kw">const</span> id = setTimeout(() =&gt; {
+      setUser({ name: <span class="str">"Aman"</span>, role: <span class="str">"React Dev"</span>, score: <span class="num">92</span> });
+      setLoading(<span class="kw">false</span>);
+    }, <span class="num">1500</span>);
+    <span class="kw">return</span> () =&gt; clearTimeout(id);
+  }, []);
+  <span class="kw">if</span> (loading) <span class="kw">return</span> <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>⏳ Loading...<span class="jsx">&lt;/p&gt;</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div className=<span class="str">"react-card"</span>&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#61dafb"</span>,fontWeight:<span class="str">"700"</span>}}&gt;</span>{user.name}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>{user.role}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p&gt;</span>Score: <span class="jsx">&lt;span className=<span class="str">"react-tag"</span>&gt;</span>{user.score}<span class="jsx">&lt;/span&gt;&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q41'</span>)).render(<span class="jsx">&lt;DataLoader /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q42 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q42</span>
+    <span class="q-title">Countdown Timer with Cleanup</span>
+    <span class="q-tag tag-effect">useEffect</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>Countdown</strong> starting at 10. Count down every second. When it hits 0, show "🎉 Time's Up!". Add a Reset button that restarts from 10. The cleanup function in <code>useEffect</code> is critical here.</p>
+    <div class="demo-area"><div id="root-q42"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h42')">💡 Show Hint</button>
+    <div class="hint-box" id="h42">
+      <div class="hint-label">Solution</div>
+      <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+<span class="kw">function</span> <span class="fn">Countdown</span>() {
+  <span class="kw">const</span> [n, setN] = <span class="fn">useState</span>(<span class="num">10</span>);
+  <span class="fn">useEffect</span>(() =&gt; {
+    <span class="kw">if</span> (n &lt;= <span class="num">0</span>) <span class="kw">return</span>;
+    <span class="kw">const</span> id = setTimeout(() =&gt; setN(n - <span class="num">1</span>), <span class="num">1000</span>);
+    <span class="kw">return</span> () =&gt; clearTimeout(id);
+  }, [n]);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{textAlign:<span class="str">"center"</span>}}&gt;</span>
+      {n &gt; <span class="num">0</span>
+        ? <span class="jsx">&lt;p className=<span class="str">"react-stat"</span> style={{color:n&lt;=3?<span class="str">"#ff6b6b"</span>:<span class="str">"#61dafb"</span>}}&gt;</span>{n}<span class="jsx">&lt;/p&gt;</span>
+        : <span class="jsx">&lt;p style={{fontSize:<span class="str">"1.5rem"</span>}}&gt;</span>🎉 Time's Up!<span class="jsx">&lt;/p&gt;</span>
+      }
+      <span class="jsx">&lt;button className=<span class="str">"react-btn secondary"</span> onClick={() =&gt; setN(10)} style={{marginTop:<span class="str">"8px"</span>}}&gt;</span>🔄 Reset<span class="jsx">&lt;/button&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q42'</span>)).render(<span class="jsx">&lt;Countdown /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 9 — ARCHITECTURE PATTERNS -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">09</span>
+  <h2>Architecture Patterns</h2>
+  <span class="sec-count">Q43–Q46</span>
+</div>
+<p class="section-desc">As React apps grow, how you <em>structure</em> components matters. Two patterns every React dev must understand: <strong>Three-Tier</strong> (Presentation → Business Logic → Data) and <strong>Microservice-inspired</strong> (small, independent, single-responsibility components).</p>
+
+<!-- Q43 — THREE TIER CONCEPT -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q43</span>
+    <span class="q-title">Three-Tier Architecture — Concept</span>
+    <span class="q-tag tag-arch">Architecture</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc"><strong>Three-Tier Architecture</strong> separates an app into three layers. React maps naturally to this:</p>
+    <div class="arch-diagram">
+┌─────────────────────────────────────────────┐
+│           TIER 1: PRESENTATION               │
+│   Pure UI components — only know how to     │
+│   DISPLAY data. No business logic here.      │
+│   Example: &lt;UserCard /&gt; &lt;ProductList /&gt;     │
+│   Props in → JSX out. That's it.            │
+└──────────────────┬──────────────────────────┘
+                   │  props flow down
+                   ↓
+┌─────────────────────────────────────────────┐
+│         TIER 2: BUSINESS LOGIC              │
+│   Container components + hooks.             │
+│   Validates data, applies rules,            │
+│   calls APIs, manages state.                │
+│   Example: useCart(), useAuth(), Cart.js    │
+└──────────────────┬──────────────────────────┘
+                   │  data / API calls
+                   ↓
+┌─────────────────────────────────────────────┐
+│           TIER 3: DATA / SERVICE            │
+│   API calls, localStorage, fake data.       │
+│   Example: api.js, userService.js           │
+│   In React: fetch(), axios, React Query     │
+└─────────────────────────────────────────────┘</div>
+    <p class="q-desc">Build this <strong>three-tier product display</strong>: a pure <code>ProductCard</code> (Tier 1), a <code>useProducts</code> hook with fake data (Tier 3), and a <code>ProductContainer</code> that connects them (Tier 2).</p>
+    <div class="demo-area"><div id="root-q43"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h43')">💡 Show Hint</button>
+    <div class="hint-box" id="h43">
+      <div class="hint-label">Three-Tier Solution</div>
+      <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+
+<span class="cm">// ── TIER 3: DATA LAYER (fake API service) ──</span>
+<span class="kw">const</span> <span class="fn">fetchProducts</span> = () =&gt; Promise.resolve([
+  { id:<span class="num">1</span>, name:<span class="str">"Laptop"</span>,   price:<span class="num">45000</span>, stock:<span class="kw">true</span>  },
+  { id:<span class="num">2</span>, name:<span class="str">"Phone"</span>,    price:<span class="num">12000</span>, stock:<span class="kw">false</span> },
+  { id:<span class="num">3</span>, name:<span class="str">"Headset"</span>,  price:<span class="num">2500</span>,  stock:<span class="kw">true</span>  },
+]);
+
+<span class="cm">// ── TIER 2: BUSINESS LOGIC (custom hook) ──</span>
+<span class="kw">function</span> <span class="fn">useProducts</span>() {
+  <span class="kw">const</span> [products, setProducts] = <span class="fn">useState</span>([]);
+  <span class="kw">const</span> [loading, setLoading]   = <span class="fn">useState</span>(<span class="kw">true</span>);
+  <span class="fn">useEffect</span>(() =&gt; {
+    <span class="fn">fetchProducts</span>().then(data =&gt; { setProducts(data); setLoading(<span class="kw">false</span>); });
+  }, []);
+  <span class="kw">return</span> { products, loading };
+}
+
+<span class="cm">// ── TIER 1: PRESENTATION (pure display component) ──</span>
+<span class="kw">function</span> <span class="fn">ProductCard</span>({ name, price, stock }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div className=<span class="str">"react-card"</span> style={{marginBottom:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,justifyContent:<span class="str">"space-between"</span>}}&gt;</span>
+        <span class="jsx">&lt;strong style={{color:<span class="str">"#e2e8f0"</span>}}&gt;</span>{name}<span class="jsx">&lt;/strong&gt;</span>
+        <span class="jsx">&lt;span style={{color:<span class="str">"#61dafb"</span>,fontWeight:<span class="str">"700"</span>}}&gt;</span>₹{price.toLocaleString()}<span class="jsx">&lt;/span&gt;</span>
+      <span class="jsx">&lt;/div&gt;</span>
+      <span class="jsx">&lt;p style={{color:stock?<span class="str">"#4ade80"</span>:<span class="str">"#ff6b6b"</span>,fontSize:<span class="str">"0.8rem"</span>,marginTop:<span class="str">"4px"</span>}}&gt;</span>
+        {stock ? <span class="str">"✅ In Stock"</span> : <span class="str">"❌ Out of Stock"</span>}
+      <span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// ── TIER 2: CONTAINER (wires data to presentation) ──</span>
+<span class="kw">function</span> <span class="fn">ProductContainer</span>() {
+  <span class="kw">const</span> { products, loading } = <span class="fn">useProducts</span>();
+  <span class="kw">if</span> (loading) <span class="kw">return</span> <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>⏳ Loading products...<span class="jsx">&lt;/p&gt;</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>,marginBottom:<span class="str">"8px"</span>,fontSize:<span class="str">"0.85rem"</span>}}&gt;</span>
+        Tier 1: ProductCard (display only) · Tier 2: useProducts hook · Tier 3: fetchProducts()
+      <span class="jsx">&lt;/p&gt;</span>
+      {products.<span class="fn">map</span>(p =&gt; <span class="jsx">&lt;ProductCard key={p.id} name={p.name} price={p.price} stock={p.stock} /&gt;</span>)}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q43'</span>)).render(<span class="jsx">&lt;ProductContainer /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q44 — THREE-TIER PRACTICE -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q44</span>
+    <span class="q-title">Three-Tier — Student Dashboard</span>
+    <span class="q-tag tag-arch">Architecture</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a full <strong>three-tier student dashboard</strong>. Tier 3: a <code>studentService</code> object with <code>getStudents()</code>. Tier 2: a <code>useDashboard</code> hook that loads data and computes stats (average, topper). Tier 1: separate <code>StatCard</code>, <code>StudentRow</code>, and <code>Dashboard</code> components — none of the display components touch the data directly.</p>
+    <div class="arch-diagram">
+Dashboard.js (Tier 1 — pure layout)
+   ├── StatCard (avg score, topper)
+   └── StudentTable
+         └── StudentRow × n
+                  ↑ props only
+useDashboard() (Tier 2 — logic + state)
+   → loads data, computes average, finds topper
+         ↑ calls service
+studentService.getStudents() (Tier 3 — data)</div>
+    <div class="demo-area"><div id="root-q44"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h44')">💡 Show Hint</button>
+    <div class="hint-box" id="h44">
+      <div class="hint-label">Three-Tier Dashboard Solution</div>
+      <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+
+<span class="cm">// ── TIER 3: DATA SERVICE ──</span>
+<span class="kw">const</span> studentService = {
+  getStudents: () =&gt; Promise.resolve([
+    {id:<span class="num">1</span>,name:<span class="str">"Aman"</span>,  subject:<span class="str">"Math"</span>,    marks:<span class="num">88</span>},
+    {id:<span class="num">2</span>,name:<span class="str">"Priya"</span>, subject:<span class="str">"Science"</span>, marks:<span class="num">95</span>},
+    {id:<span class="num">3</span>,name:<span class="str">"Ravi"</span>,  subject:<span class="str">"English"</span>, marks:<span class="num">72</span>},
+    {id:<span class="num">4</span>,name:<span class="str">"Zara"</span>,  subject:<span class="str">"React"</span>,   marks:<span class="num">99</span>},
+  ])
+};
+
+<span class="cm">// ── TIER 2: BUSINESS LOGIC HOOK ──</span>
+<span class="kw">function</span> <span class="fn">useDashboard</span>() {
+  <span class="kw">const</span> [data, setData]       = <span class="fn">useState</span>({ students:[], avg:<span class="num">0</span>, topper:<span class="kw">null</span> });
+  <span class="kw">const</span> [loading, setLoading] = <span class="fn">useState</span>(<span class="kw">true</span>);
+  <span class="fn">useEffect</span>(() =&gt; {
+    studentService.getStudents().then(list =&gt; {
+      <span class="kw">const</span> avg    = Math.round(list.reduce((s,x) =&gt; s+x.marks,<span class="num">0</span>) / list.length);
+      <span class="kw">const</span> topper = list.reduce((a,b) =&gt; b.marks&gt;a.marks?b:a);
+      setData({ students:list, avg, topper });
+      setLoading(<span class="kw">false</span>);
+    });
+  }, []);
+  <span class="kw">return</span> { ...data, loading };
+}
+
+<span class="cm">// ── TIER 1: PURE DISPLAY COMPONENTS ──</span>
+<span class="kw">function</span> <span class="fn">StatCard</span>({ label, value, color }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{background:<span class="str">"#0b0e17"</span>,border:<span class="str">`1px solid `</span>+color,borderRadius:<span class="str">"8px"</span>,padding:<span class="str">"10px 14px"</span>,flex:<span class="str">"1"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>,fontSize:<span class="str">"0.75rem"</span>}}&gt;</span>{label}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p style={{color,fontWeight:<span class="str">"700"</span>,fontSize:<span class="str">"1.4rem"</span>}}&gt;</span>{value}<span class="jsx">&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+<span class="kw">function</span> <span class="fn">StudentRow</span>({ name, subject, marks }) {
+  <span class="kw">const</span> grade = marks &gt;= <span class="num">90</span> ? <span class="str">"A"</span> : marks &gt;= <span class="num">75</span> ? <span class="str">"B"</span> : <span class="str">"C"</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"grid"</span>,gridTemplateColumns:<span class="str">"1fr 1fr auto"</span>,gap:<span class="str">"8px"</span>,padding:<span class="str">"7px 0"</span>,borderBottom:<span class="str">"1px solid #2a2f45"</span>,color:<span class="str">"#e2e8f0"</span>}}&gt;</span>
+      <span class="jsx">&lt;span&gt;</span>{name}<span class="jsx">&lt;/span&gt;</span>
+      <span class="jsx">&lt;span style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>{subject}<span class="jsx">&lt;/span&gt;</span>
+      <span class="jsx">&lt;span&gt;</span>{marks} <span class="jsx">&lt;span className=<span class="str">"react-tag"</span>&gt;</span>{grade}<span class="jsx">&lt;/span&gt;&lt;/span&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+<span class="kw">function</span> <span class="fn">Dashboard</span>() {
+  <span class="kw">const</span> { students, avg, topper, loading } = <span class="fn">useDashboard</span>();
+  <span class="kw">if</span> (loading) <span class="kw">return</span> <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>⏳ Loading dashboard...<span class="jsx">&lt;/p&gt;</span>;
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"8px"</span>,marginBottom:<span class="str">"12px"</span>}}&gt;</span>
+        <span class="jsx">&lt;StatCard label=<span class="str">"Class Average"</span> value={avg+<span class="str">"%"</span>}     color=<span class="str">"#61dafb"</span> /&gt;</span>
+        <span class="jsx">&lt;StatCard label=<span class="str">"Topper"</span>        value={topper.name} color=<span class="str">"#fbbf24"</span> /&gt;</span>
+      <span class="jsx">&lt;/div&gt;</span>
+      {students.<span class="fn">map</span>(s =&gt; <span class="jsx">&lt;StudentRow key={s.id} {...s} /&gt;</span>)}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q44'</span>)).render(<span class="jsx">&lt;Dashboard /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q45 — MICROSERVICE ARCHITECTURE -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q45</span>
+    <span class="q-title">Microservice Architecture — Concept</span>
+    <span class="q-tag tag-arch">Architecture</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc"><strong>Microservice-inspired React</strong> means breaking the UI into fully independent "mini-apps" — each component owns its own state, data fetching, and logic. They communicate through <em>well-defined interfaces</em> (props/callbacks), not through shared globals.</p>
+    <div class="arch-diagram">
+MONOLITH APPROACH (❌ avoid)
+  App.js
+    └── One giant component — handles users, cart, chat,
+        notifications all together. Impossible to test or reuse.
+
+──────────────────────────────────────────────
+
+MICROSERVICE-INSPIRED REACT (✅)
+  App.js
+    ├── &lt;UserService /&gt;        → owns auth state + user data
+    │     └── Exposes: user, login(), logout()
+    │
+    ├── &lt;CartService /&gt;        → owns cart state independently
+    │     └── Exposes: items, addItem(), removeItem(), total
+    │
+    ├── &lt;NotificationService /&gt; → own polling, own state
+    │     └── Exposes: count, messages, markRead()
+    │
+    └── &lt;ChatService /&gt;        → own WebSocket, own messages
+          └── Exposes: messages, send()
+
+Each "service" = a custom hook + a small component tree.
+They know nothing about each other — only talk through App.js.</div>
+    <p class="q-desc">Build three <strong>independent micro-components</strong> that each own their state: <code>WeatherWidget</code>, <code>StockTicker</code>, and <code>NewsFeed</code>. They all fake their data independently and could be deployed/updated separately.</p>
+    <div class="demo-area"><div id="root-q45"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h45')">💡 Show Hint</button>
+    <div class="hint-box" id="h45">
+      <div class="hint-label">Microservice Components Solution</div>
+      <pre><code><span class="kw">const</span> { useState, useEffect } = React;
+
+<span class="cm">// ── MICRO-SERVICE 1: WeatherWidget (self-contained) ──</span>
+<span class="kw">function</span> <span class="fn">WeatherWidget</span>() {
+  <span class="kw">const</span> [weather, setWeather] = <span class="fn">useState</span>(<span class="kw">null</span>);
+  <span class="fn">useEffect</span>(() =&gt; {
+    setTimeout(() =&gt; setWeather({ city:<span class="str">"Delhi"</span>, temp:<span class="num">28</span>, cond:<span class="str">"☀️ Sunny"</span> }), <span class="num">800</span>);
+  }, []);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{background:<span class="str">"#0b1a2e"</span>,border:<span class="str">"1px solid #61dafb33"</span>,borderRadius:<span class="str">"8px"</span>,padding:<span class="str">"10px"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#61dafb"</span>,fontWeight:<span class="str">"700"</span>,fontSize:<span class="str">"0.75rem"</span>}}&gt;</span>WEATHER<span class="jsx">&lt;/p&gt;</span>
+      {weather
+        ? <span class="jsx">&lt;p style={{color:<span class="str">"#e2e8f0"</span>}}&gt;</span>{weather.city}: {weather.temp}°C {weather.cond}<span class="jsx">&lt;/p&gt;</span>
+        : <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>Loading...<span class="jsx">&lt;/p&gt;</span>
+      }
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// ── MICRO-SERVICE 2: StockTicker (self-contained, polls every 2s) ──</span>
+<span class="kw">function</span> <span class="fn">StockTicker</span>() {
+  <span class="kw">const</span> [price, setPrice] = <span class="fn">useState</span>(<span class="num">4200</span>);
+  <span class="fn">useEffect</span>(() =&gt; {
+    <span class="kw">const</span> id = setInterval(() =&gt; {
+      setPrice(p =&gt; Math.round(p + (Math.random() - <span class="num">0.5</span>) * <span class="num">100</span>));
+    }, <span class="num">2000</span>);
+    <span class="kw">return</span> () =&gt; clearInterval(id);
+  }, []);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{background:<span class="str">"#1a2e0b"</span>,border:<span class="str">"1px solid #4ade8033"</span>,borderRadius:<span class="str">"8px"</span>,padding:<span class="str">"10px"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#4ade80"</span>,fontWeight:<span class="str">"700"</span>,fontSize:<span class="str">"0.75rem"</span>}}&gt;</span>RELIANCE STOCK<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#e2e8f0"</span>,fontWeight:<span class="str">"700"</span>}}&gt;</span>₹{price.toLocaleString()} <span class="jsx">&lt;span style={{color:<span class="str">"#4ade80"</span>,fontSize:<span class="str">"0.8rem"</span>}}&gt;</span>↑ live<span class="jsx">&lt;/span&gt;&lt;/p&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// ── MICRO-SERVICE 3: NewsFeed (self-contained) ──</span>
+<span class="kw">function</span> <span class="fn">NewsFeed</span>() {
+  <span class="kw">const</span> [news] = <span class="fn">useState</span>([<span class="str">"React 19 released"</span>, <span class="str">"New JS features"</span>, <span class="str">"AI in frontend"</span>]);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{background:<span class="str">"#1a0b2e"</span>,border:<span class="str">"1px solid #a78bfa33"</span>,borderRadius:<span class="str">"8px"</span>,padding:<span class="str">"10px"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#a78bfa"</span>,fontWeight:<span class="str">"700"</span>,fontSize:<span class="str">"0.75rem"</span>}}&gt;</span>NEWS<span class="jsx">&lt;/p&gt;</span>
+      {news.<span class="fn">map</span>((n,i) =&gt; <span class="jsx">&lt;p key={i} style={{color:<span class="str">"#e2e8f0"</span>,fontSize:<span class="str">"0.85rem"</span>,padding:<span class="str">"2px 0"</span>}}&gt;</span>• {n}<span class="jsx">&lt;/p&gt;</span>)}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// ── SHELL APP: Just composes independent services ──</span>
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>,fontSize:<span class="str">"0.8rem"</span>,marginBottom:<span class="str">"8px"</span>}}&gt;</span>
+        3 independent micro-components — each owns its own state &amp; data:
+      <span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"grid"</span>,gridTemplateColumns:<span class="str">"1fr 1fr 1fr"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+        <span class="jsx">&lt;WeatherWidget /&gt;</span>
+        <span class="jsx">&lt;StockTicker /&gt;</span>
+        <span class="jsx">&lt;NewsFeed /&gt;</span>
+      <span class="jsx">&lt;/div&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q45'</span>)).render(<span class="jsx">&lt;App /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q46 — MICROSERVICE PRACTICE -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q46</span>
+    <span class="q-title">Microservice Practice — E-Commerce Shell</span>
+    <span class="q-tag tag-arch">Architecture</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a mini e-commerce shell using microservice-inspired architecture. Each service is a fully independent module with its own hook + component:</p>
+    <div class="arch-diagram">
+&lt;EcommerceApp /&gt;        ← shell: just renders the services
+   ├── &lt;AuthService /&gt;     ← useAuth(): user login state
+   ├── &lt;CartService /&gt;     ← useCart(): items, total, add/remove
+   └── &lt;CatalogService /&gt;  ← useCatalog(): product list, add to cart
+         └── passes addToCart callback down from CartService</div>
+    <p class="q-desc"><strong>Challenge:</strong> The Catalog needs to call Cart's <code>addToCart</code>. Instead of sharing global state, pass it as a <em>prop/callback</em> — that's the microservice contract.</p>
+    <div class="demo-area"><div id="root-q46"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h46')">💡 Show Hint</button>
+    <div class="hint-box" id="h46">
+      <div class="hint-label">E-Commerce Microservice Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+
+<span class="cm">// ── AUTH SERVICE ──</span>
+<span class="kw">function</span> <span class="fn">useAuth</span>() {
+  <span class="kw">const</span> [user, setUser] = <span class="fn">useState</span>(<span class="kw">null</span>);
+  <span class="kw">return</span> {
+    user,
+    login:  () =&gt; setUser({ name: <span class="str">"Aman"</span>, role: <span class="str">"customer"</span> }),
+    logout: () =&gt; setUser(<span class="kw">null</span>),
+  };
+}
+<span class="kw">function</span> <span class="fn">AuthService</span>({ user, login, logout }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,alignItems:<span class="str">"center"</span>,gap:<span class="str">"10px"</span>,padding:<span class="str">"6px 0"</span>}}&gt;</span>
+      {user
+        ? <span class="jsx">&lt;&gt;&lt;span style={{color:<span class="str">"#4ade80"</span>}}&gt;</span>👤 {user.name}<span class="jsx">&lt;/span&gt;&lt;button className=<span class="str">"react-btn secondary"</span> onClick={logout}&gt;</span>Logout<span class="jsx">&lt;/button&gt;&lt;/&gt;</span>
+        : <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> onClick={login}&gt;</span>Login<span class="jsx">&lt;/button&gt;</span>
+      }
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// ── CART SERVICE ──</span>
+<span class="kw">function</span> <span class="fn">useCart</span>() {
+  <span class="kw">const</span> [items, setItems] = <span class="fn">useState</span>([]);
+  <span class="kw">const</span> addItem    = (product) =&gt; setItems(prev =&gt; {
+    <span class="kw">const</span> ex = prev.find(i =&gt; i.id === product.id);
+    <span class="kw">return</span> ex ? prev.<span class="fn">map</span>(i =&gt; i.id===product.id?{...i,qty:i.qty+<span class="num">1</span>}:i) : [...prev,{...product,qty:<span class="num">1</span>}];
+  });
+  <span class="kw">const</span> removeItem = (id)     =&gt; setItems(prev =&gt; prev.filter(i =&gt; i.id !== id));
+  <span class="kw">const</span> total      = items.reduce((s,i) =&gt; s + i.price*i.qty, <span class="num">0</span>);
+  <span class="kw">return</span> { items, addItem, removeItem, total };
+}
+<span class="kw">function</span> <span class="fn">CartService</span>({ items, removeItem, total }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{background:<span class="str">"#0b1a0e"</span>,border:<span class="str">"1px solid #4ade8033"</span>,borderRadius:<span class="str">"8px"</span>,padding:<span class="str">"10px"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#4ade80"</span>,fontWeight:<span class="str">"700"</span>,marginBottom:<span class="str">"6px"</span>}}&gt;</span>🛒 Cart ({items.length})<span class="jsx">&lt;/p&gt;</span>
+      {items.length === <span class="num">0</span> ? <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>,fontSize:<span class="str">"0.85rem"</span>}}&gt;</span>Empty<span class="jsx">&lt;/p&gt;</span> : items.<span class="fn">map</span>(i =&gt; (
+        <span class="jsx">&lt;div key={i.id} style={{display:<span class="str">"flex"</span>,justifyContent:<span class="str">"space-between"</span>,padding:<span class="str">"3px 0"</span>,color:<span class="str">"#e2e8f0"</span>,fontSize:<span class="str">"0.85rem"</span>}}&gt;</span>
+          <span class="jsx">&lt;span&gt;</span>{i.name} ×{i.qty}<span class="jsx">&lt;/span&gt;</span>
+          <span class="jsx">&lt;span&gt;</span>₹{(i.price*i.qty).toLocaleString()} <span class="jsx">&lt;button onClick={() =&gt; removeItem(i.id)} style={{background:<span class="str">"none"</span>,border:<span class="str">"none"</span>,color:<span class="str">"#ff6b6b"</span>,cursor:<span class="str">"pointer"</span>}}&gt;</span>✕<span class="jsx">&lt;/button&gt;&lt;/span&gt;</span>
+        <span class="jsx">&lt;/div&gt;</span>
+      ))}
+      {items.length &gt; <span class="num">0</span> && <span class="jsx">&lt;p style={{color:<span class="str">"#4ade80"</span>,fontWeight:<span class="str">"700"</span>,marginTop:<span class="str">"6px"</span>}}&gt;</span>Total: ₹{total.toLocaleString()}<span class="jsx">&lt;/p&gt;</span>}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// ── CATALOG SERVICE ──</span>
+<span class="kw">const</span> CATALOG = [
+  {id:<span class="num">1</span>,name:<span class="str">"Laptop"</span>,price:<span class="num">45000</span>},{id:<span class="num">2</span>,name:<span class="str">"Mouse"</span>,price:<span class="num">800</span>},{id:<span class="num">3</span>,name:<span class="str">"Keyboard"</span>,price:<span class="num">1500</span>}
+];
+<span class="kw">function</span> <span class="fn">CatalogService</span>({ onAddToCart, isLoggedIn }) {
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{background:<span class="str">"#0b0e1a"</span>,border:<span class="str">"1px solid #61dafb33"</span>,borderRadius:<span class="str">"8px"</span>,padding:<span class="str">"10px"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#61dafb"</span>,fontWeight:<span class="str">"700"</span>,marginBottom:<span class="str">"6px"</span>}}&gt;</span>📦 Catalog<span class="jsx">&lt;/p&gt;</span>
+      {CATALOG.<span class="fn">map</span>(p =&gt; (
+        <span class="jsx">&lt;div key={p.id} style={{display:<span class="str">"flex"</span>,justifyContent:<span class="str">"space-between"</span>,alignItems:<span class="str">"center"</span>,padding:<span class="str">"4px 0"</span>,borderBottom:<span class="str">"1px solid #2a2f45"</span>}}&gt;</span>
+          <span class="jsx">&lt;span style={{color:<span class="str">"#e2e8f0"</span>,fontSize:<span class="str">"0.85rem"</span>}}&gt;</span>{p.name} — ₹{p.price.toLocaleString()}<span class="jsx">&lt;/span&gt;</span>
+          <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> style={{padding:<span class="str">"3px 10px"</span>,fontSize:<span class="str">"0.75rem"</span>}}
+            onClick={() =&gt; isLoggedIn ? onAddToCart(p) : alert(<span class="str">"Login first!"</span>)}&gt;</span>
+            Add
+          <span class="jsx">&lt;/button&gt;</span>
+        <span class="jsx">&lt;/div&gt;</span>
+      ))}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// ── SHELL APP: Wires independent services together ──</span>
+<span class="kw">function</span> <span class="fn">EcommerceApp</span>() {
+  <span class="kw">const</span> auth = <span class="fn">useAuth</span>();
+  <span class="kw">const</span> cart = <span class="fn">useCart</span>();
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+      <span class="jsx">&lt;AuthService user={auth.user} login={auth.login} logout={auth.logout} /&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"grid"</span>,gridTemplateColumns:<span class="str">"1fr 1fr"</span>,gap:<span class="str">"8px"</span>}}&gt;</span>
+        <span class="jsx">&lt;CatalogService onAddToCart={cart.addItem} isLoggedIn={!!auth.user} /&gt;</span>
+        <span class="jsx">&lt;CartService items={cart.items} removeItem={cart.removeItem} total={cart.total} /&gt;</span>
+      <span class="jsx">&lt;/div&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q46'</span>)).render(<span class="jsx">&lt;EcommerceApp /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 10 — FINAL PROJECTS -->
+<!-- ============================================================ -->
+<div class="section-header">
+  <span class="sec-num">10</span>
+  <h2>Final Projects</h2>
+  <span class="sec-count">Q47–Q48</span>
+</div>
+<p class="section-desc">Combine everything — useState, useEffect, events, lists, forms, and architecture patterns — into complete mini-apps.</p>
+
+<!-- Q47 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q47</span>
+    <span class="q-title">Quiz App</span>
+    <span class="q-tag tag-final">Final</span>
+    <span class="difficulty"><span class="dot dot-hard"></span>Hard</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a <strong>QuizApp</strong> with 3 questions, 4 options each. Track: current question index, selected answer, score. On "Next" move forward. At the end show score and a Restart button. Use <strong>three-tier architecture</strong>: data object → quiz logic hook → display components.</p>
+    <div class="demo-area"><div id="root-q47"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h47')">💡 Show Hint</button>
+    <div class="hint-box" id="h47">
+      <div class="hint-label">Quiz App Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">const</span> QUESTIONS = [
+  { q:<span class="str">"What hook stores state in React?"</span>,    opts:[<span class="str">"useEffect"</span>,<span class="str">"useState"</span>,<span class="str">"useRef"</span>,<span class="str">"useMemo"</span>],       ans:<span class="num">1</span> },
+  { q:<span class="str">"JSX uses ___ instead of 'class'?"</span>,     opts:[<span class="str">"cssName"</span>,<span class="str">"class"</span>,<span class="str">"className"</span>,<span class="str">"styleClass"</span>], ans:<span class="num">2</span> },
+  { q:<span class="str">"What stops a form page from reloading?"</span>, opts:[<span class="str">"e.stop()"</span>,<span class="str">"e.halt()"</span>,<span class="str">"e.preventDefault()"</span>,<span class="str">"return false"</span>], ans:<span class="num">2</span> },
+];
+<span class="kw">function</span> <span class="fn">QuizApp</span>() {
+  <span class="kw">const</span> [idx,      setIdx]      = <span class="fn">useState</span>(<span class="num">0</span>);
+  <span class="kw">const</span> [selected, setSelected] = <span class="fn">useState</span>(<span class="kw">null</span>);
+  <span class="kw">const</span> [score,    setScore]    = <span class="fn">useState</span>(<span class="num">0</span>);
+  <span class="kw">const</span> [done,     setDone]     = <span class="fn">useState</span>(<span class="kw">false</span>);
+  <span class="kw">const</span> q = QUESTIONS[idx];
+  <span class="kw">const</span> choose = (i) =&gt; { <span class="kw">if</span> (selected !== <span class="kw">null</span>) <span class="kw">return</span>; setSelected(i); <span class="kw">if</span> (i === q.ans) setScore(s=&gt;s+<span class="num">1</span>); };
+  <span class="kw">const</span> next   = () =&gt; { idx+<span class="num">1</span> &lt; QUESTIONS.length ? (setIdx(idx+<span class="num">1</span>),setSelected(<span class="kw">null</span>)) : setDone(<span class="kw">true</span>); };
+  <span class="kw">const</span> reset  = () =&gt; { setIdx(<span class="num">0</span>);setSelected(<span class="kw">null</span>);setScore(<span class="num">0</span>);setDone(<span class="kw">false</span>); };
+  <span class="kw">if</span> (done) <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{textAlign:<span class="str">"center"</span>}}&gt;</span>
+      <span class="jsx">&lt;p style={{fontSize:<span class="str">"1.5rem"</span>,marginBottom:<span class="str">"8px"</span>}}&gt;</span>🎉 Done! Score: <span class="jsx">&lt;span className=<span class="str">"react-tag"</span>&gt;</span>{score}/{QUESTIONS.length}<span class="jsx">&lt;/span&gt;&lt;/p&gt;</span>
+      <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> onClick={reset}&gt;</span>Restart<span class="jsx">&lt;/button&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>,marginBottom:<span class="str">"6px"</span>}}&gt;</span>Q{idx+<span class="num">1</span>}/{QUESTIONS.length}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;p style={{color:<span class="str">"#e2e8f0"</span>,fontWeight:<span class="str">"600"</span>,marginBottom:<span class="str">"10px"</span>}}&gt;</span>{q.q}<span class="jsx">&lt;/p&gt;</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"6px"</span>}}&gt;</span>
+        {q.opts.<span class="fn">map</span>((opt,i) =&gt; {
+          <span class="kw">let</span> bg = <span class="str">"#161b27"</span>, border = <span class="str">"1px solid #2a2f45"</span>;
+          <span class="kw">if</span> (selected !== <span class="kw">null</span>) {
+            <span class="kw">if</span> (i === q.ans)    { bg=<span class="str">"#0b2a14"</span>; border=<span class="str">"1px solid #4ade80"</span>; }
+            <span class="kw">if</span> (i === selected && i !== q.ans) { bg=<span class="str">"#2a0b0b"</span>; border=<span class="str">"1px solid #ff6b6b"</span>; }
+          }
+          <span class="kw">return</span> (
+            <span class="jsx">&lt;div key={i} onClick={() =&gt; choose(i)}
+              style={{background:bg,border,borderRadius:<span class="str">"6px"</span>,padding:<span class="str">"8px 12px"</span>,cursor:<span class="str">"pointer"</span>,color:<span class="str">"#e2e8f0"</span>}}&gt;</span>
+              {opt}
+            <span class="jsx">&lt;/div&gt;</span>
+          );
+        })}
+      <span class="jsx">&lt;/div&gt;</span>
+      {selected !== <span class="kw">null</span> && <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> style={{marginTop:<span class="str">"10px"</span>}} onClick={next}&gt;</span>{idx+<span class="num">1</span>&lt;QUESTIONS.length?<span class="str">"Next →"</span>:<span class="str">"Finish"</span>}<span class="jsx">&lt;/button&gt;</span>}
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q47'</span>)).render(<span class="jsx">&lt;QuizApp /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Q48 -->
+<div class="q-card">
+  <div class="q-header">
+    <span class="q-num">Q48</span>
+    <span class="q-title">Expense Tracker — Final Boss</span>
+    <span class="q-tag tag-final">Final</span>
+    <span class="difficulty"><span class="dot dot-hard"></span>Final Boss</span>
+  </div>
+  <div class="q-body">
+    <p class="q-desc">Build a complete <strong>Expense Tracker</strong> using three-tier + microservice patterns: add expenses with name/amount/category, show total, filter by category, delete items. This requires: controlled form, array state with objects, filter state, computed total from <code>.reduce()</code>.</p>
+    <div class="demo-area"><div id="root-q48"><p class="placeholder">Your component renders here</p></div></div>
+    <button class="hint-btn" onclick="toggleHint('h48')">💡 Show Hint</button>
+    <div class="hint-box" id="h48">
+      <div class="hint-label">Expense Tracker Solution</div>
+      <pre><code><span class="kw">const</span> { useState } = React;
+<span class="kw">const</span> CATS = [<span class="str">"All"</span>,<span class="str">"Food"</span>,<span class="str">"Travel"</span>,<span class="str">"Study"</span>,<span class="str">"Other"</span>];
+<span class="kw">function</span> <span class="fn">ExpenseTracker</span>() {
+  <span class="kw">const</span> [expenses, setExpenses] = <span class="fn">useState</span>([
+    {id:<span class="num">1</span>,name:<span class="str">"Lunch"</span>,  amount:<span class="num">150</span>, cat:<span class="str">"Food"</span>  },
+    {id:<span class="num">2</span>,name:<span class="str">"Bus"</span>,    amount:<span class="num">50</span>,  cat:<span class="str">"Travel"</span>},
+    {id:<span class="num">3</span>,name:<span class="str">"Books"</span>,  amount:<span class="num">800</span>, cat:<span class="str">"Study"</span> },
+  ]);
+  <span class="kw">const</span> [form, setForm] = <span class="fn">useState</span>({name:<span class="str">""</span>,amount:<span class="str">""</span>,cat:<span class="str">"Food"</span>});
+  <span class="kw">const</span> [filter, setFilter] = <span class="fn">useState</span>(<span class="str">"All"</span>);
+  <span class="kw">const</span> add = (e) =&gt; {
+    e.preventDefault();
+    <span class="kw">if</span> (!form.name || !form.amount) <span class="kw">return</span>;
+    setExpenses([...expenses, { id:Date.now(), name:form.name, amount:Number(form.amount), cat:form.cat }]);
+    setForm({name:<span class="str">""</span>,amount:<span class="str">""</span>,cat:<span class="str">"Food"</span>});
+  };
+  <span class="kw">const</span> del     = (id)  =&gt; setExpenses(expenses.filter(e =&gt; e.id !== id));
+  <span class="kw">const</span> visible = filter === <span class="str">"All"</span> ? expenses : expenses.filter(e =&gt; e.cat === filter);
+  <span class="kw">const</span> total   = visible.reduce((s,e) =&gt; s + e.amount, <span class="num">0</span>);
+  <span class="kw">return</span> (
+    <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,flexDirection:<span class="str">"column"</span>,gap:<span class="str">"12px"</span>}}&gt;</span>
+      <span class="cm">// Stat bar</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,justifyContent:<span class="str">"space-between"</span>,alignItems:<span class="str">"center"</span>}}&gt;</span>
+        <span class="jsx">&lt;span style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>{visible.length} items<span class="jsx">&lt;/span&gt;</span>
+        <span class="jsx">&lt;span style={{color:<span class="str">"#61dafb"</span>,fontWeight:<span class="str">"700"</span>,fontSize:<span class="str">"1.2rem"</span>}}&gt;</span>₹{total.toLocaleString()}<span class="jsx">&lt;/span&gt;</span>
+      <span class="jsx">&lt;/div&gt;</span>
+      <span class="cm">// Add form</span>
+      <span class="jsx">&lt;form onSubmit={add} style={{display:<span class="str">"grid"</span>,gridTemplateColumns:<span class="str">"1fr 80px 100px auto"</span>,gap:<span class="str">"6px"</span>}}&gt;</span>
+        <span class="jsx">&lt;input className=<span class="str">"react-input"</span> placeholder=<span class="str">"Expense name"</span> value={form.name} onChange={e=&gt;setForm({...form,name:e.target.value})} /&gt;</span>
+        <span class="jsx">&lt;input className=<span class="str">"react-input"</span> type=<span class="str">"number"</span> placeholder=<span class="str">"₹"</span> value={form.amount} onChange={e=&gt;setForm({...form,amount:e.target.value})} /&gt;</span>
+        <span class="jsx">&lt;select className=<span class="str">"react-input"</span> value={form.cat} onChange={e=&gt;setForm({...form,cat:e.target.value})}&gt;</span>
+          {CATS.filter(c=&gt;c!==<span class="str">"All"</span>).<span class="fn">map</span>(c=&gt;<span class="jsx">&lt;option key={c}&gt;</span>{c}<span class="jsx">&lt;/option&gt;</span>)}
+        <span class="jsx">&lt;/select&gt;</span>
+        <span class="jsx">&lt;button className=<span class="str">"react-btn"</span> type=<span class="str">"submit"</span>&gt;</span>Add<span class="jsx">&lt;/button&gt;</span>
+      <span class="jsx">&lt;/form&gt;</span>
+      <span class="cm">// Filter tabs</span>
+      <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"6px"</span>,flexWrap:<span class="str">"wrap"</span>}}&gt;</span>
+        {CATS.<span class="fn">map</span>(c=&gt;(
+          <span class="jsx">&lt;button key={c} className={<span class="str">"react-btn "</span>+(filter===c?<span class="str">""</span>:<span class="str">"secondary"</span>)} style={{padding:<span class="str">"4px 10px"</span>,fontSize:<span class="str">"0.8rem"</span>}} onClick={()=&gt;setFilter(c)}&gt;</span>{c}<span class="jsx">&lt;/button&gt;</span>
+        ))}
+      <span class="jsx">&lt;/div&gt;</span>
+      <span class="cm">// List</span>
+      <span class="jsx">&lt;div&gt;</span>
+        {visible.length === <span class="num">0</span> && <span class="jsx">&lt;p style={{color:<span class="str">"#8892a4"</span>}}&gt;</span>No expenses yet.<span class="jsx">&lt;/p&gt;</span>}
+        {visible.<span class="fn">map</span>(e=&gt;(
+          <span class="jsx">&lt;div key={e.id} style={{display:<span class="str">"flex"</span>,justifyContent:<span class="str">"space-between"</span>,alignItems:<span class="str">"center"</span>,padding:<span class="str">"7px 0"</span>,borderBottom:<span class="str">"1px solid #2a2f45"</span>}}&gt;</span>
+            <span class="jsx">&lt;span style={{color:<span class="str">"#e2e8f0"</span>}}&gt;</span>{e.name}<span class="jsx">&lt;/span&gt;</span>
+            <span class="jsx">&lt;div style={{display:<span class="str">"flex"</span>,gap:<span class="str">"8px"</span>,alignItems:<span class="str">"center"</span>}}&gt;</span>
+              <span class="jsx">&lt;span className=<span class="str">"react-tag"</span>&gt;</span>{e.cat}<span class="jsx">&lt;/span&gt;</span>
+              <span class="jsx">&lt;span style={{color:<span class="str">"#61dafb"</span>,fontWeight:<span class="str">"700"</span>}}&gt;</span>₹{e.amount}<span class="jsx">&lt;/span&gt;</span>
+              <span class="jsx">&lt;button onClick={()=&gt;del(e.id)} style={{background:<span class="str">"none"</span>,border:<span class="str">"none"</span>,color:<span class="str">"#ff6b6b"</span>,cursor:<span class="str">"pointer"</span>}}&gt;</span>✕<span class="jsx">&lt;/button&gt;</span>
+            <span class="jsx">&lt;/div&gt;</span>
+          <span class="jsx">&lt;/div&gt;</span>
+        ))}
+      <span class="jsx">&lt;/div&gt;</span>
+    <span class="jsx">&lt;/div&gt;</span>
+  );
+}
+ReactDOM.createRoot(document.getElementById(<span class="str">'root-q48'</span>)).render(<span class="jsx">&lt;ExpenseTracker /&gt;</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ============================================================ -->
+<!-- STUDENT ANSWER SCRIPT -->
+<!-- ============================================================ -->
+<script>
+function toggleHint(id) {
+  const box = document.getElementById(id);
+  const btn = box.previousElementSibling;
+  box.classList.toggle('show');
+  btn.textContent = box.classList.contains('show') ? '🙈 Hide Hint' : '💡 Show Hint';
+}
+</script>
+
+<script type="text/babel">
+// ============================================================
+//  STUDENT ANSWER AREA
+//  Uncomment one question at a time and write your answer.
+//  Each question mounts to its own root-qN div above.
+// ============================================================
+
+const { useState, useEffect } = React;
+
+// ── SECTION 1: JSX ──────────────────────────────────────────
+
+// Q1 — Your First JSX Component
+// function Greeting() {
+//   return (
+//     <div>
+//       <h2>Hello, React World!</h2>
+//       <p>This is my first component.</p>
+//     </div>
+//   );
+// }
+// ReactDOM.createRoot(document.getElementById('root-q1')).render(<Greeting />);
+
+// Q2 — JSX Expressions
+// function Profile() {
+//   const name  = "Aman";
+//   const age   = 20;
+//   const score = 92;
+//   return (
+//     <div>
+//       <p>Name: {name}</p>
+//       <p>Age: {age}</p>
+//       <p>Grade: {score >= 90 ? "A" : "B"}</p>
+//     </div>
+//   );
+// }
+// ReactDOM.createRoot(document.getElementById('root-q2')).render(<Profile />);
+
+// Q3 — className, self-closing, single root
+// function Card() {
+//   return (
+//     <div className="react-card">
+//       {/* your code here */}
+//     </div>
+//   );
+// }
+// ReactDOM.createRoot(document.getElementById('root-q3')).render(<Card />);
+
+// Q4 — Inline Styles
+// function StyledBox() {
+//   return <div style={{ /* camelCase props */ }}>Styled Box</div>;
+// }
+// ReactDOM.createRoot(document.getElementById('root-q4')).render(<StyledBox />);
+
+// Q5 — Fragment
+// function Meta() {
+//   return (
+//     <>
+//       <h3>Fragment Demo</h3>
+//       <p>No wrapper div!</p>
+//     </>
+//   );
+// }
+// ReactDOM.createRoot(document.getElementById('root-q5')).render(<Meta />);
+
+// ── SECTION 2: COMPONENTS ───────────────────────────────────
+
+// Q6 — Reusable Component
+// function Badge() { return <span className="react-tag">React Dev</span>; }
+// function App() { return <div><Badge /><Badge /><Badge /></div>; }
+// ReactDOM.createRoot(document.getElementById('root-q6')).render(<App />);
+
+// Q7 — Nested Components
+// function Avatar() { ... }
+// function UserInfo() { ... }
+// function UserCard() { return <div><Avatar /><UserInfo /></div>; }
+// ReactDOM.createRoot(document.getElementById('root-q7')).render(<UserCard />);
+
+// Q8 — List Rendering with .map()
+// const fruits = ["Mango", "Apple", "Banana"];
+// function FruitList() {
+//   return <ul className="react-list">{fruits.map(f => <li key={f}>{f}</li>)}</ul>;
+// }
+// ReactDOM.createRoot(document.getElementById('root-q8')).render(<FruitList />);
+
+// Q9 — Conditional Rendering
+// function Status() {
+//   const isOnline = true;
+//   const count    = 3;
+//   return (
+//     <div>
+//       {isOnline ? <span>🟢 Online</span> : <span>🔴 Offline</span>}
+//       {count > 0 && <span> ({count} messages)</span>}
+//     </div>
+//   );
+// }
+// ReactDOM.createRoot(document.getElementById('root-q9')).render(<Status />);
+
+// Q10 — Rendering from Object Data
+// function StudentCard() {
+//   const student = { name: "Priya", course: "React", grade: "A+" };
+//   return (
+//     <div className="react-card">
+//       <h3>{student.name}</h3>
+//       <p>{student.course}</p>
+//     </div>
+//   );
+// }
+// ReactDOM.createRoot(document.getElementById('root-q10')).render(<StudentCard />);
+
+// ── SECTION 3: PROPS ────────────────────────────────────────
+
+// Q11 — Basic Props
+// function Greet({ name }) { return <p>Hello, {name}!</p>; }
+// function App() { return <div><Greet name="Aman" /><Greet name="Priya" /></div>; }
+// ReactDOM.createRoot(document.getElementById('root-q11')).render(<App />);
+
+// Q12 — Multiple Props
+// function ProductCard({ name, price, inStock }) { ... }
+// ReactDOM.createRoot(document.getElementById('root-q12')).render(<App />);
+
+// Q13 — Props from Array
+// const students = [{ id:1, name:"Aman", marks:85 }, ...];
+// function StudentRow({ name, marks }) { ... }
+// ReactDOM.createRoot(document.getElementById('root-q13')).render(<App />);
+
+// Q14 — Default Props
+// function Button({ label, color = "#61dafb" }) { ... }
+// ReactDOM.createRoot(document.getElementById('root-q14')).render(<App />);
+
+// Q15 — children Prop
+// function Panel({ title, children }) { return <div><h4>{title}</h4>{children}</div>; }
+// ReactDOM.createRoot(document.getElementById('root-q15')).render(
+//   <Panel title="Test"><p>I am a child!</p></Panel>
+// );
+
+// ── SECTION 4: useState ─────────────────────────────────────
+
+// Q16 — Counter
+// function Counter() {
+//   const [count, setCount] = useState(0);
+//   return (
+//     <div>
+//       <p>{count}</p>
+//       <button onClick={() => setCount(c => c + 1)}>+1</button>
+//     </div>
+//   );
+// }
+// ReactDOM.createRoot(document.getElementById('root-q16')).render(<Counter />);
+
+// Q17 — String State (Theme Toggle)
+// ReactDOM.createRoot(document.getElementById('root-q17')).render(<ThemeToggle />);
+
+// Q18 — Boolean State (Show/Hide)
+// ReactDOM.createRoot(document.getElementById('root-q18')).render(<Spoiler />);
+
+// Q19 — Array State (Add Items)
+// const [items, setItems] = useState([]);
+// setItems([...items, newItem]); // spread — never push!
+// ReactDOM.createRoot(document.getElementById('root-q19')).render(<WishList />);
+
+// Q20 — Object State
+// const [user, setUser] = useState({ name: "Aman", city: "Delhi" });
+// setUser({ ...user, name: newName });  // spread to update one field
+// ReactDOM.createRoot(document.getElementById('root-q20')).render(<UserForm />);
+
+// Q21 — Traffic Light
+// ReactDOM.createRoot(document.getElementById('root-q21')).render(<TrafficLight />);
+
+// Q22 — Delete from Array
+// const remove = (i) => setTasks(tasks.filter((_, idx) => idx !== i));
+// ReactDOM.createRoot(document.getElementById('root-q22')).render(<TaskList />);
+
+// ── SECTION 5: EVENTS ───────────────────────────────────────
+
+// Q23 — onClick (Like Button)
+// ReactDOM.createRoot(document.getElementById('root-q23')).render(<LikeButton />);
+
+// Q24 — onChange (Controlled Input)
+// <input value={name} onChange={(e) => setName(e.target.value)} />
+// ReactDOM.createRoot(document.getElementById('root-q24')).render(<NameInput />);
+
+// Q25 — onMouseEnter/Leave
+// ReactDOM.createRoot(document.getElementById('root-q25')).render(<HoverCard />);
+
+// Q26 — Event Handler as Prop (child → parent)
+// function Child({ onAction }) { return <button onClick={onAction}>Click</button>; }
+// ReactDOM.createRoot(document.getElementById('root-q26')).render(<Parent />);
+
+// Q27 — onKeyDown Enter
+// <input onKeyDown={(e) => e.key === "Enter" && add()} />
+// ReactDOM.createRoot(document.getElementById('root-q27')).render(<QuickNote />);
+
+// ── SECTION 6: LISTS & CONDITIONAL ──────────────────────────
+
+// Q28 — Filter Tabs
+// ReactDOM.createRoot(document.getElementById('root-q28')).render(<TaskFilter />);
+
+// Q29 — Empty State
+// ReactDOM.createRoot(document.getElementById('root-q29')).render(<Inbox />);
+
+// Q30 — Toggle Done
+// const toggle = (id) => setItems(items.map(it => it.id===id ? {...it,done:!it.done} : it));
+// ReactDOM.createRoot(document.getElementById('root-q30')).render(<CheckList />);
+
+// Q31 — Live Search
+// .filter(c => c.toLowerCase().includes(query.toLowerCase()))
+// ReactDOM.createRoot(document.getElementById('root-q31')).render(<SearchList />);
+
+// Q32 — Tab Switcher
+// ReactDOM.createRoot(document.getElementById('root-q32')).render(<TabSwitcher />);
+
+// ── SECTION 7: FORMS ────────────────────────────────────────
+
+// Q33 — Login Form with Validation
+// const submit = (e) => { e.preventDefault(); /* validate */ };
+// ReactDOM.createRoot(document.getElementById('root-q33')).render(<LoginForm />);
+
+// Q34 — Select Dropdown
+// ReactDOM.createRoot(document.getElementById('root-q34')).render(<CourseSelector />);
+
+// Q35 — Range Slider
+// const score = Number(e.target.value); // convert string → number
+// ReactDOM.createRoot(document.getElementById('root-q35')).render(<GradeSlider />);
+
+// Q36 — Checkbox Multi-Select
+// ReactDOM.createRoot(document.getElementById('root-q36')).render(<SkillPicker />);
+
+// Q37 — Registration Form
+// ReactDOM.createRoot(document.getElementById('root-q37')).render(<RegisterForm />);
+
+// ── SECTION 8: useEffect ────────────────────────────────────
+
+// Q38 — document.title Sync
+// useEffect(() => { document.title = title; }, [title]);
+// ReactDOM.createRoot(document.getElementById('root-q38')).render(<TitleSync />);
+
+// Q39 — Clock (runs once with [])
+// useEffect(() => {
+//   const id = setInterval(() => setTime(new Date().toLocaleTimeString()), 1000);
+//   return () => clearInterval(id); // cleanup!
+// }, []);
+// ReactDOM.createRoot(document.getElementById('root-q39')).render(<Clock />);
+
+// Q40 — Word Counter
+// ReactDOM.createRoot(document.getElementById('root-q40')).render(<WordCounter />);
+
+// Q41 — Fake API Loader
+// ReactDOM.createRoot(document.getElementById('root-q41')).render(<DataLoader />);
+
+// Q42 — Countdown Timer
+// ReactDOM.createRoot(document.getElementById('root-q42')).render(<Countdown />);
+
+// ── SECTION 9: ARCHITECTURE ─────────────────────────────────
+
+// Q43 — Three-Tier (Product Display)
+// Tier 3: fetchProducts() → data service
+// Tier 2: useProducts() hook → loads + manages state
+// Tier 1: ProductCard component → pure display
+// ReactDOM.createRoot(document.getElementById('root-q43')).render(<ProductContainer />);
+
+// Q44 — Three-Tier Student Dashboard
+// Tier 3: studentService.getStudents()
+// Tier 2: useDashboard() hook
+// Tier 1: StatCard, StudentRow, Dashboard components
+// ReactDOM.createRoot(document.getElementById('root-q44')).render(<Dashboard />);
+
+// Q45 — Microservice Architecture (Concept)
+// Each widget = independent component with own state + data
+// ReactDOM.createRoot(document.getElementById('root-q45')).render(<App />);
+
+// Q46 — Microservice Practice (E-Commerce)
+// AuthService + CartService + CatalogService → EcommerceApp shell
+// ReactDOM.createRoot(document.getElementById('root-q46')).render(<EcommerceApp />);
+
+// ── SECTION 10: FINAL PROJECTS ──────────────────────────────
+
+// Q47 — Quiz App
+// ReactDOM.createRoot(document.getElementById('root-q47')).render(<QuizApp />);
+
+// Q48 — Expense Tracker (Final Boss)
+// ReactDOM.createRoot(document.getElementById('root-q48')).render(<ExpenseTracker />);
+
+</script>
+
+</body>
+</html>
