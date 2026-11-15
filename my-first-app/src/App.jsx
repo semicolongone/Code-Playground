@@ -1,13 +1,11 @@
 import React from 'react'
+import StudentProfile from './StudentProfile'
 
 export default function App() {
   return (
     <div>
-      <h1>Student Profile</h1>
-      <p><strong>Name:</strong> Aayan</p>
-      <p><strong>Age:</strong> 13</p>
-      <p><strong>Favorite Hobby:</strong> Skydiving</p>
-      <p><strong>Favorite Subject:</strong> Math</p>
+      <StudentProfile name="Aayan" age="13" hobby="Skydiving" subject="Math"/>
+      <StudentProfile name="Sam" age="15" hobby="Skiing" subject="Recess"/>
     </div>
   )
 }
